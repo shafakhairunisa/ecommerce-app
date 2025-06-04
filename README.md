@@ -16,8 +16,7 @@ https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMem
 | Name    |  (LEADER) | TEU JIAN WEE |  |  |  |  |  |
 | Matric Number |  | 291957 |  |  |  |  |  |
 | Phone Number |  | 017-3104567 |  |  |  |  |  |
-| Picture |  | <img src="https://github.com/user-attachments/assets/2539f8e5-b5cb-4798-a019-b0905342afae
-" width="100"/> |  |  |  |  |  |
+| Picture |  | <img src="https://github.com/user-attachments/assets/2539f8e5-b5cb-4798-a019-b0905342afae" width="100"/> |  |  |  |  |  |
 
 
 ## Title of your application (a unique title)
