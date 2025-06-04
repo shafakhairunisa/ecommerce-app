@@ -11,6 +11,15 @@ https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMem
 1. Mention your group name for Assignment-1 and Assignment-2
 1. Other related info (if any)
 
+| Group Member    | #1    | #2    | #3    | #4    | #5    | #6    | #7    |
+| :---:   | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Name    |  (LEADER) | TEU JIAN WEE |  |  |  |  |  |
+| Matric Number |  | 291957 |  |  |  |  |  |
+| Phone Number |  | 017-3104567 |  |  |  |  |  |
+| Picture |  | <img src="https://github.com/user-attachments/assets/2539f8e5-b5cb-4798-a019-b0905342afae
+" width="100"/> |  |  |  |  |  |
+
+
 ## Title of your application (a unique title)
 ## Abstract (in 300 words)
    1. Background
