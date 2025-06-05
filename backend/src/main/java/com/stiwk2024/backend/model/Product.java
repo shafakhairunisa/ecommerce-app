@@ -1,9 +1,21 @@
 package com.stiwk2024.backend.model;
 
-import jakarta.persistence.*;
-import java.math.BigDecimal;
+import java.math.BigDecimal; // Add this import
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore; // Add this import
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "product")
@@ -21,6 +33,7 @@ public class Product {
     
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonBackReference 
     private Category category;
     
     @Column(nullable = false)
@@ -33,6 +46,7 @@ public class Product {
     private String imagePath;
     
     @OneToMany(mappedBy = "product")
+    @JsonIgnore // Add this to hide orderItems from product JSON
     private Set<OrderItem> orderItems = new HashSet<>();
     
     // Constructors
@@ -114,6 +128,14 @@ public class Product {
         this.orderItems = orderItems;
     }
     
+    public Long getCategoryId() {
+        return (category != null) ? category.getId() : null;
+    }
+
+    public String getCategoryName() {
+        return (category != null) ? category.getName() : null;
+    }
+    
     @Override
     public String toString() {
         return "Product{" +
@@ -126,4 +148,4 @@ public class Product {
                 ", imagePath='" + imagePath + '\'' +
                 '}';
     }
-} 
+}
