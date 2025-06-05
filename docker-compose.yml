@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: ecommerce-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ecommerce
+      MYSQL_USER: ecommerceuser
+      MYSQL_PASSWORD: ecommercepass
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ecommerce-backend
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/ecommerce
+      SPRING_DATASOURCE_USERNAME: ecommerceuser
+      SPRING_DATASOURCE_PASSWORD: ecommercepass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql-data: 

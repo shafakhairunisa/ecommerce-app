@@ -1,0 +1,51 @@
+Admin (only 1 account, created in SQL script)
+- Login (username, password)
+- Manage products: add, edit (name, description, category, quantity, price, image path), delete
+  - When product quantity reaches zero, it is considered out of stock and remains listed as such until admin updates the quantity.
+- View all user orders (with order details)
+- Manage customer orders:
+  - Orders have status: 'pending' (after user checkout) or 'confirmed' (after admin confirmation)
+  - Admin dashboard shows separate lists for pending and confirmed orders
+  - Admin can confirm orders, changing their status from pending to confirmed
+  - Admin can search orders by username
+
+User
+- Register (email, username, password)
+- Login (username, password)
+- Edit profile (username, password, address)
+  - Address is only required when making a purchase; if missing, user is prompted to add it at checkout
+- Product browsing:
+  - View product list (with name, description, category, price, quantity, image path, out-of-stock status)
+  - Search/filter products by name or category
+- Cart management:
+  - Add products to cart
+  - Edit quantity of items in cart
+  - Remove products from cart
+  - Clear cart
+- Wishlist:
+  - Favourite products to add to wishlist
+  - View and manage wishlist (add/remove products)
+- Voucher system:
+  - Three voucher types exist in the app:
+    - 3% off for purchases >= 50
+    - 5% off for purchases >= 100
+    - 8% off for purchases >= 200
+  - Users do not receive a voucher for their first purchase
+  - If a user's first purchase is >= 128, a 5% voucher is automatically assigned to their account for future use
+  - Users can view all available voucher types in the app
+  - Users can view vouchers assigned to their account ("voucher available")
+  - Users can select and apply an available voucher during checkout
+- Orders:
+  - Place orders (checkout)
+  - View order history and order details (products, quantity, price, order summary, total price after voucher and fixed delivery fee)
+  - Order status is visible (pending/confirmed)
+
+Other notes:
+- Categories are fixed (list to be provided later)
+- No chat/support system
+- Product images are stored as file paths (not blobs)
+- Only one admin account exists
+- No soft delete for products (normal delete only)
+- Order summary retrieves address from user profile at time of viewing
+- Dedicated pages exist for profile, wishlist, and voucher management
+- Database and backend will be dockerized
