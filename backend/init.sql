@@ -65,7 +65,8 @@ CREATE TABLE voucher (
     code VARCHAR(50) NOT NULL UNIQUE,
     discount_percent DECIMAL(4,2) NOT NULL,
     min_purchase DECIMAL(10,2) NOT NULL,
-    description VARCHAR(255)
+    description VARCHAR(255),
+    image_path VARCHAR(255)
 );
 
 -- User voucher table
@@ -135,4 +136,10 @@ INSERT INTO product (name, description, category_id, quantity, price, image_path
 ('Sos Lada Hitem - 340g', 'Black pepper sauce, 340g', 1, 20, 3.80, 'QurbaProductPhoto/Sos/Sos Lada Hitem - 340g.png'),
 ('Sos Tiram - 340g', 'Oyster sauce, 340g', 1, 20, 3.80, 'QurbaProductPhoto/Sos/Sos Tiram - 340g.png'),
 ('Sos Cili Burger - 340g', 'Chili sauce for burgers, 340g', 1, 20, 3.00, 'QurbaProductPhoto/Sos/Sos Cili Burger - 340g.png'),
-('Kuah Rojak Madu - 400g', 'Honey rojak sauce, 400g', 1, 20, 5.50, 'QurbaProductPhoto/Sos/Kuah Rojak Madu - 400g.png'); 
+('Kuah Rojak Madu - 400g', 'Honey rojak sauce, 400g', 1, 20, 5.50, 'QurbaProductPhoto/Sos/Kuah Rojak Madu - 400g.png');
+
+-- Insert voucher types
+INSERT INTO voucher (code, discount_percent, min_purchase, description, image_path) VALUES
+('VOUCHER3', 3.00, 50.00, '3% discount on purchases of 50.00 or more', 'QurbaProductPhoto/voucher/3%.png'),
+('VOUCHER5', 5.00, 100.00, '5% discount on purchases of 100.00 or more', 'QurbaProductPhoto/voucher/5%.png'),
+('VOUCHER8', 8.00, 200.00, '8% discount on purchases of 200.00 or more', 'QurbaProductPhoto/voucher/8%.png'); 

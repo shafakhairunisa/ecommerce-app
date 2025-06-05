@@ -7,6 +7,7 @@ Admin (only 1 account, created in SQL script)
   - Orders have status: 'pending' (after user checkout) or 'confirmed' (after admin confirmation)
   - Admin dashboard shows separate lists for pending and confirmed orders
   - Admin can confirm orders, changing their status from pending to confirmed
+    - When an admin confirms an order, vouchers are automatically assigned to users based on purchase amount
   - Admin can search orders by username
 
 User
@@ -30,8 +31,11 @@ User
     - 3% off for purchases >= 50
     - 5% off for purchases >= 100
     - 8% off for purchases >= 200
-  - Users do not receive a voucher for their first purchase
-  - If a user's first purchase is >= 128, a 5% voucher is automatically assigned to their account for future use
+  - Vouchers are automatically assigned to users when their orders are confirmed by an admin
+  - Users receive vouchers based on their purchase amount:
+    - ≥ $50: 3% discount voucher
+    - ≥ $100: 5% discount voucher
+    - ≥ $200: 8% discount voucher
   - Users can view all available voucher types in the app
   - Users can view vouchers assigned to their account ("voucher available")
   - Users can select and apply an available voucher during checkout

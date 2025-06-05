@@ -67,6 +67,16 @@ Main API endpoints include:
 
 See the API documentation or source code for detailed endpoint information.
 
+## Voucher System
+
+The application includes an automatic voucher system that rewards users based on their purchase amounts:
+
+- Purchase ≥ $50: User receives a 3% discount voucher
+- Purchase ≥ $100: User receives a 5% discount voucher
+- Purchase ≥ $200: User receives an 8% discount voucher
+
+Vouchers are automatically assigned to the user's account when an admin confirms their order (status changes from "pending" to "confirmed"). Users can then apply these vouchers to future purchases.
+
 ## Project Structure
 
 - `src/main/java` - Java source code

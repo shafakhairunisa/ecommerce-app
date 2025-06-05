@@ -35,6 +35,28 @@ https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMem
 
 ## List of all the endpoints
 
+### Voucher Management Endpoints
+
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | `/api/vouchers` | Get all available vouchers for the current user | User |
+| GET | `/api/vouchers/all` | Get all voucher types in the system | User |
+| GET | `/api/vouchers/{id}` | Get details of a specific voucher | User |
+| GET | `/api/vouchers/trigger` | Trigger voucher generation based on purchase amount (for testing) | User |
+
+
+### Order Management Endpoints
+
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | `/api/orders` | Get all orders (paginated) | Admin |
+| GET | `/api/orders/my-orders` | Get all orders for the current user | User |
+| GET | `/api/orders/{id}` | Get details of a specific order | User (own orders) / Admin (all) |
+| POST | `/api/orders` | Create a new order | User |
+| PUT | `/api/orders/{id}/status` | Update the status of an order (pending/confirmed) and automatically assign vouchers to users based on purchase amount when status changes to "confirmed" | Admin |
+| GET | `/api/orders/search` | Search orders by username | Admin |
+| GET | `/api/orders/status/{status}` | Get all orders with a specific status | Admin |
+
 ## Link for the YouTube Presentation
 
 ## Result/Output (Screenshot of the output)
