@@ -21,6 +21,21 @@ services:
       timeout: 5s
       retries: 5
       
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ecommerce-phpmyadmin
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+      UPLOAD_LIMIT: 300M
+    ports:
+      - "8081:80"
+      
   backend:
     build: 
       context: ./backend
