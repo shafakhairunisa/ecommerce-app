@@ -35,6 +35,40 @@ https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMem
 
 ## List of all the endpoints
 
+### Product Management Endpoints
+
+Admin(CRUD)
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | http://localhost:8080/api/admin/products | List all product | Admin |
+| POST | http://localhost:8080/api/admin/products | Add product in system | Admin |
+| PUT | http://localhost:8080/api/admin/products/{productId} | Update product data | Admin |
+| DELETE | http://localhost:8080/api/admin/products/{productId} | Delete that product | Admin |
+
+Public
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | http://localhost:8080/api/products | List product | public |
+| GET | http://localhost:8080/api/products?sortBy=price&direction=desc | Sort by price (desc) | public |
+| GET | http://localhost:8080/api/products?sortBy=price&direction=asc | Sort by price (asc) | public |
+| GET | http://localhost:8080/api/products/{productId} | search by productId | public |
+| GET | http://localhost:8080/api/products/search?name={keyword} | search by name | public |
+| GET | http://localhost:8080/api/products/search?name={keyword}&sortBy=price&direction=desc" | search and sort (combine) | public |
+| GET | http://localhost:8080/api/products/category/{categoryId} | filter by category (category 1:"Sos" 2:"Rempah" 3:"Minuman" 4:"Mee" 5:"Madu" 6:"Lain-lain") | public |
+| GET | http://localhost:8080/api/products/category/{categoryId}?sortBy=price&direction=desc | filter and sort (combine) | public |
+
+
+### Cart Management Endpoints
+
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | http://localhost:8080/api/customer/cart | list cart product | customer |
+| POST | http://localhost:8080/api/customer/cart/items | Add product to cart | customer |
+| PUT | http://localhost:8080/api/customer/cart/items/{productId} | Update product quantity in cart | customer |
+| DELETE | http://localhost:8080/api/customer/cart/items/{productId} | Remove product in cart | customer |
+| DELETE | http://localhost:8080/api/customer/cart | Clear cart | customer |
+
+
 ### Voucher Management Endpoints
 
 | Method | Endpoint | Description | Access |
