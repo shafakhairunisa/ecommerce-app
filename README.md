@@ -22,22 +22,22 @@ https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMem
 
 ## Title of your application (a unique title)
 ## Abstract (in 300 words)
-## Background ##
+### Background
      In today’s digital economy, having an efficient e-commerce platform is essential for businesses to reach customers and manage sales effectively. Qurba Food Industries, known for its AMEEN brand products, needed a complete system to support online product sales, user interaction, and administrative management.
       
-## Problem Statement (from article) ##
+### Problem Statement (from article)
      Qurba previously lacked any integrated e-commerce system. There was no backend for handling business logic, nor a frontend for customer or admin use. Without a proper platform, the company faced limited scalability, poor user engagement, and inefficient operations. A fully rebuilt system was necessary to deliver a secure, maintainable, and responsive platform. As Bhat et al. (2016) noted, consistent transaction flow and user-friendly design are critical for online business success.
       
-## Main objective ##
+### Main objective
      This project aimed to fully develop a modern, secure, and scalable e-commerce system from scratch, including both backend and frontend, to support product browsing, order processing, user management, and administrative functions.
 
-## Methodology ##
+### Methodology
      The backend was developed using Spring Boot and Java, with RESTful APIs and MySQL for data storage. The frontend was built using Angular and Angular Material, forming a responsive Single Page Application (SPA). Docker was used to containerize the entire system for easier deployment and scalability.
 
-## Result ##
+### Result
      The final system enables customer registration, product browsing, cart management, and order placement. Admins can manage products and users through a secured interface. The frontend and backend communicate seamlessly via REST APIs, and the application is fully containerized for portability.
 
-## Conclusion ##
+### Conclusion
      This project successfully delivered a full-stack e-commerce solution that is secure, scalable, and user-friendly. It supports Qurba’s business goals and provides a foundation for future enhancements in the digital marketplace.
 
 
