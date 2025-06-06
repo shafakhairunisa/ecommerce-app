@@ -23,11 +23,13 @@ https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMem
 ## Title of your application (a unique title)
 ## Abstract (in 300 words)
    1. Background
-   2. Problem Statement (from article)
-   3. Main objective
-   4. Methodology
-   5. Result
-   6. Conclusion
+     In today’s fast-moving digital economy, having a strong online presence is essential for businesses, especially in the food and beverage industry. Qurba Food Industries, the company behind the AMEEN brand, recognized the need to upgrade its digital platform to better serve its customers and improve internal operations. This project focuses on the complete redevelopment of Qurba’s e-commerce system—from the backend to the frontend—using modern tools and technologies to build a reliable, secure, and user-friendly solution.
+      
+   3. Problem Statement (from article)
+   4. Main objective
+   5. Methodology
+   6. Result
+   7. Conclusion
 
 ## Link for Docker Image
 
