@@ -60,6 +60,7 @@ Public
 
 ### Cart Management Endpoints
 
+Customer
 | Method | Endpoint | Description | Access |
 |--------|----------|-------------|--------|
 | GET | http://localhost:8080/api/customer/cart | list cart product | customer |
