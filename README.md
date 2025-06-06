@@ -70,6 +70,17 @@ Public
 | GET | http://localhost:8080/api/products/category/{categoryId}?sortBy=price&direction=desc | filter and sort (combine) | public |
 
 
+### Category Management Endpoints
+Admin(CRUD)
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | http://localhost:8080/api/admin/categories | list category | admin |
+| GET | http://localhost:8080/api/admin/categories/{categoryID} | get category by categoryID | admin |
+| POST | http://localhost:8080/api/admin/categories | Create new category | admin |
+| PUT | http://localhost:8080/api/admin/categories/{categoryId} | Update category | admin |
+| Delete | http://localhost:8080/api/admin/categories/{categoryId} | Delete category | admin |
+
+
 ### Cart Management Endpoints
 
 Customer
