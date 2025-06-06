@@ -109,7 +109,6 @@ Customer
 ## Result/Output (Screenshot of the output)
 
 ## References (Not less than 20)
-References (Not less than 10)
 1. Produk AMEEN. (n.d.). Produk AMEEN. https://produkameen.wordpress.com/
 2. Spring Boot. (n.d.). Spring Boot Reference Documentation. Retrieved April 23, 2025, from Spring Boot Documentation.
 3. GeeksforGeeks. (2025, March 21). Introduction to Spring Security and its Features. GeeksforGeeks. https://www.geeksforgeeks.org/introduction-to-spring-security-and-its-features/
