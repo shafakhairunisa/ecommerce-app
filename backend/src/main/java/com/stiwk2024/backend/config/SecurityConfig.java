@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/categories/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 // Require admin role for admin endpoints
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")  // This covers /api/admin/categories/**
                 .requestMatchers("/api/orders").hasRole("ADMIN")
                 .requestMatchers("/api/orders/search").hasRole("ADMIN")
                 .requestMatchers("/api/orders/status/**").hasRole("ADMIN")
