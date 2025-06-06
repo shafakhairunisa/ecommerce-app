@@ -49,6 +49,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/orders").hasRole("ADMIN")
                 .requestMatchers("/api/orders/search").hasRole("ADMIN")
                 .requestMatchers("/api/orders/status/**").hasRole("ADMIN")
+                // Require authentication for cart endpoints
+                .requestMatchers("/api/customer/cart/**").authenticated()
                 // All other requests need authentication
                 .anyRequest().authenticated()
             )

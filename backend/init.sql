@@ -142,4 +142,4 @@ INSERT INTO product (name, description, category_id, quantity, price, image_path
 INSERT INTO voucher (code, discount_percent, min_purchase, description, image_path) VALUES
 ('VOUCHER3', 3.00, 50.00, '3% discount on purchases of 50.00 or more', 'QurbaProductPhoto/voucher/3%.png'),
 ('VOUCHER5', 5.00, 100.00, '5% discount on purchases of 100.00 or more', 'QurbaProductPhoto/voucher/5%.png'),
-('VOUCHER8', 8.00, 200.00, '8% discount on purchases of 200.00 or more', 'QurbaProductPhoto/voucher/8%.png'); 
+('VOUCHER8', 8.00, 200.00, '8% discount on purchases of 200.00 or more', 'QurbaProductPhoto/voucher/8%.png');
