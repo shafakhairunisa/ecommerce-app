@@ -13,11 +13,12 @@ https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMem
 
 | Group Member    | #1    | #2    | #3    | #4    | #5    | #6    | #7    |
 | :---:   | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Name    |  (LEADER) | TEU JIAN WEE | Ng Chee Yong |  |  | Muhammad Fakhrurrazi bin Hasbullah | Mayana Amy |
-| Matric Number |  | 291957 | 293314 |  |  | 296072 | 292702 |
-| Phone Number |  | 017-3104567 | 018-3780532 |  |  | 018-7655716 | 019-8798221 |
-| Picture |  | <img src="https://github.com/user-attachments/assets/2539f8e5-b5cb-4798-a019-b0905342afae" width="100"/> | <img src="https://github.com/user-attachments/assets/a902ef44-f8df-4017-80e1-b6c21f3ab230" width="100"/> |  |  |  |  |
-| Group Name for Ass1 & Ass2 ||nezha1, nezha2| nezha1, nezha2 |||blitzers, blitzer|blitzers, blitzer|
+| Name    |  (LEADER) | TEU JIAN WEE | Ng Chee Yong | Salsabila Shafa Khairunisa  |  | Muhammad Fakhrurrazi bin Hasbullah | Mayana Amy |
+| Matric Number |  | 291957 | 293314 | 290267 |  | 296072 | 292702 |
+| Phone Number |  | 017-3104567 | 018-3780532 | 01123406446 |  | 018-7655716 | 019-8798221 |
+| Picture |  | <img src="https://github.com/user-attachments/assets/2539f8e5-b5cb-4798-a019-b0905342afae" width="100"/> | <img src="https://github.com/user-attachments/assets/a902ef44-f8df-4017-80e1-b6c21f3ab230" width="100"/> | ![PAS FOTO](https://github.com/user-attachments/assets/231d209e-2934-428c-95e3-39e4b61c91d7) |  |  |  |
+| Group Name for Ass1 & Ass2 ||nezha1, nezha2| nezha1, nezha2 |repo rangers, repo ranger||blitzers, blitzer|blitzers, blitzer|
+
 
 
 ## Title of your application (a unique title)
