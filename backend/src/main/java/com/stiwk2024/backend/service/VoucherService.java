@@ -1,12 +1,12 @@
 package com.stiwk2024.backend.service;
 
-import com.stiwk2024.backend.model.User;
-import com.stiwk2024.backend.model.UserVoucher;
-import com.stiwk2024.backend.model.Voucher;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+
+import com.stiwk2024.backend.model.User;
+import com.stiwk2024.backend.model.UserVoucher;
+import com.stiwk2024.backend.model.Voucher;
 
 public interface VoucherService {
     
@@ -33,4 +33,7 @@ public interface VoucherService {
     
     // Auto-assign voucher based on purchase amount (for first-time buyers)
     Optional<UserVoucher> autoAssignVoucherBasedOnAmount(User user, BigDecimal amount);
-} 
+    
+    // Delete a voucher by id
+    void deleteVoucher(Long id);
+}

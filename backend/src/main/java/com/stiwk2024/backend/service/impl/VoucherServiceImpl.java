@@ -106,4 +106,18 @@ public class VoucherServiceImpl implements VoucherService {
         
         return Optional.empty();
     }
-} 
+
+    @Override
+    @Transactional
+    public void deleteVoucher(Long id) {
+        if (!voucherRepository.existsById(id)) {
+            throw new IllegalArgumentException("Voucher not found with ID: " + id);
+        }
+        
+        // Delete user-voucher associations first
+        userVoucherRepository.deleteByVoucher_Id(id);
+        
+        // Delete the voucher
+        voucherRepository.deleteById(id);
+    }
+}

@@ -3,15 +3,22 @@ package com.stiwk2024.backend.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;  // Add this import
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.stiwk2024.backend.security.JwtAuthenticationEntryPoint;
+import com.stiwk2024.backend.security.JwtRequestFilter;
+import com.stiwk2024.backend.service.UserService; // CHANGED: Import UserService
 
 @Configuration
 @EnableWebSecurity
@@ -19,21 +26,23 @@ import org.springframework.http.HttpMethod;
 public class SecurityConfig {
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    @Lazy  // Add this annotation
+    private UserService userService; // CHANGED: Use UserService instead of CustomUserDetailsService
+    
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
     
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // WARNING: Only use NoOpPasswordEncoder for development/testing!
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
     
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-            .userDetailsService(userDetailsService)
-            .passwordEncoder(passwordEncoder())
-            .and()
-            .build();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
     }
 
     @Bean
@@ -41,22 +50,33 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
-                // Allow public access to product endpoints
+                // Allow public access to product endpoints and authentication
                 .requestMatchers("/api/products/**").permitAll()
                 .requestMatchers("/api/categories/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/vouchers/all").permitAll()
+                .requestMatchers("/api/vouchers/{id}").permitAll()
+                
                 // Require admin role for admin endpoints
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")  // This covers /api/admin/categories/**
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/orders").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/orders").authenticated()
                 .requestMatchers("/api/orders/search").hasRole("ADMIN")
                 .requestMatchers("/api/orders/status/**").hasRole("ADMIN")
+                
                 // Require authentication for cart endpoints
                 .requestMatchers("/api/customer/cart/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/orders").authenticated()
+                .requestMatchers("/api/orders/my-orders").authenticated()
+                .requestMatchers("/api/vouchers").authenticated()
+                
                 // All other requests need authentication
                 .anyRequest().authenticated()
             )
-            .httpBasic(); // Enable basic auth
+            .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        
+        // Add JWT filter before the standard filter chain
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         
         return http.build();
     }

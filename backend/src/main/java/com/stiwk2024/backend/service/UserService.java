@@ -1,9 +1,12 @@
 package com.stiwk2024.backend.service;
 
-import com.stiwk2024.backend.model.User;
 import java.util.Optional;
 
-public interface UserService {
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import com.stiwk2024.backend.model.User;
+
+public interface UserService extends UserDetailsService {
     
     // Find user by username
     Optional<User> findByUsername(String username);
@@ -25,4 +28,4 @@ public interface UserService {
     
     // Update user password
     User updatePassword(Long userId, String oldPassword, String newPassword);
-} 
+}

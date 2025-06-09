@@ -1,22 +1,31 @@
 package com.stiwk2024.backend.controller;
 
-import com.stiwk2024.backend.model.User;
-import com.stiwk2024.backend.model.UserVoucher;
-import com.stiwk2024.backend.model.Voucher;
-import com.stiwk2024.backend.service.UserService;
-import com.stiwk2024.backend.service.VoucherService;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.stiwk2024.backend.model.User;
+import com.stiwk2024.backend.model.UserVoucher;
+import com.stiwk2024.backend.model.Voucher;
+import com.stiwk2024.backend.service.UserService;
+import com.stiwk2024.backend.service.VoucherService;
 
 @RestController
 @RequestMapping("/api/vouchers")
@@ -104,6 +113,21 @@ public class VoucherController {
         }
     }
     
+    // Delete a voucher by id (admin only)
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteVoucher(@PathVariable Long id) {
+        Optional<Voucher> voucher = voucherService.getVoucherById(id);
+        if (!voucher.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Voucher not found");
+        }
+        
+        // Actually call the service method
+        voucherService.deleteVoucher(id);
+        
+        return ResponseEntity.noContent().build();
+    }
+    
     // Helper method to get current user
     private User getCurrentUser(Authentication authentication) {
         if (authentication == null) {
@@ -164,4 +188,4 @@ public class VoucherController {
         public boolean isUsed() { return used; }
         public String getAssignedAt() { return assignedAt; }
     }
-} 
+}
