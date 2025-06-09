@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
@@ -46,7 +47,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 // Require admin role for admin endpoints
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")  // This covers /api/admin/categories/**
-                .requestMatchers("/api/orders").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/orders").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/orders").authenticated()
                 .requestMatchers("/api/orders/search").hasRole("ADMIN")
                 .requestMatchers("/api/orders/status/**").hasRole("ADMIN")
                 // Require authentication for cart endpoints
