@@ -11,7 +11,7 @@ services:
       MYSQL_USER: ecommerceuser
       MYSQL_PASSWORD: ecommercepass
     ports:
-      - "3306:3306"
+      - "3309:3306"
     volumes:
       - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
       - mysql-data:/var/lib/mysql
