@@ -38,6 +38,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Wishlist> wishlistItems = new HashSet<>();
+
     // Default constructor
     public User() {
         this.createdAt = LocalDateTime.now();
@@ -125,6 +128,10 @@ public class User {
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
+    public Set<Wishlist> getWishlistItems() { return wishlistItems; }
+
+    public void setWishlistItems(Set<Wishlist> wishlistItems) { this.wishlistItems = wishlistItems; }
 
     @Override
     public String toString() {
