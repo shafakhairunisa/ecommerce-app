@@ -23,9 +23,12 @@ https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMem
 
 
 ## Title of your application (a unique title)
+
+**Qurba E-Commerce Platform - AMEEN Product Management System**
+
 ## Abstract (in 300 words)
 ### 1.Background
-In today’s digital economy, having an efficient e-commerce platform is essential for businesses to reach customers and manage sales effectively. Qurba Food Industries, known for its AMEEN brand products, needed a complete system to support online product sales, user interaction, and administrative management.
+In today's digital economy, having an efficient e-commerce platform is essential for businesses to reach customers and manage sales effectively. Qurba Food Industries, known for its AMEEN brand products, needed a complete system to support online product sales, user interaction, and administrative management.
       
 ### 2.Problem Statement (from article)
 Qurba previously lacked any integrated e-commerce system. There was no backend for handling business logic, nor a frontend for customer or admin use. Without a proper platform, the company faced limited scalability, poor user engagement, and inefficient operations. A fully rebuilt system was necessary to deliver a secure, maintainable, and responsive platform. As Bhat et al. (2016) noted, consistent transaction flow and user-friendly design are critical for online business success.
@@ -40,12 +43,65 @@ The backend was developed using Spring Boot and Java, with RESTful APIs and MySQ
 The final system enables customer registration, product browsing, cart management, and order placement. Admins can manage products and users through a secured interface. The frontend and backend communicate seamlessly via REST APIs, and the application is fully containerized for portability.
 
 ### 6.Conclusion
-This project successfully delivered a full-stack e-commerce solution that is secure, scalable, and user-friendly. It supports Qurba’s business goals and provides a foundation for future enhancements in the digital marketplace.
+This project successfully delivered a full-stack e-commerce solution that is secure, scalable, and user-friendly. It supports Qurba's business goals and provides a foundation for future enhancements in the digital marketplace.
 
 
 ## Link for Docker Image
 
-## Instructions on how to run Docker.
+**Docker Hub Repository:** https://hub.docker.com/r/shakalakahaha/qurba-ecommerce-backend
+
+**Pull Command:**
+```bash
+docker pull shakalakahaha/qurba-ecommerce-backend:latest
+```
+
+## Instructions on how to run Docker
+
+### Prerequisites
+1. Install Docker Desktop on your computer
+2. Make sure Docker Desktop is running
+
+### Step-by-Step Instructions
+
+**Option 1: Run using Docker Compose (Recommended)**
+1. Clone this repository to your computer
+2. Open terminal/command prompt and navigate to the project folder
+3. Run the following commands:
+   ```bash
+   # Start all services (MySQL, Backend, phpMyAdmin)
+   docker-compose up -d
+   
+   # Check if all containers are running
+   docker ps
+   ```
+
+**Option 2: Run using Docker Hub image**
+1. Pull the latest image:
+   ```bash
+   docker pull shakalakahaha/qurba-ecommerce-backend:latest
+   ```
+2. Run MySQL first:
+   ```bash
+   docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=rootpassword -e MYSQL_DATABASE=ecommerce -p 3309:3306 mysql:8.0
+   ```
+3. Run the backend:
+   ```bash
+   docker run -d --name qurba-backend --link mysql-db:db -p 8080:8080 shakalakahaha/qurba-ecommerce-backend:latest
+   ```
+
+### Access Points
+- **Backend API:** http://localhost:8080
+- **phpMyAdmin:** http://localhost:8081 (username: root, password: rootpassword)
+- **MySQL Database:** localhost:3309
+
+### Stopping the Application
+```bash
+# Stop all services
+docker-compose down
+
+# Or stop individual containers
+docker stop container_name
+```
 
 ## List of all the endpoints
 
@@ -97,25 +153,37 @@ Customer
 
 ### Voucher Management Endpoints
 
+Customer
 | Method | Endpoint | Description | Access |
 |--------|----------|-------------|--------|
-| GET | `/api/vouchers` | Get all available vouchers for the current user | User |
-| GET | `/api/vouchers/all` | Get all voucher types in the system | User |
-| GET | `/api/vouchers/{id}` | Get details of a specific voucher | User |
-| GET | `/api/vouchers/trigger` | Trigger voucher generation based on purchase amount (for testing) | User |
+| GET | http://localhost:8080/api/vouchers | Get all available vouchers for current user | Customer |
+| GET | http://localhost:8080/api/vouchers/all | Get all voucher types in system | Customer |
+| GET | http://localhost:8080/api/vouchers/{id} | Get details of specific voucher | Customer |
+| GET | http://localhost:8080/api/vouchers/trigger | Trigger voucher generation based on purchase amount (for testing) | Customer |
+
+**Note:** Vouchers are automatically assigned when admin confirms orders (status changes from "pending" to "confirmed") based on purchase amounts:
+- ≥ RM50: 3% voucher (VOUCHER3)
+- ≥ RM100: 5% voucher (VOUCHER5) 
+- ≥ RM200: 8% voucher (VOUCHER8)
 
 
 ### Order Management Endpoints
 
+Admin
 | Method | Endpoint | Description | Access |
 |--------|----------|-------------|--------|
-| GET | `/api/orders` | Get all orders (paginated) | Admin |
-| GET | `/api/orders/my-orders` | Get all orders for the current user | User |
-| GET | `/api/orders/{id}` | Get details of a specific order | User (own orders) / Admin (all) |
-| POST | `/api/orders` | Create a new order | User |
-| PUT | `/api/orders/{id}/status` | Update the status of an order (pending/confirmed) and automatically assign vouchers to users based on purchase amount when status changes to "confirmed" | Admin |
-| GET | `/api/orders/search` | Search orders by username | Admin |
-| GET | `/api/orders/status/{status}` | Get all orders with a specific status | Admin |
+| GET | http://localhost:8080/api/orders | Get all orders (paginated) | Admin |
+| GET | http://localhost:8080/api/orders/{id} | Get details of specific order | Admin |
+| PUT | http://localhost:8080/api/orders/{id}/status | Update order status (pending/confirmed) and auto-assign vouchers | Admin |
+| GET | http://localhost:8080/api/orders/search?username={username} | Search orders by username | Admin |
+| GET | http://localhost:8080/api/orders/status/{status} | Filter orders by status (pending/confirmed) | Admin |
+
+Customer
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | http://localhost:8080/api/orders/my-orders | Get all orders for current user | Customer |
+| GET | http://localhost:8080/api/orders/{id} | Get details of own order | Customer |
+| POST | http://localhost:8080/api/orders | Create new order with "pending" status | Customer |
 
 ## Link for the YouTube Presentation
 
