@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { AuthService, User } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navigation',
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   template: `
     <nav class="navbar">
       <div class="navbar-brand">
