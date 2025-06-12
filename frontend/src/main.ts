@@ -1,8 +1,9 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, Routes } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppComponent } from './app/app.component';
 import { AuthGuard } from './app/guards/auth.guard';
+import { authInterceptor } from './app/interceptors/auth.interceptor';
 
 const routes: Routes = [
   { path: 'login', loadComponent: () => import('./app/components/login/login.component').then(m => m.LoginComponent) },
@@ -18,6 +19,8 @@ const routes: Routes = [
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    provideHttpClient()
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    )
   ]
 }).catch(err => console.error(err));

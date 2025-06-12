@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 export interface User {
@@ -12,6 +13,11 @@ export interface User {
 export interface AuthResponse {
   token: string;
   user: User;
+}
+
+export interface AuthError {
+  message: string;
+  status: number;
 }
 
 @Injectable({
@@ -29,19 +35,44 @@ export class AuthService {
   private loadStoredUser(): void {
     const token = localStorage.getItem(this.TOKEN_KEY);
     if (token) {
-      const user = this.parseJwt(token);
-      this.currentUserSubject.next(user);
+      try {
+        const user = this.parseJwt(token);
+        this.currentUserSubject.next(user);
+      } catch (error) {
+        this.logout();
+      }
     }
   }
 
   private parseJwt(token: string): User {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
 
-    return JSON.parse(jsonPayload);
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      throw new Error('Invalid token format');
+    }
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'An error occurred';
+    
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Server-side error
+      errorMessage = error.error?.message || error.message;
+    }
+
+    return throwError(() => ({
+      message: errorMessage,
+      status: error.status
+    }));
   }
 
   login(email: string, password: string): Observable<AuthResponse> {
@@ -50,7 +81,8 @@ export class AuthService {
         tap(response => {
           localStorage.setItem(this.TOKEN_KEY, response.token);
           this.currentUserSubject.next(response.user);
-        })
+        }),
+        catchError(this.handleError)
       );
   }
 
@@ -60,7 +92,8 @@ export class AuthService {
         tap(response => {
           localStorage.setItem(this.TOKEN_KEY, response.token);
           this.currentUserSubject.next(response.user);
-        })
+        }),
+        catchError(this.handleError)
       );
   }
 
