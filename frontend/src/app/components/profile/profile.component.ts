@@ -1,255 +1,205 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService, User } from '../../services/auth.service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule],
   template: `
-    <div class="profile-container">
-      <div class="profile-card">
-        <h2>Profile</h2>
-        
-        <div class="profile-info" *ngIf="user">
-          <div class="info-group">
-            <label>Email:</label>
-            <span>{{ user.email }}</span>
+    <div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-white shadow sm:rounded-lg">
+          <!-- Profile Information -->
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Profile Information</h3>
+            <div class="mt-5">
+              <form (ngSubmit)="updateProfile()" #profileForm="ngForm">
+                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                  <div class="sm:col-span-3">
+                    <label for="name" class="block text-sm font-medium text-gray-700">Full name</label>
+                    <div class="mt-1">
+                      <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        [(ngModel)]="name"
+                        required
+                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="sm:col-span-3">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <div class="mt-1">
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        [(ngModel)]="email"
+                        required
+                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <button
+                    type="submit"
+                    [disabled]="!profileForm.form.valid || isLoading"
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                  >
+                    {{ isLoading ? 'Saving...' : 'Save Changes' }}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-          <div class="info-group">
-            <label>Role:</label>
-            <span>{{ user.role }}</span>
+
+          <!-- Change Password -->
+          <div class="px-4 py-5 sm:p-6 border-t border-gray-200">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Change Password</h3>
+            <div class="mt-5">
+              <form (ngSubmit)="changePassword()" #passwordForm="ngForm">
+                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                  <div class="sm:col-span-3">
+                    <label for="currentPassword" class="block text-sm font-medium text-gray-700">Current password</label>
+                    <div class="mt-1">
+                      <input
+                        type="password"
+                        name="currentPassword"
+                        id="currentPassword"
+                        [(ngModel)]="currentPassword"
+                        required
+                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="sm:col-span-3">
+                    <label for="newPassword" class="block text-sm font-medium text-gray-700">New password</label>
+                    <div class="mt-1">
+                      <input
+                        type="password"
+                        name="newPassword"
+                        id="newPassword"
+                        [(ngModel)]="newPassword"
+                        required
+                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="sm:col-span-3">
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm new password</label>
+                    <div class="mt-1">
+                      <input
+                        type="password"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        [(ngModel)]="confirmPassword"
+                        required
+                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <button
+                    type="submit"
+                    [disabled]="!passwordForm.form.valid || isLoading || newPassword !== confirmPassword"
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                  >
+                    {{ isLoading ? 'Changing password...' : 'Change Password' }}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
 
-        <div class="change-password-section">
-          <h3>Change Password</h3>
-          <form [formGroup]="passwordForm" (ngSubmit)="onPasswordChange()">
-            <div class="form-group">
-              <label for="currentPassword">Current Password</label>
-              <input
-                type="password"
-                id="currentPassword"
-                formControlName="currentPassword"
-                class="form-control"
-                [class.is-invalid]="isFieldInvalid('currentPassword')"
-              />
-              <div class="invalid-feedback" *ngIf="isFieldInvalid('currentPassword')">
-                Current password is required
-              </div>
+          <!-- Error Messages -->
+          <div *ngIf="error" class="px-4 py-3 bg-red-50 sm:px-6">
+            <div class="text-sm text-red-700">
+              {{ error }}
             </div>
+          </div>
 
-            <div class="form-group">
-              <label for="newPassword">New Password</label>
-              <input
-                type="password"
-                id="newPassword"
-                formControlName="newPassword"
-                class="form-control"
-                [class.is-invalid]="isFieldInvalid('newPassword')"
-              />
-              <div class="invalid-feedback" *ngIf="isFieldInvalid('newPassword')">
-                New password must be at least 6 characters long
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="confirmPassword">Confirm New Password</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                formControlName="confirmPassword"
-                class="form-control"
-                [class.is-invalid]="isFieldInvalid('confirmPassword')"
-              />
-              <div class="invalid-feedback" *ngIf="isFieldInvalid('confirmPassword')">
-                Passwords do not match
-              </div>
-            </div>
-
-            <div class="error-message" *ngIf="errorMessage">
-              {{ errorMessage }}
-            </div>
-
-            <div class="success-message" *ngIf="successMessage">
+          <!-- Success Message -->
+          <div *ngIf="successMessage" class="px-4 py-3 bg-green-50 sm:px-6">
+            <div class="text-sm text-green-700">
               {{ successMessage }}
             </div>
-
-            <button type="submit" [disabled]="passwordForm.invalid || isLoading">
-              {{ isLoading ? 'Changing Password...' : 'Change Password' }}
-            </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
-  `,
-  styles: [`
-    .profile-container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 2rem;
-      background-color: #f5f5f5;
-    }
-
-    .profile-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 600px;
-    }
-
-    .profile-info {
-      margin-bottom: 2rem;
-      padding: 1rem;
-      background-color: #f8f9fa;
-      border-radius: 4px;
-    }
-
-    .info-group {
-      margin-bottom: 1rem;
-    }
-
-    .info-group label {
-      font-weight: bold;
-      margin-right: 0.5rem;
-    }
-
-    .change-password-section {
-      border-top: 1px solid #dee2e6;
-      padding-top: 2rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #333;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-
-    .form-control.is-invalid {
-      border-color: #dc3545;
-    }
-
-    .invalid-feedback {
-      color: #dc3545;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-    }
-
-    button {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    button:hover:not(:disabled) {
-      background-color: #0056b3;
-    }
-
-    .error-message {
-      color: #dc3545;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    .success-message {
-      color: #28a745;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-  `]
+  `
 })
 export class ProfileComponent implements OnInit {
-  user: User | null = null;
-  passwordForm: FormGroup;
-  isLoading = false;
-  errorMessage = '';
-  successMessage = '';
+  name: string = '';
+  email: string = '';
+  currentPassword: string = '';
+  newPassword: string = '';
+  confirmPassword: string = '';
+  isLoading: boolean = false;
+  error: string = '';
+  successMessage: string = '';
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private http: HttpClient
-  ) {
-    this.passwordForm = this.fb.group({
-      currentPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    }, {
-      validators: this.passwordMatchValidator
-    });
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    // Load user profile data
+    this.authService.getCurrentUser().subscribe(
+      user => {
+        if (user) {
+          this.name = user.name;
+          this.email = user.email;
+        }
+      },
+      error => {
+        this.error = 'Error loading profile data';
+        console.error('Error loading profile:', error);
+      }
+    );
   }
 
-  ngOnInit(): void {
-    this.authService.currentUser$.subscribe(user => {
-      this.user = user;
-    });
-  }
-
-  passwordMatchValidator(form: FormGroup) {
-    const newPassword = form.get('newPassword');
-    const confirmPassword = form.get('confirmPassword');
-    
-    if (newPassword && confirmPassword && newPassword.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
-    }
-    
-    return null;
-  }
-
-  isFieldInvalid(fieldName: string): boolean {
-    const field = this.passwordForm.get(fieldName);
-    return field ? field.invalid && (field.dirty || field.touched) : false;
-  }
-
-  onPasswordChange(): void {
-    if (this.passwordForm.valid) {
+  updateProfile() {
+    if (this.name && this.email) {
       this.isLoading = true;
-      this.errorMessage = '';
+      this.error = '';
       this.successMessage = '';
 
-      const { currentPassword, newPassword } = this.passwordForm.value;
-
-      this.http.post(`${environment.apiUrl}/auth/change-password`, {
-        currentPassword,
-        newPassword
-      }).subscribe({
+      this.authService.updateProfile(this.name, this.email).subscribe({
         next: () => {
-          this.successMessage = 'Password changed successfully';
-          this.passwordForm.reset();
+          this.successMessage = 'Profile updated successfully';
           this.isLoading = false;
         },
-        error: (error) => {
-          this.errorMessage = error.error.message || 'An error occurred while changing password';
+        error: (err) => {
+          this.error = err.message || 'Error updating profile';
+          this.isLoading = false;
+        }
+      });
+    }
+  }
+
+  changePassword() {
+    if (this.currentPassword && this.newPassword && this.newPassword === this.confirmPassword) {
+      this.isLoading = true;
+      this.error = '';
+      this.successMessage = '';
+
+      this.authService.changePassword(this.currentPassword, this.newPassword).subscribe({
+        next: () => {
+          this.successMessage = 'Password changed successfully';
+          this.currentPassword = '';
+          this.newPassword = '';
+          this.confirmPassword = '';
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.error = err.message || 'Error changing password';
           this.isLoading = false;
         }
       });

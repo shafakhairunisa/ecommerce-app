@@ -6,8 +6,9 @@ import { environment } from '../../environments/environment';
 
 export interface User {
   id: number;
+  name: string;
   email: string;
-  role: 'user' | 'admin';
+  role: string;
 }
 
 export interface AuthResponse {
@@ -24,6 +25,7 @@ export interface AuthError {
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = `${environment.apiUrl}/auth`;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   private readonly TOKEN_KEY = 'auth_token';
@@ -34,13 +36,9 @@ export class AuthService {
 
   private loadStoredUser(): void {
     const token = localStorage.getItem(this.TOKEN_KEY);
-    if (token) {
-      try {
-        const user = this.parseJwt(token);
-        this.currentUserSubject.next(user);
-      } catch (error) {
-        this.logout();
-      }
+    const user = localStorage.getItem('user');
+    if (token && user) {
+      this.currentUserSubject.next(JSON.parse(user));
     }
   }
 
@@ -76,21 +74,23 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/login`, { email, password })
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password })
       .pipe(
         tap(response => {
           localStorage.setItem(this.TOKEN_KEY, response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
           this.currentUserSubject.next(response.user);
         }),
         catchError(this.handleError)
       );
   }
 
-  register(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/register`, { email, password })
+  register(name: string, email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, { name, email, password })
       .pipe(
         tap(response => {
           localStorage.setItem(this.TOKEN_KEY, response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
           this.currentUserSubject.next(response.user);
         }),
         catchError(this.handleError)
@@ -99,6 +99,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem('user');
     this.currentUserSubject.next(null);
   }
 
@@ -112,5 +113,25 @@ export class AuthService {
 
   isAdmin(): boolean {
     return this.currentUserSubject.value?.role === 'admin';
+  }
+
+  getCurrentUser(): Observable<User | null> {
+    return this.currentUser$;
+  }
+
+  updateProfile(name: string, email: string): Observable<User> {
+    return this.http.patch<User>(`${this.apiUrl}/profile`, { name, email }).pipe(
+      tap(user => {
+        localStorage.setItem('user', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+      })
+    );
+  }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/change-password`, {
+      currentPassword,
+      newPassword
+    });
   }
 } 

@@ -1,0 +1,98 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AdminService, User } from '../../../services/admin.service';
+
+@Component({
+  selector: 'app-user-management',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: `
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-4">User Management</h2>
+      
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let user of users">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.id }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ user.email }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <select 
+                  [value]="user.role"
+                  (change)="updateUserRole(user.id, $event)"
+                  class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                >
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ user.createdAt | date:'medium' }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <button
+                  (click)="deleteUser(user.id)"
+                  class="text-red-600 hover:text-red-900"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `
+})
+export class UserManagementComponent implements OnInit {
+  users: User[] = [];
+
+  constructor(private adminService: AdminService) {}
+
+  ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.adminService.getUsers().subscribe(
+      users => this.users = users,
+      error => console.error('Error loading users:', error)
+    );
+  }
+
+  updateUserRole(userId: number, event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const newRole = select.value;
+    
+    this.adminService.updateUserRole(userId, newRole).subscribe(
+      () => {
+        const user = this.users.find(u => u.id === userId);
+        if (user) {
+          user.role = newRole;
+        }
+      },
+      error => console.error('Error updating user role:', error)
+    );
+  }
+
+  deleteUser(userId: number) {
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.adminService.deleteUser(userId).subscribe(
+        () => {
+          this.users = this.users.filter(user => user.id !== userId);
+        },
+        error => console.error('Error deleting user:', error)
+      );
+    }
+  }
+} 
