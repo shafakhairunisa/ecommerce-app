@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-hero',
-  imports: [],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './hero.component.html',
-  styleUrl: './hero.component.css'
+  styleUrls: ['./hero.component.css']
 })
 export class HeroComponent {
+  searchQuery: string = '';
+
 
 }
