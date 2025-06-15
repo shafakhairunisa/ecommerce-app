@@ -1,0 +1,68 @@
+<nav [class.navbar-scrolled]="isScrolled" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container-fluid">
+    <!-- Logo & Branding -->
+    <a class="navbar-brand" [routerLink]="['/']">
+      <img src="assets/icons/Ameen Logo.jpg" alt="Logo" width="40" height="40" class="d-inline-block align-text-top me-2">
+      Ameen Qurba
+    </a>
+
+    <!-- Mobile Toggle Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav Links & Actions -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/']">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/product-list']">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/wishlist">My Wishlist</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/order-history">Order History</a>
+        </li>
+      </ul>
+
+      <!-- Search Box -->
+      <form class="d-flex me-3" (ngSubmit)="onSearch()">
+        <input class="form-control me-2" type="search" placeholder="Search" [(ngModel)]="searchQuery" name="search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+
+      <!-- Cart Icon -->
+      <ul class="navbar-nav me-3">
+        <li class="nav-item">
+          <a class="nav-link position-relative" [routerLink]="['/cart']">
+            <i class="bi bi-cart"></i> Cart
+            <span *ngIf="cartItemCount > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{ cartItemCount }}
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Role-based Auth Buttons -->
+      <ul class="navbar-nav">
+        <ng-container *ngIf="role; else guestLinks">
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()" style="cursor: pointer;">Logout</a>
+          </li>
+        </ng-container>
+        <ng-template #guestLinks>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/register']">Register</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>
