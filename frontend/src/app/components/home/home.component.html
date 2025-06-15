@@ -1,0 +1,33 @@
+<div class="home-container">
+  <app-hero></app-hero>
+
+  <!-- Categories Filter -->
+  <div class="container mt-5">
+    <div class="categories-box mb-4">
+      <div class="input-group">
+        <select class="form-select" [(ngModel)]="selectedCategory" (change)="onCategoryChange($event)" aria-label="Filter by category">
+          <option value="">All Categories</option>
+          <option *ngFor="let category of categoryOptions" [value]="category">{{ category }}</option>
+        </select>
+        <button class="btn btn-outline-primary" (click)="goToCategory(selectedCategory)">Go</button>
+      </div>
+    </div>
+
+    <!-- Product Cards -->
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let product of products">
+        <div class="custom-product-card">
+          <img [src]="encodeImageUrl(product.imageUrl)" class="custom-product-img" [alt]="product.name" onerror="this.onerror=null;this.src='assets/images/default.jpg'">
+          <div class="custom-product-body">
+            <h5 class="custom-product-name">{{ product.name }}</h5>
+            <p class="custom-product-price"><strong>Price:</strong> RM {{ product.price.toFixed(2) }}</p>
+            <div class="custom-product-actions">
+              <button class="custom-add-to-cart" (click)="addToCart(product)">Add to Cart</button>
+              <button class="custom-wishlist" (click)="addToWishlist(product)">❤️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

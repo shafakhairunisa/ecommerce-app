@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h2>Product Listing</h2>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of filteredProducts">
+      <div class="card h-100">
+        <img [src]="product.imageUrl || 'assets/icons/placeholder.png'" class="card-img-top" alt="{{ product.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text"><strong>Price:</strong> RM {{ product.price.toFixed(2) }}</p>
+
+
+          <button class="btn btn-primary mb-2" (click)="addToCart(product)">Add to Cart</button>
+
+
+          <button (click)="addToWishlist(product)">❤️</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredProducts.length === 0" class="alert alert-warning">
+    No products found.
+  </div>
+</div>
