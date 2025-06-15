@@ -1,0 +1,83 @@
+/* Main Container */
+.container {
+  background-color: #fff2eb;
+  padding: 40px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(73, 49, 41, 0.1);
+  font-family: 'Georgia', serif;
+}
+
+/* Title */
+h2 {
+  color: #493129;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* No Order Message */
+p {
+  color: #8b597b;
+  font-size: 1rem;
+}
+
+/* Order Card */
+.card {
+  background-color: #ffe1db;
+  border: none;
+  border-left: 5px solid #efa3a0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(139, 89, 123, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+/* Card Body */
+.card-body {
+  color: #493129;
+}
+
+/* Card Title */
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #8b597b;
+  margin-bottom: 15px;
+}
+
+/* Info Paragraphs */
+.card-body p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+}
+
+/* Items List */
+.card-body h6 {
+  margin-top: 15px;
+  color: #493129;
+  font-weight: bold;
+}
+
+.card-body ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.card-body li {
+  color: #493129;
+  font-size: 0.95rem;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .card-body p,
+  .card-body li {
+    font-size: 0.9rem;
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+  }
+}
