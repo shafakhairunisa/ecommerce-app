@@ -1,0 +1,138 @@
+/* Container and Heading */
+.container {
+  background-color: #ffe1db;
+  padding: 40px 20px;
+  border-radius: 12px;
+  font-family: 'Georgia', serif;
+}
+
+h2 {
+  color: #493129;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* Spinner */
+.spinner-border.text-primary {
+  color: #8b597b !important;
+}
+
+/* Product Card Grid */
+.product-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(73, 49, 41, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(139, 89, 123, 0.15);
+  cursor: pointer;
+}
+
+/* Product Image */
+.card-img-top {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  object-fit: cover;
+  height: 200px;
+}
+
+/* Product Info */
+.product-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #493129;
+}
+
+.category {
+  color: #8b597b;
+  font-size: 0.95rem;
+  margin: 5px 0;
+}
+
+.product-price {
+  color: #efa3a0;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+/* Availability Text */
+.text-success {
+  color: #efa3a0 !important;
+  font-weight: 500;
+}
+
+.text-danger {
+  color: #8b597b !important;
+  font-weight: 500;
+}
+
+/* Modal Styling */
+.modal {
+  z-index: 1050;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  border-radius: 16px;
+  background-color: #ffd8c7;
+  border: 2px solid #8b597b;
+}
+
+.modal-header,
+.modal-footer {
+  border: none;
+}
+
+.modal-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #493129;
+}
+
+.modal-body img {
+  border-radius: 10px;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+/* Buttons */
+.btn-secondary {
+  background-color: #8b597b;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #6e4662;
+}
+
+.btn-success {
+  background-color: #efa3a0;
+  border: none;
+}
+
+.btn-success:disabled {
+  background-color: #f2c3c0;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-success:hover:enabled {
+  background-color: #8b597b;
+  color: white;
+}
+
+/* Fade Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
