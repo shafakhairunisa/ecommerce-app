@@ -14,6 +14,20 @@ import { AuthService } from '../../services/auth.service';
         <h2>Register</h2>
         
         <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="form-control"
+            [class.is-invalid]="isFieldInvalid('name')"
+          />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('name')">
+            Name is required
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="email">Email</label>
           <input
             type="email"
@@ -168,6 +182,7 @@ export class RegisterComponent {
     private router: Router
   ) {
     this.registerForm = this.fb.group({
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
@@ -197,11 +212,10 @@ export class RegisterComponent {
       this.isLoading = true;
       this.errorMessage = '';
 
-      const { email, password } = this.registerForm.value;
-
-      this.authService.register(email, password).subscribe({
+      const { name, email, password } = this.registerForm.value;
+      this.authService.register(name, email, password).subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           this.errorMessage = error.error.message || 'An error occurred during registration';

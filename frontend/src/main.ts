@@ -2,7 +2,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, Routes } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppComponent } from './app/app.component';
-import { AuthGuard } from './app/guards/auth.guard';
+import { authGuard } from './app/guards/auth.guard';
 import { authInterceptor } from './app/interceptors/auth.interceptor';
 
 const routes: Routes = [
@@ -11,7 +11,7 @@ const routes: Routes = [
   { 
     path: 'profile', 
     loadComponent: () => import('./app/components/profile/profile.component').then(m => m.ProfileComponent),
-    canActivate: [AuthGuard]
+    canActivate: [authGuard]
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' as const }
 ];
