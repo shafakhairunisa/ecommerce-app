@@ -13,7 +13,8 @@ export interface User {
 
 export interface AuthResponse {
   token: string;
-  user: User;
+  username: string;
+  isAdmin: boolean;
 }
 
 export interface AuthError {
@@ -37,8 +38,10 @@ export class AuthService {
   private loadStoredUser(): void {
     const token = localStorage.getItem(this.TOKEN_KEY);
     const user = localStorage.getItem('user');
-    if (token && user) {
+    if (token && user && user !== 'undefined') {
       this.currentUserSubject.next(JSON.parse(user));
+    } else {
+      this.currentUserSubject.next(null);
     }
   }
 
@@ -73,25 +76,37 @@ export class AuthService {
     }));
   }
 
-  login(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password })
+  login(username: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { username, password })
       .pipe(
         tap(response => {
           localStorage.setItem(this.TOKEN_KEY, response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
-          this.currentUserSubject.next(response.user);
+          const user = {
+            id: 0,
+            name: response.username,
+            email: '',
+            role: response.isAdmin ? 'admin' : 'user'
+          };
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSubject.next(user);
         }),
         catchError(this.handleError)
       );
   }
 
   register(name: string, email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, { name, email, password })
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, { username: name, email, password, address: '' })
       .pipe(
         tap(response => {
           localStorage.setItem(this.TOKEN_KEY, response.token);
-          localStorage.setItem('user', JSON.stringify(response.user));
-          this.currentUserSubject.next(response.user);
+          const user = {
+            id: 0,
+            name: response.username,
+            email: '',
+            role: response.isAdmin ? 'admin' : 'user'
+          };
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSubject.next(user);
         }),
         catchError(this.handleError)
       );

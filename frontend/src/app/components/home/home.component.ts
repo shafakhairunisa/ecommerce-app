@@ -433,6 +433,7 @@ export class HomeComponent {
   }
 
   encodeImageUrl(url: string): string {
-    return encodeURI(url);
+    // No encoding needed, just return the raw path
+    return url;
   }
 }

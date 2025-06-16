@@ -227,8 +227,6 @@ export class ProductListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    // Force component to reload even if the route is the same
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit(): void {
@@ -254,8 +252,6 @@ export class ProductListComponent implements OnInit {
 
     this.sortProducts();
   }
-
-
 
   sortProducts(): void {
     this.filteredProducts.sort((a, b) =>

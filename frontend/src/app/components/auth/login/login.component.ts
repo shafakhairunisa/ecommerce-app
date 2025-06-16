@@ -9,104 +9,185 @@ import { AuthService } from '../../../services/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-md w-full space-y-8">
-        <div>
-          <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
-          <p class="mt-2 text-center text-sm text-gray-600">
-            Or
-            <a routerLink="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
-              create a new account
-            </a>
-          </p>
-        </div>
-        <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-          <div class="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label for="email" class="sr-only">Email address</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                [(ngModel)]="email"
-                required
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-              >
-            </div>
-            <div>
-              <label for="password" class="sr-only">Password</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                [(ngModel)]="password"
-                required
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-              >
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                [(ngModel)]="rememberMe"
-                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              >
-              <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
-            </div>
-
-            <div class="text-sm">
-              <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              [disabled]="!loginForm.form.valid || isLoading"
-              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+    <div class="login-bg">
+      <div class="login-card">
+        <h2 class="login-title">Sign in to your account</h2>
+        <p class="login-subtitle">
+          Or <a routerLink="/register" class="login-link">create a new account</a>
+        </p>
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
+          <div class="input-group">
+            <span class="input-icon"><i class="bi bi-person"></i></span>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              [(ngModel)]="username"
+              required
+              class="login-input"
+              placeholder="Username"
+              [disabled]="isLoading"
             >
-              <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                <svg
-                  class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              {{ isLoading ? 'Signing in...' : 'Sign in' }}
-            </button>
           </div>
+          <div class="input-group">
+            <span class="input-icon"><i class="bi bi-lock"></i></span>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              [(ngModel)]="password"
+              required
+              class="login-input"
+              placeholder="Password"
+              [disabled]="isLoading"
+            >
+          </div>
+          <div class="login-row">
+            <label class="remember-me">
+              <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" [disabled]="isLoading"> Remember me
+            </label>
+            <a href="#" class="forgot-link">Forgot your password?</a>
+          </div>
+          <button type="submit" class="login-btn" [disabled]="!loginForm.form.valid || isLoading">
+            <span *ngIf="isLoading"><i class="bi bi-arrow-repeat spin"></i> Signing in...</span>
+            <span *ngIf="!isLoading">Sign in</span>
+          </button>
+          <div *ngIf="error" class="login-error">{{ error }}</div>
         </form>
-
-        <!-- Error Message -->
-        <div *ngIf="error" class="mt-4 text-center text-sm text-red-600">
-          {{ error }}
-        </div>
       </div>
     </div>
-  `
+  `,
+  styles: [`
+    .login-bg {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7f8fa;
+    }
+    .login-card {
+      background: #fff;
+      padding: 2.5rem 2rem 2rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .login-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #222;
+      text-align: center;
+    }
+    .login-subtitle {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .login-link {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .login-link:hover {
+      text-decoration: underline;
+    }
+    .login-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .input-group {
+      display: flex;
+      align-items: center;
+      background: #f1f3f6;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #e0e0e0;
+    }
+    .input-icon {
+      color: #888;
+      margin-right: 0.5rem;
+      font-size: 1.2rem;
+    }
+    .login-input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+    }
+    .login-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+    .remember-me {
+      color: #555;
+      user-select: none;
+    }
+    .forgot-link {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+    .login-btn:disabled {
+      background: #b3d1fa;
+      cursor: not-allowed;
+    }
+    .login-error {
+      color: #dc3545;
+      background: #fff0f0;
+      border: 1px solid #f5c2c7;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+    .spin {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    @media (max-width: 500px) {
+      .login-card {
+        padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+      }
+      .login-title {
+        font-size: 1.5rem;
+      }
+    }
+  `]
 })
 export class LoginComponent {
-  email: string = '';
+  username: string = '';
   password: string = '';
   rememberMe: boolean = false;
   isLoading: boolean = false;
@@ -115,14 +196,21 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+    // Redirect to home if already authenticated
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.router.navigate(['/']);
+      }
+    });
+  }
 
   onSubmit() {
-    if (this.email && this.password) {
+    if (this.username && this.password) {
       this.isLoading = true;
       this.error = '';
 
-      this.authService.login(this.email, this.password).subscribe({
+      this.authService.login(this.username, this.password).subscribe({
         next: () => {
           this.router.navigate(['/']);
         },
