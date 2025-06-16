@@ -1,48 +1,42 @@
-.hero-section {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1200x400?text=Hero+Banner') center/cover no-repeat;
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-  margin-top: 60px; /* Space for fixed navbar */
+
+.sunset-hero {
+  background: linear-gradient(to right, #ffd1ba, #ffc8dd, #ffe3ed);
+  padding: 80px 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(255, 170, 150, 0.25);
+  font-family: 'Georgia', serif;
 }
 
-.hero-content {
-  max-width: 600px;
-}
-
-.hero-content h1 {
+/* Hero Title */
+.sunset-hero h1 {
+  color: #5e2e3a;
   font-size: 2.5rem;
-  font-weight: bold;
   margin-bottom: 15px;
+  font-weight: bold;
 }
 
-.hero-content p {
+/* Hero Subtitle */
+.sunset-hero p {
   font-size: 1.2rem;
-  margin-bottom: 20px;
+  color: #6c3e4c;
 }
 
-.search-bar {
-  display: flex;
-  justify-content: center;
-}
-
-.search-bar input {
-  max-width: 400px;
-  border-radius: 20px 0 0 20px;
+/* Voucher Button */
+.voucher-btn {
+  background: linear-gradient(to right, #ff9a8b, #ff6a88, #ff99ac);
+  color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 16px rgba(255, 105, 135, 0.25);
+  letter-spacing: 0.5px;
 }
 
-.search-bar .btn {
-  border-radius: 0 20px 20px 0;
-  background-color: #2e7d32;
-  border: none;
-  padding: 10px 20px;
-}
-
-.search-bar .btn:hover {
-  background-color: #43a047;
+.voucher-btn:hover {
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 105, 135, 0.4);
 }
