@@ -1,0 +1,76 @@
+/* Top Offset for Fixed Navbar */
+.page-top-offset {
+  padding-top: 120px; /* Try increasing to 120 or 130 if 100 isn't enough */
+}
+
+/* Sunset Theme Background */
+.sunset-theme {
+  background: linear-gradient(to bottom right, #ffd1ba, #ffc8dd, #ffe3ed);
+  border-radius: 12px;
+  padding: 40px 25px;
+  box-shadow: 0 4px 20px rgba(255, 155, 133, 0.2);
+  font-family: 'Georgia', serif;
+  min-height: 100vh;
+}
+
+/* Section Header */
+.sunset-theme h2 {
+  color: #5e2e3a;
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+/* Voucher Cards */
+.sunset-theme .card {
+  background-color: #fff3f0;
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sunset-theme .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 124, 124, 0.25);
+}
+
+/* Card Image */
+.sunset-theme .card-img-top {
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 2px solid #ffb3ab;
+}
+
+/* Card Body */
+.sunset-theme .card-body {
+  padding: 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+/* Title */
+.sunset-theme .card-title {
+  color: #a4445d;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+/* Description */
+.sunset-theme .card-text {
+  font-size: 0.95rem;
+  color: #6c3e4c;
+  margin-bottom: 12px;
+}
+
+/* Min Purchase Badge */
+.sunset-theme .badge.bg-success {
+  background-color: #ffb3ab !important;
+  color: white;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}

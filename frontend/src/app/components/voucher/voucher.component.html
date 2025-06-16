@@ -1,0 +1,15 @@
+<div class="container page-top-offset sunset-theme mt-5">
+  <h2>Available Vouchers</h2>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let voucher of vouchers">
+      <div class="card mb-4 shadow-sm">
+        <img [src]="voucher.imageUrl || 'assets/images/voucher-placeholder.jpg'" class="card-img-top" alt="{{ voucher.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ voucher.name }}</h5>
+          <p class="card-text">{{ voucher.description }}</p>
+          <span class="badge bg-success">Min Purchase: RM{{ voucher.minPurchase }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
