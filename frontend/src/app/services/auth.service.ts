@@ -94,8 +94,12 @@ export class AuthService {
       );
   }
 
-  register(name: string, email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, { username: name, email, password, address: '' })
+  register(name: string, email: string, password: string, adminKey?: string): Observable<AuthResponse> {
+    const payload: any = { username: name, email, password, address: '' };
+    if (adminKey) {
+      payload.adminKey = adminKey;
+    }
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, payload)
       .pipe(
         tap(response => {
           localStorage.setItem(this.TOKEN_KEY, response.token);

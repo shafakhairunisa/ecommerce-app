@@ -68,6 +68,18 @@ import { AuthService } from '../../../services/auth.service';
               [disabled]="isLoading"
             >
           </div>
+          <div class="input-group">
+            <span class="input-icon"><i class="bi bi-key"></i></span>
+            <input
+              id="adminKey"
+              name="adminKey"
+              type="text"
+              [(ngModel)]="adminKey"
+              class="login-input"
+              placeholder="Admin Key (optional)"
+              [disabled]="isLoading"
+            >
+          </div>
           <div *ngIf="password && confirmPassword && password !== confirmPassword" class="login-error">
             Passwords do not match
           </div>
@@ -195,6 +207,7 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
+  adminKey: string = '';
   isLoading: boolean = false;
   error: string = '';
 
@@ -208,7 +221,7 @@ export class RegisterComponent {
       this.isLoading = true;
       this.error = '';
 
-      this.authService.register(this.name, this.email, this.password).subscribe({
+      this.authService.register(this.name, this.email, this.password, this.adminKey).subscribe({
         next: () => {
           this.router.navigate(['/login']);
         },
