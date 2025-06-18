@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth.service';
@@ -9,7 +8,6 @@ import { AuthService } from './services/auth.service';
   declarations: [],
   imports: [
     BrowserModule,
-    HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService, User } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
   template: `
     <nav class="navbar">
       <div class="navbar-brand">
@@ -41,6 +41,9 @@ import { AuthService, User } from '../../services/auth.service';
         </ng-template>
       </div>
     </nav>
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
   `,
   styles: [`
     .navbar {
@@ -121,6 +124,10 @@ import { AuthService, User } from '../../services/auth.service';
 
     .logout-button:hover {
       background-color: #c82333;
+    }
+
+    .main-content {
+      min-height: calc(100vh - 64px);
     }
   `]
 })

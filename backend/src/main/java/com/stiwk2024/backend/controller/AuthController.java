@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.stiwk2024.backend.model.User;
 import com.stiwk2024.backend.security.JwtTokenUtil;
 import com.stiwk2024.backend.service.UserService;

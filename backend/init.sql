@@ -9,8 +9,8 @@ CREATE TABLE user (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert single admin account (password should be hashed in production)
-INSERT INTO user (username, email, password, is_admin) VALUES ('admin', 'admin@example.com', 'admin123', 1);
+-- Insert single admin account with BCrypt hashed password (hash of 'admin123')
+INSERT INTO user (username, email, password, is_admin) VALUES ('admin', 'admin@example.com', '$2a$10$vI8aWBnW3fID.ZQ4/zo1G.q1lRps.9cGLcZEiGDMVr5yUP1KUOYTa', 1);
 
 -- Category table (fixed categories)
 CREATE TABLE category (

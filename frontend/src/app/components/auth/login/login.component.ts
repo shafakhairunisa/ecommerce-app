@@ -16,14 +16,6 @@ import { AuthService } from '../../../services/auth.service';
           Or <a routerLink="/register" class="login-link">create a new account</a>
         </p>
         <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
-          <div class="role-toggle" style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
-            <label>
-              <input type="radio" name="role" [(ngModel)]="role" value="user" checked> User
-            </label>
-            <label>
-              <input type="radio" name="role" [(ngModel)]="role" value="admin"> Admin
-            </label>
-          </div>
           <div class="input-group">
             <span class="input-icon"><i class="bi bi-person"></i></span>
             <input
@@ -200,19 +192,11 @@ export class LoginComponent {
   rememberMe: boolean = false;
   isLoading: boolean = false;
   error: string = '';
-  role: string = 'user';
 
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {
-    // Redirect to home if already authenticated
-    this.authService.currentUser$.subscribe(user => {
-      if (user) {
-        this.router.navigate(['/']);
-      }
-    });
-  }
+  ) {}
 
   onSubmit() {
     if (this.username && this.password) {
@@ -221,18 +205,15 @@ export class LoginComponent {
 
       this.authService.login(this.username, this.password).subscribe({
         next: (response) => {
-          // Check role match
-          if (response.isAdmin && this.role === 'admin') {
-            this.router.navigate(['/admin']);
-          } else if (!response.isAdmin && this.role === 'user') {
-            this.router.navigate(['/']);
-          } else {
-            this.error = 'Role mismatch. Please check your selection.';
-          }
           this.isLoading = false;
+          if (response.admin) {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/']);
+          }
         },
         error: (err) => {
-          this.error = err.message || 'An error occurred during login';
+          this.error = err.message || 'Invalid username or password';
           this.isLoading = false;
         }
       });

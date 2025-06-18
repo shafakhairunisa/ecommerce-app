@@ -123,7 +123,7 @@ import { AdminService, Product } from '../../../services/admin.service';
                 <img [src]="product.imageUrl" [alt]="product.name" class="h-10 w-10 rounded-full object-cover">
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ product.name }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${{ product.price }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.price | currency }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.stock }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.category }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">

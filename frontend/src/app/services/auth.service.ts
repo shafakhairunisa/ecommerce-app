@@ -14,7 +14,7 @@ export interface User {
 export interface AuthResponse {
   token: string;
   username: string;
-  isAdmin: boolean;
+  admin: boolean;
 }
 
 export interface AuthError {
@@ -85,7 +85,7 @@ export class AuthService {
             id: 0,
             name: response.username,
             email: '',
-            role: response.isAdmin ? 'admin' : 'user'
+            role: response.admin ? 'admin' : 'user'
           };
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSubject.next(user);
@@ -107,7 +107,7 @@ export class AuthService {
             id: 0,
             name: response.username,
             email: '',
-            role: response.isAdmin ? 'admin' : 'user'
+            role: response.admin ? 'admin' : 'user'
           };
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSubject.next(user);

@@ -40,7 +40,7 @@ import { AdminService, Order } from '../../../services/admin.service';
                   <option value="cancelled">Cancelled</option>
                 </select>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${{ order.total }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.total | currency }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {{ order.createdAt | date:'medium' }}
               </td>
@@ -80,7 +80,7 @@ import { AdminService, Order } from '../../../services/admin.service';
                 <div *ngFor="let item of selectedOrder.items" class="flex justify-between items-center">
                   <span class="text-sm text-gray-900">Product ID: {{ item.productId }}</span>
                   <span class="text-sm text-gray-500">Quantity: {{ item.quantity }}</span>
-                  <span class="text-sm text-gray-500">Price: ${{ item.price }}</span>
+                  <span class="text-sm text-gray-500">Price: {{ item.price | currency }}</span>
                 </div>
               </div>
             </div>
@@ -88,7 +88,7 @@ import { AdminService, Order } from '../../../services/admin.service';
             <div class="border-t pt-4">
               <div class="flex justify-between">
                 <span class="text-sm font-medium text-gray-900">Total</span>
-                <span class="text-sm font-medium text-gray-900">${{ selectedOrder.total }}</span>
+                <span class="text-sm font-medium text-gray-900">{{ selectedOrder.total | currency }}</span>
               </div>
             </div>
           </div>
