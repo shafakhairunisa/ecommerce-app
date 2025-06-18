@@ -401,13 +401,17 @@ export class HomeComponent {
   ]; // You can adjust logic if needed
   categoryOptions = ['SOS', 'MEE', 'REMPAH', 'MINUMAN', 'MADU', 'LAIN-LAIN'];
   selectedCategory: string = '';
+  searchTerm: string = '';
+  sortOption: string = '';
   wishlistProductIds: number[] = [];
 
   constructor(
     private cartService: CartService,
     private wishlistService: WishlistService,
     private router: Router
-  ) {}
+  ) {
+    this.updateFilteredProducts();
+  }
 
   addToCart(product: Product): void {
     this.cartService.addToCart(product);
@@ -421,10 +425,65 @@ export class HomeComponent {
     this.wishlistProductIds.push(product.id);
   }
 
+  onSearchChange(): void {
+    this.updateFilteredProducts();
+  }
+
+  onFilterChange(): void {
+    this.updateFilteredProducts();
+  }
+
+  onSortChange(): void {
+    this.updateFilteredProducts();
+  }
+
+  updateFilteredProducts(): void {
+    let filtered = [...this.products];
+
+    // Apply search filter
+    if (this.searchTerm) {
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        product.category.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+
+    // Apply category filter
+    if (this.selectedCategory) {
+      filtered = filtered.filter(product => 
+        product.category.name === this.selectedCategory
+      );
+    }
+
+    // Apply sorting
+    if (this.sortOption) {
+      switch (this.sortOption) {
+        case 'name-asc':
+          filtered.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case 'name-desc':
+          filtered.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+        case 'price-asc':
+          filtered.sort((a, b) => a.price - b.price);
+          break;
+        case 'price-desc':
+          filtered.sort((a, b) => b.price - a.price);
+          break;
+        case 'available':
+          filtered.sort((a, b) => (b.available ? 1 : 0) - (a.available ? 1 : 0));
+          break;
+      }
+    }
+
+    this.filteredProducts = filtered;
+  }
+
   onCategoryChange(event: any) {
-    const selected = event.target.value;
-    if (selected) {
-      this.router.navigate(['/category-products'], { queryParams: { category: selected } });
+    this.selectedCategory = event.target.value;
+    this.updateFilteredProducts();
+    if (this.selectedCategory) {
+      this.router.navigate(['/category-products'], { queryParams: { category: this.selectedCategory } });
     }
   }
 

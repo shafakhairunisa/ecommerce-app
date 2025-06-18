@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgForOf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { WishlistService } from '../../services/wishlist.service';
@@ -10,7 +11,7 @@ import { Product } from '../../model/product.model';
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  imports: [CommonModule, NgForOf]
+  imports: [CommonModule, NgForOf, FormsModule]
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [
@@ -267,5 +268,41 @@ export class ProductListComponent implements OnInit {
   addToWishlist(product: Product): void {
     this.wishlistService.addToWishlist(product);
     alert('Added to wishlist!');
+  }
+
+  onSearchChange(): void {
+    this.updateUrlAndApplyFilters();
+  }
+
+  onCategoryChange(): void {
+    this.updateUrlAndApplyFilters();
+  }
+
+  onSortChange(): void {
+    this.updateUrlAndApplyFilters();
+  }
+
+  private updateUrlAndApplyFilters(): void {
+    const queryParams: any = {};
+
+    if (this.searchQuery.trim()) {
+      queryParams.q = this.searchQuery.trim();
+    }
+
+    if (this.selectedCategory) {
+      queryParams.category = this.selectedCategory;
+    }
+
+    if (this.sortOption !== 'asc') {
+      queryParams.sort = this.sortOption;
+    }
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams,
+      queryParamsHandling: 'merge'
+    });
+
+    this.applyFilters();
   }
 }
