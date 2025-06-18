@@ -96,3 +96,59 @@ button:last-child:hover {
   padding: 18px;
   border: 1px solid #ffd9a0;
 }
+
+/* Controls Section */
+.controls-section {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(255, 122, 89, 0.15);
+  margin-bottom: 30px;
+}
+
+/* Search Container */
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  border: 2px solid #ff9a8b;
+  border-radius: 25px;
+  padding: 12px 45px 12px 20px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.search-input:focus {
+  border-color: #ff6f61;
+  box-shadow: 0 0 0 0.2rem rgba(255, 111, 97, 0.25);
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #ff6f61;
+  pointer-events: none;
+}
+
+/* Select Dropdowns */
+.filter-select, .sort-select {
+  border: 2px solid #ff9a8b;
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #7a3b69;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-select:focus, .sort-select:focus {
+  border-color: #ff6f61;
+  box-shadow: 0 0 0 0.2rem rgba(255, 111, 97, 0.25);
+  outline: none;
+}

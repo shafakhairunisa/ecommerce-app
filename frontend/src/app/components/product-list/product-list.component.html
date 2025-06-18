@@ -1,6 +1,51 @@
 <div class="container mt-4">
   <h2>Product Listing</h2>
 
+  <!-- Search, Filter, and Sort Controls -->
+  <div class="controls-section mb-4">
+    <div class="row">
+      <!-- Search Bar -->
+      <div class="col-md-6 mb-3">
+        <div class="search-container">
+          <input 
+            type="text" 
+            class="form-control search-input" 
+            placeholder="Search products..." 
+            [(ngModel)]="searchQuery"
+            (input)="onSearchChange()"
+          >
+          <i class="search-icon">🔍</i>
+        </div>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="col-md-3 mb-3">
+        <select 
+          class="form-select filter-select" 
+          [(ngModel)]="selectedCategory"
+          (change)="onCategoryChange()"
+        >
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sort Options -->
+      <div class="col-md-3 mb-3">
+        <select 
+          class="form-select sort-select" 
+          [(ngModel)]="sortOption"
+          (change)="onSortChange()"
+        >
+          <option value="asc">Price: Low to High</option>
+          <option value="desc">Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Existing Product List -->
   <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let product of filteredProducts">
       <div class="card h-100">

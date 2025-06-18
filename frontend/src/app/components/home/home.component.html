@@ -1,33 +1,72 @@
 <div class="home-container">
   <app-hero></app-hero>
 
-  <!-- Categories Filter -->
   <div class="container mt-5">
-    <div class="categories-box mb-4">
-      <div class="input-group">
-        <select class="form-select" [(ngModel)]="selectedCategory" (change)="onCategoryChange($event)" aria-label="Filter by category">
-          <option value="">All Categories</option>
-          <option *ngFor="let category of categoryOptions" [value]="category">{{ category }}</option>
-        </select>
-        <button class="btn btn-outline-primary" (click)="goToCategory(selectedCategory)">Go</button>
+    <h2>Featured Products</h2>
+
+    <!-- Search, Filter, and Sort Controls (matching product-list design) -->
+    <div class="controls-section mb-4">
+      <div class="row">
+        <!-- Search Bar -->
+        <div class="col-md-6 mb-3">
+          <div class="search-container">
+            <input 
+              type="text" 
+              class="form-control search-input" 
+              placeholder="Search products..." 
+              [(ngModel)]="searchTerm"
+              (input)="onSearchChange()"
+            >
+            <i class="search-icon">🔍</i>
+          </div>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="col-md-3 mb-3">
+          <select 
+            class="form-select filter-select" 
+            [(ngModel)]="selectedCategory"
+            (change)="onFilterChange()"
+          >
+            <option value="">All Categories</option>
+            <option *ngFor="let category of categoryOptions" [value]="category">{{ category }}</option>
+          </select>
+        </div>
+
+        <!-- Sort Options -->
+        <div class="col-md-3 mb-3">
+          <select 
+            class="form-select sort-select" 
+            [(ngModel)]="sortOption"
+            (change)="onSortChange()"
+          >
+            <option value="">Default</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+          </select>
+        </div>
       </div>
     </div>
 
     <!-- Product Cards -->
     <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let product of products">
-        <div class="custom-product-card">
-          <img [src]="encodeImageUrl(product.imageUrl)" class="custom-product-img" [alt]="product.name" onerror="this.onerror=null;this.src='assets/images/default.jpg'">
-          <div class="custom-product-body">
-            <h5 class="custom-product-name">{{ product.name }}</h5>
-            <p class="custom-product-price"><strong>Price:</strong> RM {{ product.price.toFixed(2) }}</p>
-            <div class="custom-product-actions">
-              <button class="custom-add-to-cart" (click)="addToCart(product)">Add to Cart</button>
-              <button class="custom-wishlist" (click)="addToWishlist(product)">❤️</button>
-            </div>
+      <div class="col-md-4 mb-4" *ngFor="let product of filteredProducts">
+        <div class="card h-100">
+          <img [src]="encodeImageUrl(product.imageUrl)" class="card-img-top" [alt]="product.name" onerror="this.onerror=null;this.src='assets/images/default.jpg'">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text"><strong>Price:</strong> RM {{ product.price.toFixed(2) }}</p>
+            <button class="btn btn-primary mb-2" (click)="addToCart(product)">Add to Cart</button>
+            <button (click)="addToWishlist(product)">❤️</button>
           </div>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="filteredProducts.length === 0" class="alert alert-warning">
+      No products found.
     </div>
   </div>
 </div>
