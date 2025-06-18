@@ -12,6 +12,15 @@ CREATE TABLE user (
 -- Insert single admin account with BCrypt hashed password (hash of 'admin123')
 INSERT INTO user (username, email, password, is_admin) VALUES ('admin', 'admin@example.com', '$2a$10$vI8aWBnW3fID.ZQ4/zo1G.q1lRps.9cGLcZEiGDMVr5yUP1KUOYTa', 1);
 
+-- Insert additional admin account with BCrypt hashed password (hash of 'super123')
+INSERT INTO user (username, email, password, is_admin) VALUES ('superadmin', 'superadmin@example.com', '$2a$10$6lABmJPo/Xt27Rwpj5z4JOajF1CdXUUHIi5zU5vc4wPvGxehcLKgW', 1);
+
+-- Insert regular user accounts with BCrypt hashed passwords
+INSERT INTO user (username, email, password, address, is_admin) VALUES 
+('user1', 'user1@example.com', '$2a$10$XRHk/aCNAh7On/pRnLZC5O/lo9CJl46MsmIpn2LnqQF5MXnK.Jvqi', '123 Main St, City', 0),
+('user2', 'user2@example.com', '$2a$10$qMPUlmL.CX1mDgKw9LWiIeNVm8RoYRfAupS3xIAZvQ10UqQB26Wl.', '456 Oak Ave, Town', 0),
+('customer', 'customer@example.com', '$2a$10$JSXNvGMn9RXDRbTSdTQXB.QWO.OEFEEBVeLN/nXrY0h1z6JwMPuCO', '789 Pine Blvd, Village', 0);
+
 -- Category table (fixed categories)
 CREATE TABLE category (
     id INT AUTO_INCREMENT PRIMARY KEY,

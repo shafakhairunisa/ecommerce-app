@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -23,7 +27,7 @@ export interface AuthError {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/auth`;
@@ -45,69 +49,91 @@ export class AuthService {
     }
   }
 
-  private parseJwt(token: string): User {
-    try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-
-      return JSON.parse(jsonPayload);
-    } catch (error) {
-      throw new Error('Invalid token format');
-    }
-  }
-
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An error occurred';
-    
+
     if (error.error instanceof ErrorEvent) {
       // Client-side error
       errorMessage = error.error.message;
     } else {
       // Server-side error
-      errorMessage = error.error?.message || error.message;
+      errorMessage =
+        error.error?.message || `Server returned code ${error.status}`;
+
+      // Add detailed logging
+      console.error('Server error details:', {
+        status: error.status,
+        statusText: error.statusText,
+        url: error.url,
+        error: error.error,
+      });
     }
 
     return throwError(() => ({
       message: errorMessage,
-      status: error.status
+      status: error.status,
     }));
   }
 
   login(username: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { username, password })
+    // Create proper headers for JSON content
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    console.log(`Sending login request to: ${this.apiUrl}/login`);
+    console.log('Request payload:', { username, password: '***' });
+
+    return this.http
+      .post<AuthResponse>(
+        `${this.apiUrl}/login`,
+        { username, password },
+        { headers }
+      )
       .pipe(
-        tap(response => {
+        tap((response) => {
+          console.log('Auth response:', response);
           localStorage.setItem(this.TOKEN_KEY, response.token);
+
+          // Create user object from response
           const user = {
             id: 0,
             name: response.username,
-            email: '',
-            role: response.admin ? 'admin' : 'user'
+            email: username.includes('@') ? username : '',
+            role: response.admin ? 'admin' : 'user',
           };
+
+          // Store user in localStorage
           localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('role', user.role);
+
           this.currentUserSubject.next(user);
         }),
         catchError(this.handleError)
       );
   }
 
-  register(name: string, email: string, password: string, adminKey?: string): Observable<AuthResponse> {
+  register(
+    name: string,
+    email: string,
+    password: string,
+    adminKey?: string
+  ): Observable<AuthResponse> {
     const payload: any = { username: name, email, password, address: '' };
     if (adminKey) {
       payload.adminKey = adminKey;
     }
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, payload)
+    return this.http
+      .post<AuthResponse>(`${this.apiUrl}/register`, payload)
       .pipe(
-        tap(response => {
+        tap((response) => {
           localStorage.setItem(this.TOKEN_KEY, response.token);
           const user = {
             id: 0,
             name: response.username,
             email: '',
-            role: response.admin ? 'admin' : 'user'
+            role: response.admin ? 'admin' : 'user',
           };
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSubject.next(user);
@@ -139,18 +165,23 @@ export class AuthService {
   }
 
   updateProfile(name: string, email: string): Observable<User> {
-    return this.http.patch<User>(`${this.apiUrl}/profile`, { name, email }).pipe(
-      tap(user => {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-      })
-    );
+    return this.http
+      .patch<User>(`${this.apiUrl}/profile`, { name, email })
+      .pipe(
+        tap((user) => {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+        })
+      );
   }
 
-  changePassword(currentPassword: string, newPassword: string): Observable<void> {
+  changePassword(
+    currentPassword: string,
+    newPassword: string
+  ): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/change-password`, {
       currentPassword,
-      newPassword
+      newPassword,
     });
   }
-} 
+}

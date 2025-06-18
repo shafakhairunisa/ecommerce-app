@@ -1,33 +1,25 @@
-import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const authInterceptor: HttpInterceptorFn = (
-  request: HttpRequest<unknown>,
-  next: HttpHandlerFn
-) => {
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
-  const router = inject(Router);
-  
   const token = authService.getToken();
-  
-  if (token) {
-    request = request.clone({
+
+  // Only add token to non-auth endpoints to avoid circular auth issues
+  if (
+    token &&
+    !req.url.includes('/auth/login') &&
+    !req.url.includes('/auth/register')
+  ) {
+    console.log(`Adding authorization header to request: ${req.url}`);
+    const authReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
+    return next(authReq);
   }
 
-  return next(request).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        authService.logout();
-        router.navigate(['/login']);
-      }
-      return throwError(() => error);
-    })
-  );
-}; 
+  return next(req);
+};

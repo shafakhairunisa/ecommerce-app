@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService, User } from '../../services/auth.service';
 
@@ -14,25 +19,36 @@ import { AuthService, User } from '../../services/auth.service';
       </div>
 
       <div class="navbar-menu">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
         <a routerLink="/products" routerLinkActive="active">Products</a>
         <a routerLink="/cart" routerLinkActive="active">Cart</a>
-        
+
         <ng-container *ngIf="user">
           <a routerLink="/profile" routerLinkActive="active">Profile</a>
           <a routerLink="/orders" routerLinkActive="active">Orders</a>
-          
-          <ng-container *ngIf="user.role === 'admin'">
-            <a routerLink="/admin/products" routerLinkActive="active">Manage Products</a>
-            <a routerLink="/admin/orders" routerLinkActive="active">Manage Orders</a>
-            <a routerLink="/admin/users" routerLinkActive="active">Manage Users</a>
+
+          <ng-container *ngIf="isAdmin">
+            <a routerLink="/admin/products" routerLinkActive="active"
+              >Manage Products</a
+            >
+            <a routerLink="/admin/orders" routerLinkActive="active"
+              >Manage Orders</a
+            >
+            <a routerLink="/admin/users" routerLinkActive="active"
+              >Manage Users</a
+            >
           </ng-container>
         </ng-container>
       </div>
 
       <div class="navbar-end">
         <ng-container *ngIf="user; else authButtons">
-          <span class="user-email">{{ user.email }}</span>
+          <span class="user-email">{{ user.email || user.name }}</span>
           <button class="logout-button" (click)="onLogout()">Logout</button>
         </ng-container>
         <ng-template #authButtons>
@@ -45,108 +61,123 @@ import { AuthService, User } from '../../services/auth.service';
       <router-outlet></router-outlet>
     </main>
   `,
-  styles: [`
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+  styles: [
+    `
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-    .navbar-brand {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
 
-    .brand-link {
-      color: #333;
-      text-decoration: none;
-    }
+      .brand-link {
+        color: #333;
+        text-decoration: none;
+      }
 
-    .navbar-menu {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
+      .navbar-menu {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
 
-    .navbar-menu a {
-      color: #666;
-      text-decoration: none;
-      padding: 0.5rem;
-      transition: color 0.2s;
-    }
+      .navbar-menu a {
+        color: #666;
+        text-decoration: none;
+        padding: 0.5rem;
+        transition: color 0.2s;
+      }
 
-    .navbar-menu a:hover {
-      color: #007bff;
-    }
+      .navbar-menu a:hover {
+        color: #007bff;
+      }
 
-    .navbar-menu a.active {
-      color: #007bff;
-      font-weight: 500;
-    }
+      .navbar-menu a.active {
+        color: #007bff;
+        font-weight: 500;
+      }
 
-    .navbar-end {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+      .navbar-end {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
 
-    .user-email {
-      color: #666;
-      font-size: 0.9rem;
-    }
+      .user-email {
+        color: #666;
+        font-size: 0.9rem;
+      }
 
-    .auth-button {
-      color: #007bff;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border: 1px solid #007bff;
-      border-radius: 4px;
-      transition: all 0.2s;
-    }
+      .auth-button {
+        color: #007bff;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
 
-    .auth-button:hover {
-      background-color: #007bff;
-      color: white;
-    }
+      .auth-button:hover {
+        background-color: #007bff;
+        color: white;
+      }
 
-    .logout-button {
-      background-color: #dc3545;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
+      .logout-button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
 
-    .logout-button:hover {
-      background-color: #c82333;
-    }
+      .logout-button:hover {
+        background-color: #c82333;
+      }
 
-    .main-content {
-      min-height: calc(100vh - 64px);
-    }
-  `]
+      .main-content {
+        min-height: calc(100vh - 64px);
+      }
+    `,
+  ],
 })
 export class NavigationComponent implements OnInit {
   user: User | null = null;
+  isAdmin: boolean = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.currentUser$.subscribe(user => {
+    // Check for stored role before the subscription initializes
+    const storedRole = localStorage.getItem('role');
+    this.isAdmin = storedRole === 'admin';
+
+    this.authService.currentUser$.subscribe((user) => {
       this.user = user;
+
+      if (user) {
+        this.isAdmin = user.role === 'admin';
+      } else {
+        // If no user in the service yet, check localStorage as fallback
+        this.isAdmin = localStorage.getItem('role') === 'admin';
+      }
+
+      console.log('Current user in navigation:', user);
+      console.log('Is admin in navigation:', this.isAdmin);
     });
   }
 
   onLogout(): void {
     this.authService.logout();
+    localStorage.removeItem('role');
     this.router.navigate(['/login']);
   }
-} 
+}
