@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface User {
   id: number;
+  username: string;
   email: string;
   role: string;
   createdAt: string;
@@ -20,57 +21,63 @@ export interface Product {
   imageUrl: string;
 }
 
-export interface Order {
-  id: number;
-  userId: number;
-  status: string;
-  total: number;
-  createdAt: string;
-  items: OrderItem[];
-}
-
 export interface OrderItem {
   productId: number;
+  productName: string;
   quantity: number;
   price: number;
 }
 
+export interface Order {
+  id: number;
+  userId: number;
+  status: string;
+  items: OrderItem[];
+  total: number;
+  createdAt: string;
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = `${environment.apiUrl}/admin`;
+  private apiUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
 
   // User Management
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/users`);
+    return this.http.get<User[]>(`${this.apiUrl}/admin/users`);
   }
 
   updateUserRole(userId: number, role: string): Observable<User> {
-    return this.http.patch<User>(`${this.apiUrl}/users/${userId}`, { role });
+    return this.http.put<User>(`${this.apiUrl}/admin/users/${userId}/role`, {
+      role,
+    });
   }
 
   deleteUser(userId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/users/${userId}`);
+    return this.http.delete<void>(`${this.apiUrl}/admin/users/${userId}`);
   }
 
   // Product Management
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/products`);
+    return this.http.get<Product[]>(`${this.apiUrl}/admin/products`);
   }
 
   createProduct(product: Omit<Product, 'id'>): Observable<Product> {
-    return this.http.post<Product>(`${this.apiUrl}/products`, product);
+    return this.http.post<Product>(`${this.apiUrl}/admin/products`, product);
   }
 
-  updateProduct(productId: number, product: Partial<Product>): Observable<Product> {
-    return this.http.patch<Product>(`${this.apiUrl}/products/${productId}`, product);
+  updateProduct(productId: number, product: Product): Observable<Product> {
+    return this.http.put<Product>(
+      `${this.apiUrl}/admin/products/${productId}`,
+      product
+    );
   }
 
   deleteProduct(productId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/products/${productId}`);
+    return this.http.delete<void>(`${this.apiUrl}/admin/products/${productId}`);
   }
 
   // Order Management
@@ -79,6 +86,8 @@ export class AdminService {
   }
 
   updateOrderStatus(orderId: number, status: string): Observable<Order> {
-    return this.http.patch<Order>(`${this.apiUrl}/orders/${orderId}`, { status });
+    return this.http.put<Order>(`${this.apiUrl}/orders/${orderId}/status`, {
+      status,
+    });
   }
-} 
+}

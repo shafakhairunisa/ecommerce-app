@@ -2,6 +2,7 @@ package com.stiwk2024.backend.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +34,20 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-        
+
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        
+
         // Add ROLE_ADMIN if the user is an admin
         if (user.isAdmin()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
-        
+
         // Regular user authority
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        
+
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), 
-                user.getPassword(), 
+                user.getUsername(),
+                user.getPassword(),
                 authorities);
     }
 
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService {
     public User updateAddress(Long userId, String address) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
-        
+
         user.setAddress(address);
         return userRepository.save(user);
     }
@@ -95,14 +96,28 @@ public class UserServiceImpl implements UserService {
     public User updatePassword(Long userId, String oldPassword, String newPassword) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
-        
+
         // Verify old password
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new IllegalArgumentException("Old password is incorrect");
         }
-        
+
         // Update password
         user.setPassword(passwordEncoder.encode(newPassword));
         return userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new IllegalArgumentException("User not found with ID: " + userId);
+        }
+        userRepository.deleteById(userId);
     }
 }
