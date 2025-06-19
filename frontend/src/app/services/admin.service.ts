@@ -41,7 +41,7 @@ export interface Order {
   providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = environment.apiUrl || 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
 
@@ -65,14 +65,32 @@ export class AdminService {
     return this.http.get<Product[]>(`${this.apiUrl}/admin/products`);
   }
 
+  getProductById(productId: number): Observable<Product> {
+    return this.http.get<Product>(`${this.apiUrl}/admin/products/${productId}`);
+  }
+
   createProduct(product: Omit<Product, 'id'>): Observable<Product> {
-    return this.http.post<Product>(`${this.apiUrl}/admin/products`, product);
+    return this.http.post<Product>(`${this.apiUrl}/admin/products`, {
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      stock: product.stock,
+      category: product.category,
+      imageUrl: product.imageUrl,
+    });
   }
 
   updateProduct(productId: number, product: Product): Observable<Product> {
     return this.http.put<Product>(
       `${this.apiUrl}/admin/products/${productId}`,
-      product
+      {
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        stock: product.stock,
+        category: product.category,
+        imageUrl: product.imageUrl,
+      }
     );
   }
 
@@ -82,12 +100,15 @@ export class AdminService {
 
   // Order Management
   getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.apiUrl}/orders`);
+    return this.http.get<Order[]>(`${this.apiUrl}/admin/orders`);
   }
 
   updateOrderStatus(orderId: number, status: string): Observable<Order> {
-    return this.http.put<Order>(`${this.apiUrl}/orders/${orderId}/status`, {
-      status,
-    });
+    return this.http.put<Order>(
+      `${this.apiUrl}/admin/orders/${orderId}/status`,
+      {
+        status,
+      }
+    );
   }
 }

@@ -2,13 +2,47 @@
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-xl font-semibold">Product Management</h2>
         <button (click)="showAddProductForm = true"
-            class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
+            class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clip-rule="evenodd" />
+            </svg>
             Add New Product
         </button>
     </div>
 
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="flex justify-center my-8">
+        <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600"></div>
+    </div>
+
+    <!-- Success Message -->
+    <div *ngIf="success" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 relative">
+        <span>{{ success }}</span>
+        <button (click)="dismissSuccess()" class="absolute top-2 right-2 text-green-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 relative">
+        <span>{{ error }}</span>
+        <button (click)="dismissError()" class="absolute top-2 right-2 text-red-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </div>
+
     <!-- Add Product Form -->
-    <div *ngIf="showAddProductForm" class="mb-6 p-4 border rounded-md">
+    <div *ngIf="showAddProductForm" class="mb-6 p-4 border rounded-md bg-gray-50">
         <h3 class="text-lg font-medium mb-4">Add New Product</h3>
         <form (ngSubmit)="createProduct()" #productForm="ngForm">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -19,18 +53,21 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Price</label>
-                    <input type="number" [(ngModel)]="newProduct.price" name="price" required
+                    <input type="number" [(ngModel)]="newProduct.price" name="price" required min="0" step="0.01"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Stock</label>
-                    <input type="number" [(ngModel)]="newProduct.stock" name="stock" required
+                    <input type="number" [(ngModel)]="newProduct.stock" name="stock" required min="0"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Category</label>
-                    <input type="text" [(ngModel)]="newProduct.category" name="category" required
+                    <select [(ngModel)]="newProduct.category" name="category" required
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="" disabled>Select a category</option>
+                        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                    </select>
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700">Description</label>
@@ -42,22 +79,100 @@
                     <input type="url" [(ngModel)]="newProduct.imageUrl" name="imageUrl" required
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>
+                <div *ngIf="newProduct.imageUrl" class="md:col-span-2">
+                    <p class="text-sm font-medium text-gray-700 mb-1">Image Preview</p>
+                    <img [src]="newProduct.imageUrl" alt="Product Preview"
+                        class="h-24 w-24 object-cover rounded-md border">
+                </div>
             </div>
             <div class="mt-4 flex justify-end space-x-3">
-                <button type="button" (click)="showAddProductForm = false"
+                <button type="button" (click)="cancelAddProduct()"
                     class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
                     Cancel
                 </button>
-                <button type="submit" [disabled]="!productForm.form.valid"
-                    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 disabled:opacity-50">
+                <button type="submit" [disabled]="!productForm.form.valid || loading"
+                    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 disabled:opacity-50 flex items-center">
+                    <svg *ngIf="loading" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
                     Add Product
                 </button>
             </div>
         </form>
     </div>
 
+    <!-- Edit Product Form -->
+    <div *ngIf="showEditProductForm && editingProduct" class="mb-6 p-4 border rounded-md bg-gray-50">
+        <h3 class="text-lg font-medium mb-4">Edit Product</h3>
+        <form (ngSubmit)="updateProduct()" #editForm="ngForm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" [(ngModel)]="editingProduct.name" name="name" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Price</label>
+                    <input type="number" [(ngModel)]="editingProduct.price" name="price" required min="0" step="0.01"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Stock</label>
+                    <input type="number" [(ngModel)]="editingProduct.stock" name="stock" required min="0"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Category</label>
+                    <select [(ngModel)]="editingProduct.category" name="category" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="" disabled>Select a category</option>
+                        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea [(ngModel)]="editingProduct.description" name="description" required rows="3"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">Image URL</label>
+                    <input type="url" [(ngModel)]="editingProduct.imageUrl" name="imageUrl" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+                <div *ngIf="editingProduct.imageUrl" class="md:col-span-2">
+                    <p class="text-sm font-medium text-gray-700 mb-1">Image Preview</p>
+                    <img [src]="editingProduct.imageUrl" alt="Product Preview"
+                        class="h-24 w-24 object-cover rounded-md border">
+                </div>
+            </div>
+            <div class="mt-4 flex justify-end space-x-3">
+                <button type="button" (click)="cancelEdit()"
+                    class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
+                    Cancel
+                </button>
+                <button type="submit" [disabled]="!editForm.form.valid || loading"
+                    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 disabled:opacity-50 flex items-center">
+                    <svg *ngIf="loading" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    Update Product
+                </button>
+            </div>
+        </form>
+    </div>
+
     <!-- Products Table -->
-    <div class="overflow-x-auto">
+    <div *ngIf="!loading && products.length > 0" class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -79,12 +194,28 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                         <img [src]="product.imageUrl" [alt]="product.name" class="h-10 w-10 rounded-full object-cover">
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ product.name }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.price | currency }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.stock }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900 font-medium">{{ product.name }}</div>
+                        <div class="text-xs text-gray-500 max-w-xs truncate">{{ product.description }}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ product.price | currency }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div [ngClass]="getStockLevelClass(product.stock)" class="text-sm">
+                            {{ product.stock }}
+                            <span *ngIf="isLowStock(product.stock)" class="inline-flex items-center ml-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span class="ml-1 text-xs">Low stock</span>
+                            </span>
+                        </div>
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.category }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button (click)="editProduct(product)" class="text-indigo-600 hover:text-indigo-900 mr-3">
+                        <button (click)="startEdit(product)" class="text-indigo-600 hover:text-indigo-900 mr-3">
                             Edit
                         </button>
                         <button (click)="deleteProduct(product.id)" class="text-red-600 hover:text-red-900">
@@ -94,5 +225,15 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <!-- No products message -->
+    <div *ngIf="!loading && products.length === 0" class="text-center py-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+        </svg>
+        <p class="mt-2 text-gray-500">No products found. Add your first product!</p>
     </div>
 </div>
