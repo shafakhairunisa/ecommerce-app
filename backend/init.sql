@@ -94,7 +94,7 @@ CREATE TABLE user_voucher (
 CREATE TABLE `order` (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    status ENUM('pending', 'confirmed') NOT NULL DEFAULT 'pending',
+    status ENUM('pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled') NOT NULL DEFAULT 'pending',
     total_price DECIMAL(10,2) NOT NULL,
     voucher_id INT,
     delivery_fee DECIMAL(10,2) NOT NULL,
@@ -152,3 +152,58 @@ INSERT INTO voucher (code, discount_percent, min_purchase, description, image_pa
 ('VOUCHER3', 3.00, 50.00, '3% discount on purchases of 50.00 or more', 'QurbaProductPhoto/voucher/3%.png'),
 ('VOUCHER5', 5.00, 100.00, '5% discount on purchases of 100.00 or more', 'QurbaProductPhoto/voucher/5%.png'),
 ('VOUCHER8', 8.00, 200.00, '8% discount on purchases of 200.00 or more', 'QurbaProductPhoto/voucher/8%.png');
+
+
+-- Create carts for users
+INSERT INTO cart (user_id) VALUES 
+(3), -- user1
+(4), -- user2
+(5); -- customer
+
+-- Add items to user1's cart
+INSERT INTO cart_item (cart_id, product_id, quantity) VALUES
+(1, 1, 2), -- 2 Saffron
+(1, 10, 1); -- 1 TEH IBNU SINA
+
+-- Add items to user2's cart
+INSERT INTO cart_item (cart_id, product_id, quantity) VALUES
+(2, 5, 1), -- 1 LI KHAMSATUN
+(2, 9, 3), -- 3 KOPI IBNU SINA
+(2, 15, 2); -- 2 Chili Giling
+
+-- Add items to customer's cart
+INSERT INTO cart_item (cart_id, product_id, quantity) VALUES
+(3, 4, 1), -- 1 MADU MINDA
+(3, 17, 1); -- 1 Sos Lada Hitam - 1KG
+
+-- Assign vouchers to users
+INSERT INTO user_voucher (user_id, voucher_id) VALUES
+(3, 1), -- user1 gets VOUCHER3
+(4, 2), -- user2 gets VOUCHER5
+(5, 3); -- customer gets VOUCHER8
+
+-- Create orders for users
+INSERT INTO `order` (user_id, status, total_price, voucher_id, delivery_fee, created_at) VALUES
+(3, 'confirmed', 97.00, NULL, 10.00, '2023-03-15 14:30:00'),
+(4, 'confirmed', 152.80, 2, 10.00, '2023-04-02 09:45:00'),
+(5, 'pending', 60.50, NULL, 10.00, '2023-04-10 16:20:00'),
+(3, 'pending', 118.00, 1, 10.00, '2023-04-15 11:10:00');
+
+-- Add items to orders
+INSERT INTO order_item (order_id, product_id, quantity, price) VALUES
+-- Order 1 items (user1)
+(1, 3, 2, 35.00), -- 2 Minyak Bidara - 45ML
+(1, 10, 1, 24.00), -- 1 TEH IBNU SINA
+
+-- Order 2 items (user2)
+(2, 5, 1, 58.00), -- 1 LI KHAMSATUN
+(2, 9, 3, 23.00), -- 3 KOPI IBNU SINA (23.00 each)
+(2, 15, 2, 3.00), -- 2 Chili Giling (3.00 each)
+
+-- Order 3 items (customer)
+(3, 4, 1, 45.00), -- 1 MADU MINDA
+(3, 17, 1, 5.50), -- 1 Sos Lada Hitam - 1KG
+
+-- Order 4 items (user1 again)
+(4, 2, 2, 55.00), -- 2 Minyak Bidara - 120ML
+(4, 4, 1, 45.00); -- 1 MADU MINDA

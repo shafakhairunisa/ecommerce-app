@@ -37,13 +37,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         // Skip JWT filter for authentication endpoints
         String path = request.getRequestURI();
         // Only bypass truly public endpoints
-        if (path.startsWith("/api/auth/") || 
-            path.startsWith("/api/products/") ||
-            path.startsWith("/api/categories/") ||
-            path.equals("/api/vouchers/all") || 
-            path.startsWith("/api/vouchers/all/") ||
-            (path.matches("/api/vouchers/\\d+") && request.getMethod().equals("GET"))) {
-                
+        if (path.startsWith("/api/auth/") ||
+                path.startsWith("/api/products/") ||
+                path.startsWith("/api/categories/") ||
+                path.equals("/api/vouchers/all") ||
+                path.startsWith("/api/vouchers/all/") ||
+                (path.matches("/api/vouchers/\\d+") && request.getMethod().equals("GET"))) {
+
             chain.doFilter(request, response);
             return;
         }
@@ -52,7 +52,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         String jwtToken = null;
 
-        // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
+        // JWT Token is in the form "Bearer token". Remove Bearer word and get only the
+        // Token
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
@@ -75,11 +76,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             // If token is valid configure Spring Security to manually set authentication
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken = 
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                        
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                
+
                 // Set the authentication in the context
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
