@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -48,6 +46,14 @@ public class AdminOrderController {
         return ResponseEntity.ok(convertToDetailDTO(orderOpt.get()));
     }
 
+    @GetMapping("/statuses")
+    public ResponseEntity<List<String>> getOrderStatuses() {
+        List<String> statuses = Arrays.stream(Order.OrderStatus.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(statuses);
+    }
+
     @PutMapping("/{id}/status")
     public ResponseEntity<OrderDTO> updateOrderStatus(
             @PathVariable Long id,
@@ -66,18 +72,6 @@ public class AdminOrderController {
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-    }
-
-    @GetMapping("/counts")
-    public ResponseEntity<Map<String, Long>> getOrderCounts() {
-        Map<String, Long> counts = new HashMap<>();
-        counts.put("total", (long) orderService.getAllOrders().size());
-
-        for (Order.OrderStatus status : Order.OrderStatus.values()) {
-            counts.put(status.name(), (long) orderService.getOrdersByStatus(status).size());
-        }
-
-        return ResponseEntity.ok(counts);
     }
 
     private OrderDTO convertToDTO(Order order) {
@@ -303,4 +297,16 @@ public class AdminOrderController {
             this.status = status;
         }
     }
-}
+}}}
+
+public static class UpdateOrderStatusRequest {
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}}

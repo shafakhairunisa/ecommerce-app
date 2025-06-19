@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 export interface OrderItem {
@@ -33,6 +34,7 @@ export interface Order {
 })
 export class OrderService {
   private baseUrl = environment.apiUrl || 'http://localhost:8080/api';
+  private cachedStatuses: string[] | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -54,8 +56,26 @@ export class OrderService {
     );
   }
 
-  // Get available order statuses
-  getOrderStatuses(): string[] {
+  // Get available order statuses from the backend
+  fetchOrderStatuses(): Observable<string[]> {
+    // Return cached statuses if we have them
+    if (this.cachedStatuses) {
+      return of(this.cachedStatuses);
+    }
+
+    // Otherwise fetch from the server
+    return this.http
+      .get<string[]>(`${this.baseUrl}/admin/orders/statuses`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching order statuses:', error);
+          return of(this.getDefaultOrderStatuses());
+        })
+      );
+  }
+
+  // Fallback method for default statuses if API fails
+  getDefaultOrderStatuses(): string[] {
     return [
       'pending',
       'confirmed',
@@ -66,13 +86,16 @@ export class OrderService {
     ];
   }
 
-  // Get order counts by status (for dashboard)
-  getOrderCounts(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/admin/orders/counts`);
+  // For backward compatibility
+  getOrderStatuses(): string[] {
+    if (this.cachedStatuses) {
+      return this.cachedStatuses;
+    }
+    return this.getDefaultOrderStatuses();
   }
 
-  // Cancel an order
-  cancelOrder(orderId: number): Observable<Order> {
-    return this.http.put<Order>(`${this.baseUrl}/orders/${orderId}/cancel`, {});
+  // Set cached statuses
+  setCachedStatuses(statuses: string[]): void {
+    this.cachedStatuses = statuses;
   }
 }

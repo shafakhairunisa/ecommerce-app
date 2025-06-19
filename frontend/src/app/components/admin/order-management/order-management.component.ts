@@ -16,6 +16,7 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
   selectedOrder: Order | null = null;
   loading = false;
+  statusLoading: { [key: number]: boolean } = {}; // Track loading state per order
   error = '';
   orderStatuses: string[] = [];
   updateSuccess = false;
@@ -24,11 +25,18 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
   // For automatic refresh
   refreshInterval = 30000; // 30 seconds
   refreshSubscription?: Subscription;
+  statusSubscription?: Subscription;
 
   constructor(private orderService: OrderService) {}
 
   ngOnInit() {
-    this.orderStatuses = this.orderService.getOrderStatuses();
+    // Start with default statuses
+    this.orderStatuses = this.orderService.getDefaultOrderStatuses();
+
+    // Fetch statuses from backend
+    this.loadOrderStatuses();
+
+    // Load orders and set up auto-refresh
     this.loadOrders();
     this.setupAutoRefresh();
   }
@@ -37,6 +45,22 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
     }
+    if (this.statusSubscription) {
+      this.statusSubscription.unsubscribe();
+    }
+  }
+
+  loadOrderStatuses() {
+    this.statusSubscription = this.orderService.fetchOrderStatuses().subscribe({
+      next: (statuses) => {
+        console.log('Fetched order statuses:', statuses);
+        this.orderStatuses = statuses;
+        this.orderService.setCachedStatuses(statuses);
+      },
+      error: (err) => {
+        console.error('Error loading order statuses:', err);
+      },
+    });
   }
 
   setupAutoRefresh() {
@@ -93,7 +117,9 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
     const newStatus = select.value;
 
     console.log(`Updating order ${orderId} status to ${newStatus}`);
-    this.loading = true;
+
+    // Show loading state for this specific order
+    this.statusLoading[orderId] = true;
 
     this.orderService.updateOrderStatus(orderId, newStatus).subscribe({
       next: (updatedOrder) => {
@@ -114,13 +140,16 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
           this.selectedOrder = updatedOrder;
         }
 
+        // Clear loading state
+        this.statusLoading[orderId] = false;
+
         // Refresh all data to ensure we have the latest from the server
         this.loadOrders();
       },
       error: (err) => {
         console.error('Error updating order status:', err);
         this.error = 'Failed to update order status. Please try again.';
-        this.loading = false;
+        this.statusLoading[orderId] = false;
       },
     });
   }
@@ -161,5 +190,10 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
   // Format date for better display
   formatDate(dateString: string): string {
     return new Date(dateString).toLocaleString();
+  }
+
+  // Check if a particular order is being updated
+  isStatusUpdating(orderId: number): boolean {
+    return this.statusLoading[orderId] === true;
   }
 }
