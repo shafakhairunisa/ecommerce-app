@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, catchError, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface User {
@@ -62,7 +62,10 @@ export class AdminService {
 
   // Product Management
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/admin/products`);
+    return this.http.get<Product[]>(`${this.apiUrl}/products`).pipe(
+      tap((products) => console.log('Products fetched:', products)),
+      catchError(this.handleError<Product[]>('getProducts', []))
+    );
   }
 
   getProductById(productId: number): Observable<Product> {
@@ -110,5 +113,14 @@ export class AdminService {
         status,
       }
     );
+  }
+
+  // Error handling
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed:`, error);
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 }

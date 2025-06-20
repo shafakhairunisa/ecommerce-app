@@ -12,11 +12,14 @@ import { AdminService, Product } from '../../../services/admin.service';
 })
 export class ProductManagementComponent implements OnInit {
   products: Product[] = [];
+  filteredProducts: Product[] = [];
   showAddProductForm = false;
   showEditProductForm = false;
   loading = false;
   error = '';
   success = '';
+  searchTerm = '';
+  selectedCategory = 'all';
 
   // For creating a new product
   newProduct: Omit<Product, 'id'> = {
@@ -44,17 +47,20 @@ export class ProductManagementComponent implements OnInit {
   constructor(private adminService: AdminService) {}
 
   ngOnInit() {
+    console.log('ProductManagementComponent initialized');
     this.loadProducts();
   }
 
   loadProducts() {
     this.loading = true;
     this.error = '';
+    console.log('Attempting to load products...');
 
     this.adminService.getProducts().subscribe({
       next: (products) => {
         console.log('Products loaded:', products);
-        this.products = this.mapApiProductsToFrontend(products);
+        this.products = Array.isArray(products) ? products : [];
+        this.filteredProducts = [...this.products];
         this.loading = false;
       },
       error: (error) => {
@@ -67,6 +73,83 @@ export class ProductManagementComponent implements OnInit {
     });
   }
 
+  // Add methods for filtering
+  filterProducts() {
+    let results = [...this.products];
+
+    // Apply category filter
+    if (this.selectedCategory !== 'all') {
+      if (this.selectedCategory === 'lowStock') {
+        results = results.filter((product) => product.stock < 10);
+      } else {
+        results = results.filter(
+          (product) => product.category === this.selectedCategory
+        );
+      }
+    }
+
+    // Apply search filter if there is a search term
+    if (this.searchTerm.trim()) {
+      const term = this.searchTerm.toLowerCase();
+      results = results.filter(
+        (product) =>
+          product.name.toLowerCase().includes(term) ||
+          product.description.toLowerCase().includes(term) ||
+          product.category.toLowerCase().includes(term)
+      );
+    }
+
+    this.filteredProducts = results;
+  }
+
+  // Set active category for filtering
+  setCategory(category: string) {
+    this.selectedCategory = category;
+    this.filterProducts();
+  }
+
+  // Clear search term
+  clearSearch() {
+    this.searchTerm = '';
+    this.filterProducts();
+  }
+
+  // Clear all filters
+  clearAllFilters() {
+    this.selectedCategory = 'all';
+    this.searchTerm = '';
+    this.filteredProducts = [...this.products];
+  }
+
+  // Calculate inventory value
+  calculateInventoryValue(): number {
+    return this.products.reduce(
+      (total, product) => total + product.price * product.stock,
+      0
+    );
+  }
+
+  // Get count of products in a category
+  getCategoryCount(category: string): number {
+    return this.products.filter((product) => product.category === category)
+      .length;
+  }
+
+  // Check if product has low stock
+  isLowStock(stock: number): boolean {
+    return stock < 10;
+  }
+
+  // Dismiss success message
+  dismissSuccess() {
+    this.success = '';
+  }
+
+  // Dismiss error message
+  dismissError() {
+    this.error = '';
+  }
+
   createProduct() {
     this.loading = true;
     this.error = '';
@@ -76,7 +159,8 @@ export class ProductManagementComponent implements OnInit {
     this.adminService.createProduct(this.newProduct).subscribe({
       next: (product) => {
         console.log('Product created:', product);
-        this.products.push(this.mapApiProductToFrontend(product));
+        this.products.push(product);
+        this.filterProducts(); // Re-apply filters after adding product
         this.showAddProductForm = false;
         this.resetNewProduct();
         this.loading = false;
@@ -117,12 +201,12 @@ export class ProductManagementComponent implements OnInit {
       .subscribe({
         next: (updatedProduct) => {
           console.log('Product updated:', updatedProduct);
-          const frontendProduct = this.mapApiProductToFrontend(updatedProduct);
           const index = this.products.findIndex(
-            (p) => p.id === frontendProduct.id
+            (p) => p.id === updatedProduct.id
           );
           if (index !== -1) {
-            this.products[index] = frontendProduct;
+            this.products[index] = updatedProduct;
+            this.filterProducts(); // Re-apply filters after updating
           }
 
           this.cancelEdit();
@@ -153,6 +237,7 @@ export class ProductManagementComponent implements OnInit {
           this.products = this.products.filter(
             (product) => product.id !== productId
           );
+          this.filterProducts(); // Re-apply filters after deleting
           this.loading = false;
           this.success = 'Product deleted successfully!';
           setTimeout(() => (this.success = ''), 3000);
@@ -168,23 +253,6 @@ export class ProductManagementComponent implements OnInit {
     }
   }
 
-  // Map API response to frontend model
-  private mapApiProductsToFrontend(apiProducts: any[]): Product[] {
-    return apiProducts.map((p) => this.mapApiProductToFrontend(p));
-  }
-
-  private mapApiProductToFrontend(p: any): Product {
-    return {
-      id: p.id,
-      name: p.name,
-      description: p.description,
-      price: p.price,
-      stock: p.quantity,
-      category: p.category?.name || '',
-      imageUrl: p.imagePath || '',
-    };
-  }
-
   private resetNewProduct() {
     this.newProduct = {
       name: '',
@@ -196,32 +264,9 @@ export class ProductManagementComponent implements OnInit {
     };
   }
 
-  // Helper method to check if stock is low (less than 10)
-  isLowStock(stock: number): boolean {
-    return stock < 10;
-  }
-
-  // Method to get stock level class for styling
-  getStockLevelClass(stock: number): string {
-    if (stock === 0) return 'text-red-600 font-bold';
-    if (stock < 5) return 'text-red-500';
-    if (stock < 10) return 'text-orange-500';
-    return 'text-green-500';
-  }
-
   // Cancel add product form
   cancelAddProduct() {
     this.showAddProductForm = false;
     this.resetNewProduct();
-  }
-
-  // Dismiss error message
-  dismissError() {
-    this.error = '';
-  }
-
-  // Dismiss success message
-  dismissSuccess() {
-    this.success = '';
   }
 }

@@ -5,6 +5,14 @@ import { OrderService, Order } from '../../../services/order.service';
 import { Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+// Define interface for status breakdown items
+interface StatusBreakdown {
+  name: string;
+  count: number;
+  percentage: number;
+  className: string;
+}
+
 @Component({
   selector: 'app-order-management',
   standalone: true,
@@ -14,6 +22,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class OrderManagementComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
+  filteredOrders: Order[] = [];
   selectedOrder: Order | null = null;
   loading = false;
   statusLoading: { [key: number]: boolean } = {}; // Track loading state per order
@@ -21,6 +30,8 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
   orderStatuses: string[] = [];
   updateSuccess = false;
   updateMessage = '';
+  searchTerm = '';
+  selectedStatus = '';
 
   // For automatic refresh
   refreshInterval = 30000; // 30 seconds
@@ -54,11 +65,16 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
     this.statusSubscription = this.orderService.fetchOrderStatuses().subscribe({
       next: (statuses) => {
         console.log('Fetched order statuses:', statuses);
-        this.orderStatuses = statuses;
-        this.orderService.setCachedStatuses(statuses);
+        // Ensure we have unique statuses in lowercase for consistent comparison
+        this.orderStatuses = Array.from(
+          new Set(statuses.map((s) => s.trim()))
+        ).sort();
+        this.orderService.setCachedStatuses(this.orderStatuses);
       },
       error: (err) => {
         console.error('Error loading order statuses:', err);
+        // Fallback to default statuses if fetch fails
+        this.orderStatuses = this.orderService.getDefaultOrderStatuses();
       },
     });
   }
@@ -76,6 +92,7 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
         next: (orders) => {
           console.log('Orders refreshed:', orders);
           this.orders = orders;
+          this.searchOrders(); // Apply search filter after refresh
 
           // If we have a selected order, update it as well
           if (this.selectedOrder) {
@@ -102,6 +119,7 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
       next: (orders) => {
         console.log('Orders loaded:', orders);
         this.orders = orders;
+        this.filteredOrders = [...orders];
         this.loading = false;
       },
       error: (err) => {
@@ -133,6 +151,7 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
         const index = this.orders.findIndex((o) => o.id === orderId);
         if (index !== -1) {
           this.orders[index] = updatedOrder;
+          this.searchOrders(); // Refresh filtered orders
         }
 
         // If the selected order is the one being updated, update it too
@@ -152,6 +171,18 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
         this.statusLoading[orderId] = false;
       },
     });
+  }
+
+  updateSelectedOrderStatus() {
+    if (!this.selectedOrder) return;
+
+    const selectElement = document.querySelector(
+      '.modal-select'
+    ) as HTMLSelectElement;
+    if (selectElement) {
+      const event = { target: selectElement } as unknown as Event;
+      this.updateOrderStatus(this.selectedOrder.id, event);
+    }
   }
 
   viewOrderDetails(order: Order) {
@@ -195,5 +226,94 @@ export class OrderManagementComponent implements OnInit, OnDestroy {
   // Check if a particular order is being updated
   isStatusUpdating(orderId: number): boolean {
     return this.statusLoading[orderId] === true;
+  }
+
+  // Get count of pending orders
+  getPendingOrderCount(): number {
+    return this.orders.filter(
+      (order) =>
+        order.status.toLowerCase() === 'pending' ||
+        order.status.toLowerCase() === 'processing'
+    ).length;
+  }
+
+  // Calculate total revenue
+  calculateTotalRevenue(): number {
+    return this.orders.reduce((total, order) => total + order.total, 0);
+  }
+
+  // Get recent orders (last 30 days)
+  getRecentOrderCount(): number {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    return this.orders.filter((order) => {
+      const orderDate = new Date(order.createdAt);
+      return orderDate >= thirtyDaysAgo;
+    }).length;
+  }
+
+  // Add a helper method to normalize status strings for comparison
+  normalizeStatus(status: string): string {
+    return status.toLowerCase().trim();
+  }
+
+  // Add a method to get status class name for styling
+  getStatusClass(status: string): string {
+    const normalizedStatus = this.normalizeStatus(status);
+
+    // Map common status terms to our defined classes
+    if (normalizedStatus.includes('pending')) return 'pending';
+    if (normalizedStatus.includes('process')) return 'processing';
+    if (normalizedStatus.includes('ship')) return 'shipped';
+    if (normalizedStatus.includes('deliver')) return 'delivered';
+    if (normalizedStatus.includes('cancel')) return 'cancelled';
+    if (normalizedStatus.includes('refund')) return 'cancelled';
+    if (normalizedStatus.includes('return')) return 'cancelled';
+    if (normalizedStatus.includes('complet')) return 'delivered';
+
+    // Default class if no match
+    return 'default';
+  }
+
+  // Update the order status breakdown method to use normalized status and include className
+  getOrderStatusBreakdown(): StatusBreakdown[] {
+    const statusCounts: { [key: string]: number } = {};
+    const totalOrders = this.orders.length;
+
+    // Count orders by normalized status
+    this.orders.forEach((order) => {
+      const status = order.status;
+      statusCounts[status] = (statusCounts[status] || 0) + 1;
+    });
+
+    // Convert to array with percentages
+    return Object.keys(statusCounts).map((status) => {
+      const count = statusCounts[status];
+      const percentage = totalOrders > 0 ? (count / totalOrders) * 100 : 0;
+      return {
+        name: status,
+        count,
+        percentage,
+        className: this.getStatusClass(status),
+      };
+    });
+  }
+
+  // Search orders
+  searchOrders() {
+    if (!this.searchTerm.trim()) {
+      this.filteredOrders = [...this.orders];
+      return;
+    }
+
+    const term = this.searchTerm.toLowerCase().trim();
+    this.filteredOrders = this.orders.filter(
+      (order) =>
+        order.id.toString().includes(term) ||
+        order.userId.toString().includes(term) ||
+        order.status.toLowerCase().includes(term) ||
+        order.total.toString().includes(term)
+    );
   }
 }
