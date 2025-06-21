@@ -260,6 +260,21 @@ After adding the new product, the product will show on the product page.
 <br>
 <br>
 
+#### Edir Product Information ####
+To edit the product information, click the "pen" icon, which will redirect to the edit section
+<br>
+![image](https://github.com/user-attachments/assets/c11e01b2-e8a9-4593-b401-5c6d0739109e)
+<br>
+<br>
+After finishing editing, click the "SAVE" button to save the information that you have edited.
+![image](https://github.com/user-attachments/assets/ac6ca998-c978-42e6-ad67-b16909c73aff)
+<br>
+<br>
+The information has been edited successfully.
+<br>
+![image](https://github.com/user-attachments/assets/88ca1c76-99fd-42bb-8a18-a81457956232)
+<br>
+<br>
 
 
 
