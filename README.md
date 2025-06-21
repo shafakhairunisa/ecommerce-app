@@ -398,7 +398,7 @@ Customers also can click the "+" button to increase the product's quantity.
 <br>
 <br>
 
-### Additional Features ###
+### Additional Features 1 ###
 ### Customer - Add Product to Wishlist ###
 Customers can click the love icon to add the item to wishlist.
 <br>
@@ -426,6 +426,7 @@ After click delete, it will successfully remove the item from wishlist.
 <br>
 <br>
 
+### Additional Features 2 ###
 ### Customer - Voucher Feature ###
 To view the voucher, customer can click the love icon at the header of the website.
 <br>
@@ -438,6 +439,7 @@ In voucher page, customer can view the available voucher and the guideline of th
 <br>
 <br>
 
+### Additional Features 3 ###
 ### Customer - Edit User Profile ###
 To edit the profile, customer can click the person icon at the header of the website.
 <br>
@@ -446,10 +448,14 @@ To edit the profile, customer can click the person icon at the header of the web
 <br>
 Customer can edit thier personal information, such as username, email, gender, address and so on.
 <br>
-![image](https://github.com/user-attachments/assets/e178e636-1d40-4095-942d-022e8c49cbdf)
+![image](https://github.com/user-attachments/assets/402f63fc-4a84-49e8-b2a0-1eb9be7beb7e)
 <br>
 <br>
-
+After filled in the information, customer can click "Save" button to record their latest information.
+<br>
+![image](https://github.com/user-attachments/assets/9de8b679-152c-4d55-aa88-851f5316de13)
+<br>
+<br>
 
 
 
