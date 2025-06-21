@@ -226,11 +226,12 @@ Admin can search for products by typing words into the search bar.
 <br>
 
 #### Filter function on the product page (Category and Price) ####
-Admin can choose the category and the order of price then click "Apply filters"
+Admin can choose the category and the order of price then click "Apply filters", or click reset to return to the default.
 <br>
 ![image](https://github.com/user-attachments/assets/d1fad3fa-1407-4376-bd7d-438d960ba0ae)
 <br>
 <br>
+![image](https://github.com/user-attachments/assets/e7dcc4d8-36a1-4b77-8c95-cbb0a7a25bb1)
 
 
 
