@@ -242,16 +242,27 @@ Admin can choose the category and the order of price then click "Apply filters",
 <br>
 
 #### Add New Product ####
-Admin can click the button "+ Add New Product" on the Admin Home Page, or click the "+ Add Products" button on the header of the website 
+Admin can click the button "+ Add New Product" on the Admin Home Page, or click the "+ Add Products" button on the header of the website.
 <br>
 ![image](https://github.com/user-attachments/assets/c46989d4-d84e-48dc-936b-83915ec29f68)
 <br>
 <br>
 To add a new product, admin is required to fill in the information such as name of product, description, price, category and so on.
 <br>
+<br>
 After this, click the "Save" button to add the new product. Admin can also choose to cancel the add product operation by clicking the "Cancel" button.
 <br>
 ![image](https://github.com/user-attachments/assets/68dea5e0-6824-4754-95ad-52986801c0a4)
+<br>
+<br>
+After adding the new product, the product will show on the product page.
+<br>
+![image](https://github.com/user-attachments/assets/711869e5-108b-44c4-b81b-b0b0cd37b632)
+<br>
+<br>
+
+
+
 
 
 ## References (Not less than 20)
