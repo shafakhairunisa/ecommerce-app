@@ -324,6 +324,17 @@ Admin can manage the status of orders and also filter the category of orders.
 <br>
 <br>
 
+### Customer Part ###
+### Customer Product Browsing & Cart Management ###
+### Customer Product Browsing ###
+Home Page of Customer Page
+<br>
+![image](https://github.com/user-attachments/assets/ddf80c64-43b7-487a-8536-1af141ba76e0)
+<br>
+<br>
+Customers can click on this dropdown to select how many products to display per page.
+<br>
+![image](https://github.com/user-attachments/assets/25310033-39fc-4742-aa71-46506391099f)
 
 
 ## References (Not less than 20)
