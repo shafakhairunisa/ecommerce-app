@@ -237,7 +237,9 @@ Admin can choose the category and the order of price then click "Apply filters",
 ![image](https://github.com/user-attachments/assets/875a0884-99c1-4c2b-94ec-2fe7b04b7c64)
 <br>
 <br>
-
+![image](https://github.com/user-attachments/assets/8e265230-bba8-4cb0-ba59-72db15b380b6)
+<br>
+<br>
 
 
 ## References (Not less than 20)
