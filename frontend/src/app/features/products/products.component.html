@@ -176,14 +176,33 @@
                 <span>Only {{ product.stockQuantity }} left!</span>
               </div>
 
-              <button
-                class="btn btn-primary add-to-cart-btn"
-                (click)="openAddToCartModal(product)"
-                [disabled]="product.stockQuantity <= 0">
-                <i class="bi bi-bag-plus"></i>
-                <span *ngIf="product.stockQuantity > 0">Add to Cart</span>
-                <span *ngIf="product.stockQuantity <= 0">Out of Stock</span>
-              </button>
+              <div class="add-to-cart-section">
+                <div class="quantity-controls-card" *ngIf="product.stockQuantity > 0">
+                  <button class="quantity-btn-card" (click)="decreaseProductQuantity(product)" [disabled]="product.quantity <= 1">
+                    <i class="bi bi-dash"></i>
+                  </button>
+                  <input
+                    type="number"
+                    class="quantity-input-card"
+                    [(ngModel)]="product.quantity"
+                    min="1"
+                    [max]="product.stockQuantity"
+                    (change)="validateProductQuantity(product)"
+                    (click)="$event.stopPropagation()">
+                  <button class="quantity-btn-card" (click)="increaseProductQuantity(product)" [disabled]="product.quantity >= product.stockQuantity">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                </div>
+
+                <button
+                  class="btn btn-primary add-to-cart-btn"
+                  (click)="openAddToCartModal(product)"
+                  [disabled]="product.stockQuantity <= 0">
+                  <i class="bi bi-bag-plus"></i>
+                  <span *ngIf="product.stockQuantity > 0">Add to Cart</span>
+                  <span *ngIf="product.stockQuantity <= 0">Out of Stock</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

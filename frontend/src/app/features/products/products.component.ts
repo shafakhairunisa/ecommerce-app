@@ -32,9 +32,9 @@ import { WishlistService } from '../../core/services/wishlist.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit, OnDestroy {
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
-  paginatedProducts: Product[] = []; // Products after pagination is applied
+  products: any[] = [];
+  filteredProducts: any[] = [];
+  paginatedProducts: any[] = []; // Products after pagination is applied
   categories: string[] = [];
   cartItemCount: number = 0;
   cartAnimation: boolean = false;
@@ -45,7 +45,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   sortOrder: string = '';
   
   // Product being added to cart
-  selectedProduct: Product | null = null;
+  selectedProduct: any | null = null;
   quantity: number = 1;
   
   // UI state
@@ -100,7 +100,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.productService.getAllProducts().subscribe({
       next: (data) => {
         console.log('Products loaded:', data.length);
-        this.products = data;
+        this.products = data.map(p => ({ ...p, quantity: 1 }));
         this.filteredProducts = [...this.products];
         this.totalProducts = data.length;
         this.updatePaginatedProducts();
@@ -138,7 +138,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.productService.getAllProducts().subscribe({
         next: (data) => {
           this.products = data;
-          this.filteredProducts = data;
+          this.filteredProducts = data.map(p => ({ ...p, quantity: 1 }));
           this.totalProducts = data.length;
           this.pageIndex = 0; // Reset to first page when filters change
           this.updatePaginatedProducts();
@@ -167,7 +167,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.productService.getFilteredProducts(filterParams).subscribe({
       next: (data) => {
         console.log('Filtered products received:', data.length);
-        this.filteredProducts = data;
+        this.filteredProducts = data.map(p => ({ ...p, quantity: 1 }));
         this.totalProducts = data.length;
         this.pageIndex = 0; // Reset to first page when filters change
         this.updatePaginatedProducts();
@@ -191,8 +191,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     // Refresh products from server
     this.productService.getAllProducts().subscribe({
       next: (data) => {
-        this.products = data;
-        this.filteredProducts = data;
+        this.products = data.map(p => ({ ...p, quantity: 1 }));
+        this.filteredProducts = [...this.products];
         this.totalProducts = data.length;
         this.pageIndex = 0; // Reset to first page
         this.updatePaginatedProducts();
@@ -223,9 +223,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   }
 
-  openAddToCartModal(product: Product): void {
+  openAddToCartModal(product: any): void {
     this.selectedProduct = product;
-    this.quantity = 1;
+    this.quantity = product.quantity || 1;
+    this.validateQuantity();
   }
 
   closeModal(): void {
@@ -316,6 +317,41 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  increaseProductQuantity(product: any): void {
+    if (!product.quantity) {
+      product.quantity = 1;
+    }
+    if (product.quantity < product.stockQuantity) {
+      product.quantity++;
+    }
+  }
+
+  decreaseProductQuantity(product: any): void {
+    if (!product.quantity) {
+      product.quantity = 1;
+    }
+    if (product.quantity > 1) {
+      product.quantity--;
+    }
+  }
+
+  validateProductQuantity(product: any): void {
+    if (!product.stockQuantity) return;
+    
+    if (!product.quantity || isNaN(product.quantity)) {
+      product.quantity = 1;
+    }
+    
+    product.quantity = Math.floor(product.quantity);
+    
+    if (product.quantity < 1) {
+      product.quantity = 1;
+    } else if (product.quantity > product.stockQuantity) {
+      product.quantity = product.stockQuantity;
+    }
+  }
+
 
   logout(): void {
     this.authService.logout();
