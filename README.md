@@ -197,6 +197,13 @@ https://hub.docker.com/r/bcfeszjing/ameen-market-frontend
 ## Link for the YouTube Presentation
 
 ## Result/Output (Screenshot of the output)
+### Admin Product & Order Management ###
+#### Home Page of Admin Page ####
+<br>
+
+![image](https://github.com/user-attachments/assets/9bf2d0d7-dc8e-473f-8ab3-47d38273b87b)
+<br>
+
 
 
 ## References (Not less than 20)
