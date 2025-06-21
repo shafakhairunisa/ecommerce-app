@@ -316,6 +316,15 @@ Admin can view details of the order.
 ![image](https://github.com/user-attachments/assets/3d5fc518-932b-4975-8bf7-c3b33f6a1137)
 <br>
 <br>
+Admin can manage the status of orders and also filter the category of orders.
+<br>
+![image](https://github.com/user-attachments/assets/9c18b5e6-b308-487b-927e-7bf6a3a1265e)
+<br>
+![image](https://github.com/user-attachments/assets/abdadd08-2ca2-4957-9cfb-baac008c8482)
+<br>
+<br>
+
+
 
 ## References (Not less than 20)
 1. Produk AMEEN. (n.d.). Produk AMEEN. https://produkameen.wordpress.com/
