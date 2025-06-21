@@ -1,0 +1,139 @@
+.order-success-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.success-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 80px;
+  color: #4CAF50;
+  margin-bottom: 20px;
+  animation: scale-in 0.5s ease-out;
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #333;
+  animation: fade-in 0.8s ease-out;
+}
+
+.order-details {
+  margin-bottom: 40px;
+  animation: fade-in 1s ease-out;
+}
+
+.order-id {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.thank-you {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.confirmation {
+  font-size: 16px;
+  color: #666;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  animation: fade-in 1.2s ease-out;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.view-orders-btn {
+  background-color: #2E7D32;
+  color: white;
+}
+
+.view-orders-btn:hover {
+  background-color: #1B5E20;
+}
+
+.continue-shopping-btn {
+  background-color: #1976D2;
+  color: white;
+}
+
+.continue-shopping-btn:hover {
+  background-color: #0D47A1;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .success-icon {
+    font-size: 60px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .order-id {
+    font-size: 20px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  button {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,62 @@
+<div class="order-detail-dialog">
+      <h2 mat-dialog-title>Order #{{ data.order.orderId }}</h2>
+      
+      <div mat-dialog-content>
+        <div class="order-info">
+          <div class="order-info-item">
+            <span class="label">Order Date:</span>
+            <span>{{ formatDate(data.order.orderDate) }}</span>
+          </div>
+          <div class="order-info-item">
+            <span class="label">Status:</span>
+            <span class="status-badge {{ data.order.status.toLowerCase() }}">{{ data.order.status }}</span>
+          </div>
+          <div class="order-info-item">
+            <span class="label">Customer:</span>
+            <span>{{ data.order.user?.username || 'Unknown' }}</span>
+          </div>
+        </div>
+        
+        <h3>Items</h3>
+        <div class="order-items">
+          <div *ngIf="!data.order.items?.length" class="no-items">
+            <p>No items found in this order.</p>
+          </div>
+          
+          <div *ngFor="let item of data.order.items" class="order-item">
+            <div class="item-image">
+              <img [src]="getProductImagePath(item.product)" 
+                   alt="{{ item.product?.name || 'Product' }}"
+                   (error)="handleImageError($event, item.product)">
+            </div>
+            <div class="item-details">
+              <h4>{{ item.product?.name || 'Unknown Product' }}</h4>
+              <p class="item-category">{{ item.product?.category || 'Uncategorized' }}</p>
+            </div>
+            <div class="item-price">
+              <p>RM {{ item.price ? item.price.toFixed(2) : '0.00' }} × {{ item.quantity || 0 }}</p>
+              <p class="item-subtotal">RM {{ ((item.price || 0) * (item.quantity || 0)).toFixed(2) }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-totals">
+          <div class="total-item">
+            <span>Subtotal:</span>
+            <span>RM {{ data.order.totalAmount ? data.order.totalAmount.toFixed(2) : '0.00' }}</span>
+          </div>
+          <div class="total-item">
+            <span>Shipping:</span>
+            <span>Free</span>
+          </div>
+          <div class="total-item total">
+            <span>Total:</span>
+            <span>RM {{ data.order.totalAmount ? data.order.totalAmount.toFixed(2) : '0.00' }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div mat-dialog-actions>
+        <button mat-button (click)="onClose()">Close</button>
+      </div>
+    </div>

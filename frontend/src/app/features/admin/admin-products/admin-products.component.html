@@ -1,0 +1,76 @@
+<app-top-navbar></app-top-navbar>
+<div class="admin-content">
+  <!-- Alert Messages -->
+  <div class="alert alert-success" *ngIf="successMessage">
+    <i class="bi bi-check-circle"></i> {{ successMessage }}
+  </div>
+  <div class="alert alert-danger" *ngIf="error">
+    <i class="bi bi-exclamation-triangle"></i> {{ error }}
+  </div>
+
+  <!-- Products Section -->
+  <div *ngIf="activeTab === 'products'">
+    <div class="<header-row">
+      <h2>Products Management</h2>
+      <button mat-raised-button color="primary" (click)="router.navigate(['/adminpage/add-product'])">
+        <mat-icon>add</mat-icon> Add Product
+      </button>
+    </div>
+
+    <!-- Search and filter section -->
+    <div class="filters-section">
+      <div class="search-container">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search products...">
+        <button (click)="applyFilters()">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+
+      <div class="filter-options">
+        <div class="category-filter">
+          <select [(ngModel)]="selectedCategory">
+            <option value="">All Categories</option>
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+        </div>
+
+        <div class="sort-filter">
+          <select [(ngModel)]="sortOrder">
+            <option value="">Sort By</option>
+            <option value="asc">Price: Low to High</option>
+            <option value="desc">Price: High to Low</option>
+          </select>
+        </div>
+
+        <button class="apply-filters" (click)="applyFilters()">Apply Filters</button>
+        <button class="reset-filters" (click)="resetFilters()">Reset</button>
+      </div>
+    </div>
+
+    <!-- Loading indicator -->
+    <div class="loading-container" *ngIf="loading">
+      <div class="spinner"></div>
+    </div>
+
+    <app-admin-table
+      *ngIf="!loading"
+      [columns]="productColumns"
+      [data]="filteredProducts"
+      (edit)="openEditProduct($event)"
+      (delete)="openDeleteProduct($event)"></app-admin-table>
+  </div>
+
+  <!-- Add Product Section -->
+  <div *ngIf="activeTab === 'add-product'">
+    <div class="header-row">
+      <h2>Add New Product</h2>
+    </div>
+    
+    <div class="product-form-container">
+      <app-product-form
+        (formSubmit)="handleProductFormSubmit($event)"
+        (cancelForm)="router.navigate(['/adminpage/products'])">
+      </app-product-form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="voucher-page">
+  <!-- Header -->
+  <app-customer-header></app-customer-header>
+
+  <div class="voucher-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-content">
+        <div class="header-icon">
+          <i class="bi bi-ticket-perforated"></i>
+        </div>
+        <div class="header-info">
+          <h1 class="page-title">AMEEN Market Vouchers</h1>
+          <p class="page-subtitle">Automatic discounts applied at checkout - no codes needed!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="loading-spinner">
+        <i class="bi bi-arrow-clockwise"></i>
+      </div>
+      <p>Loading voucher information...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error-state">
+      <div class="error-icon">
+        <i class="bi bi-exclamation-triangle"></i>
+      </div>
+      <h3>Oops! Something went wrong</h3>
+      <p>{{ error }}</p>
+      <button class="retry-btn" (click)="loadVouchers()">
+        <i class="bi bi-arrow-clockwise"></i>
+        Try Again
+      </button>
+    </div>
+
+    <!-- Voucher Cards -->
+    <div *ngIf="!loading && !error" class="vouchers-grid">
+      <div *ngFor="let voucher of vouchers; let i = index" 
+           class="voucher-card" 
+           [class.featured]="i === vouchers.length - 1">
+        <div class="voucher-header">
+          <div class="discount-badge">
+            <span class="percentage">{{ voucher.discountPercentage }}%</span>
+            <span class="off-text">OFF</span>
+          </div>
+          <div class="voucher-title">
+            <h3>{{ voucher.title }}</h3>
+            <p>{{ voucher.description }}</p>
+          </div>
+        </div>
+        
+        <div class="voucher-details">
+          <div class="min-spend">
+            <i class="bi bi-wallet2"></i>
+            <span>Minimum spend: <strong>RM{{ voucher.minAmount }}</strong></span>
+          </div>
+          <div class="auto-apply">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Automatically applied at checkout</span>
+          </div>
+        </div>
+        
+        <div class="voucher-terms">
+          <p>{{ voucher.terms }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div *ngIf="!loading && !error" class="how-it-works">
+      <h2>How It Works</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-icon">
+            <i class="bi bi-cart-plus"></i>
+          </div>
+          <h3>1. Shop</h3>
+          <p>Add your favorite products to cart</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="bi bi-calculator"></i>
+          </div>
+          <h3>2. Reach Minimum</h3>
+          <p>Meet the minimum spend requirement</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="bi bi-percent"></i>
+          </div>
+          <h3>3. Get Discount</h3>
+          <p>Discount automatically applied at checkout</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="bi bi-bag-check"></i>
+          </div>
+          <h3>4. Save Money</h3>
+          <p>Enjoy your savings on every order</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

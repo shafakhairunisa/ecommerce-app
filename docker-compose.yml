@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: qurbadb 
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - "./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql"
+    networks:
+      - qurba-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  backend:
+    image: bcfeszjing/ameen-market-backend:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/qurbadb?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVER_SERVLET_CONTEXT_PATH=/qurba
+    volumes:
+      - ./backend/QurbaProductPhoto:/app/QurbaProductPhoto
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - qurba-network
+
+  frontend:
+    image: bcfeszjing/ameen-market-frontend:latest
+    ports:
+      - "4200:80" 
+    environment:
+      - API_URL=http://backend:8080/qurba/api
+    depends_on:
+      - backend
+    networks:
+      - qurba-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+      - PMA_ARBITRARY=1
+    ports:
+      - "8082:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - qurba-network
+
+networks:
+  qurba-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  product_images:

@@ -1,0 +1,94 @@
+<div class="customer-header">
+  <div class="header-container">
+    <div class="header-brand">
+      <div class="brand-logo">
+        <img src="assets/logo.png" alt="Qurba Food Logo" class="logo-image">
+      </div>
+      <div class="brand-info">
+        <h1 class="brand-title">AMEEN Market</h1>
+        <span class="brand-subtitle">Customer Portal</span>
+      </div>
+    </div>
+
+    <div class="header-navigation">
+      <nav class="nav-menu" [class.active]="mobileMenuOpen">
+        <a [routerLink]="['/customer/dashboard']"
+           [class.active]="isActive('/customer/dashboard')"
+           class="nav-item"
+           (click)="closeMobileMenu()">
+          <div class="nav-icon">
+            <i class="bi bi-grid-3x3-gap"></i>
+          </div>
+          <span class="nav-text">Products</span>
+        </a>
+
+        <a [routerLink]="['/customer/cart']"
+           [class.active]="isActive('/customer/cart')"
+           [class.cart-bounce]="cartAnimation"
+           class="nav-item cart-nav"
+           (click)="closeMobileMenu()">
+          <div class="nav-icon">
+            <i class="bi bi-bag"></i>
+            <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+          </div>
+          <span class="nav-text">Cart</span>
+        </a>
+
+        <a [routerLink]="['/customer/wishlist']"
+           [class.active]="isActive('/customer/wishlist')"
+           class="nav-item"
+           (click)="closeMobileMenu()">
+          <div class="nav-icon">
+            <i class="bi bi-heart"></i>
+          </div>
+          <span class="nav-text">Wishlist</span>
+        </a>
+
+        <a [routerLink]="['/customer/voucher']"
+           [class.active]="isActive('/customer/voucher')"
+           class="nav-item"
+           (click)="closeMobileMenu()">
+          <div class="nav-icon">
+            <i class="bi bi-ticket-perforated"></i>
+          </div>
+          <span class="nav-text">Vouchers</span>
+        </a>
+
+        <a [routerLink]="['/customer/orders']"
+           [class.active]="isActive('/customer/orders')"
+           class="nav-item"
+           (click)="closeMobileMenu()">
+          <div class="nav-icon">
+            <i class="bi bi-clock-history"></i>
+          </div>
+          <span class="nav-text">Orders</span>
+        </a>
+
+        <a [routerLink]="['/customer/profile']"
+           [class.active]="isActive('/customer/profile')"
+           class="nav-item"
+           (click)="closeMobileMenu()">
+          <div class="nav-icon">
+            <i class="bi bi-person-circle"></i>
+          </div>
+          <span class="nav-text">Profile</span>
+        </a>
+
+        <button type="button" class="nav-item logout-btn" (click)="onLogout($event)">
+          <div class="nav-icon">
+            <i class="bi bi-box-arrow-right"></i>
+          </div>
+          <span class="nav-text">Logout</span>
+        </button>
+      </nav>
+
+      <button class="mobile-toggle"
+              (click)="toggleMobileMenu()"
+              [class.active]="mobileMenuOpen">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+      </button>
+    </div>
+  </div>
+</div>

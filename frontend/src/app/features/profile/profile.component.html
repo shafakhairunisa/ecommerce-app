@@ -1,0 +1,220 @@
+<div class="modern-profile-page">
+  <!-- Use the shared header component -->
+  <app-customer-header></app-customer-header>
+
+  <div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="header-content">
+        <div class="profile-avatar">
+          <div class="avatar-circle">
+            <i class="bi bi-person-fill"></i>
+          </div>
+        </div>
+        <div class="header-info">
+          <h1 class="profile-title">My Profile</h1>
+          <p class="profile-subtitle">Manage your account settings and preferences</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Information Card -->
+    <div class="profile-card">
+      <div class="card-header">
+        <div class="card-icon">
+          <i class="bi bi-person-lines-fill"></i>
+        </div>
+        <div class="card-title">
+          <h2>Personal Information</h2>
+          <p>Update your basic profile details</p>
+        </div>
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="modern-form">
+        <div class="form-grid">
+          <div class="input-group">
+            <label class="input-label">Username *</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-person"></i>
+              <input
+                formControlName="username"
+                type="text"
+                class="modern-input"
+                placeholder="Enter your username" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Email Address *</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-envelope"></i>
+              <input
+                formControlName="email"
+                type="email"
+                class="modern-input"
+                placeholder="Enter your email" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Account Role</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-shield-check"></i>
+              <input
+                formControlName="role"
+                type="text"
+                class="modern-input readonly"
+                readonly />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Gender</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-gender-ambiguous"></i>
+              <select formControlName="gender" class="modern-select">
+                <option value="">Select Gender</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group full-width">
+            <label class="input-label">Bio</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-chat-text"></i>
+              <textarea
+                formControlName="bio"
+                rows="3"
+                class="modern-textarea"
+                placeholder="Tell us about yourself"></textarea>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Address</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-geo-alt"></i>
+              <input
+                formControlName="address"
+                type="text"
+                class="modern-input"
+                placeholder="Enter your address" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Phone Number</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-telephone"></i>
+              <input
+                formControlName="phoneNumber"
+                type="text"
+                class="modern-input"
+                placeholder="Enter phone number" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Date of Birth</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-calendar"></i>
+              <input
+                formControlName="dateOfBirth"
+                type="date"
+                class="modern-input" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="loading || profileForm.invalid" class="btn-primary">
+            <i class="bi bi-check2-circle"></i>
+            <span>{{ loading ? 'Saving...' : 'Save Profile' }}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Password Change Card -->
+    <div class="profile-card">
+      <div class="card-header">
+        <div class="card-icon security">
+          <i class="bi bi-shield-lock"></i>
+        </div>
+        <div class="card-title">
+          <h2>Security Settings</h2>
+          <p>Update your password to keep your account secure</p>
+        </div>
+      </div>
+
+      <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="modern-form">
+        <div class="form-grid password-grid">
+          <div class="input-group">
+            <label class="input-label">Current Password *</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-lock"></i>
+              <input
+                [type]="showCurrentPassword ? 'text' : 'password'"
+                formControlName="currentPassword"
+                class="modern-input"
+                placeholder="Enter current password" />
+              <button type="button" class="password-toggle" (click)="toggleShowCurrentPassword()">
+                <i class="bi" [ngClass]="showCurrentPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">New Password *</label>
+            <div class="input-container">
+              <i class="input-icon bi bi-key"></i>
+              <input
+                [type]="showNewPassword ? 'text' : 'password'"
+                formControlName="newPassword"
+                class="modern-input"
+                placeholder="Enter new password" />
+              <button type="button" class="password-toggle" (click)="toggleShowNewPassword()">
+                <i class="bi" [ngClass]="showNewPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+            <div class="input-help" *ngIf="passwordForm.get('newPassword')?.errors?.['pattern']">
+              <i class="bi bi-info-circle"></i>
+              <span>Password must contain at least one uppercase letter, one lowercase letter, and one number</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="loading || passwordForm.invalid" class="btn-secondary">
+            <i class="bi bi-shield-check"></i>
+            <span>{{ loading ? 'Updating...' : 'Update Password' }}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Alert Messages -->
+    <div *ngIf="successMessage" class="modern-alert success">
+      <div class="alert-icon">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+      <div class="alert-content">
+        <h4>Success!</h4>
+        <p>{{ successMessage }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="modern-alert error">
+      <div class="alert-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <div class="alert-content">
+        <h4>Error</h4>
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+  </div>
+</div>

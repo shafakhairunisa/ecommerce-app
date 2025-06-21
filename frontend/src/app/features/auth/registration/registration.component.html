@@ -1,0 +1,248 @@
+<div class="luxury-auth-page">
+  <!-- Animated Background -->
+  <div class="auth-background">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+    <div class="floating-particles">
+      <div class="particle" *ngFor="let i of [1,2,3,4,5,6,7,8]"></div>
+    </div>
+  </div>
+
+  <!-- Left Side - Enhanced Registration Form -->
+  <div class="auth-form-section">
+    <div class="form-container">
+      <div class="form-header">
+        <h2 class="form-title">Join AMEEN Market</h2>
+        <p class="form-subtitle">Create your account and discover amazing flavors</p>
+
+        <div class="auth-toggle">
+          <span class="toggle-text">Already a member?</span>
+          <button class="toggle-link" (click)="goToLogin()">
+            <span>Sign In</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+        <form [formGroup]="registrationForm" (ngSubmit)="onRegister()" class="professional-form">
+          <!-- Enhanced Error Alert -->
+          <div class="error-alert" *ngIf="error">
+            <div class="alert-icon">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <div class="alert-content">
+              <strong>Registration Failed</strong>
+              <p>{{ error }}</p>
+            </div>
+          </div>
+
+          <!-- Username Field -->
+          <div class="input-group">
+            <label class="input-label" for="reg-username">Username</label>
+            <div class="input-container">
+              <div class="input-icon">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <input
+                type="text"
+                id="reg-username"
+                name="username"
+                class="professional-input"
+                placeholder="Choose a unique username"
+                formControlName="username"
+                autocomplete="username"
+                [class.error]="registerSubmitted && f['username'].errors">
+            </div>
+            <div class="input-error" *ngIf="registerSubmitted && f['username'].errors">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="f['username'].errors?.['required']">Username is required</span>
+              <span *ngIf="f['username'].errors?.['minlength']">Username must be at least 3 characters</span>
+            </div>
+          </div>
+
+        <!-- Email Field -->
+        <div class="input-group">
+          <label class="input-label" for="reg-email">Email Address</label>
+          <div class="input-container">
+            <div class="input-icon">
+              <i class="bi bi-envelope"></i>
+            </div>
+            <input
+              type="email"
+              id="reg-email"
+              name="email"
+              class="professional-input"
+              placeholder="Enter your email address"
+              formControlName="email"
+              autocomplete="email"
+              [class.error]="registerSubmitted && f['email'].errors">
+          </div>
+          <div class="input-error" *ngIf="registerSubmitted && f['email'].errors">
+            <i class="bi bi-exclamation-circle"></i>
+            <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+            <span *ngIf="f['email'].errors?.['email']">Please enter a valid email address</span>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="input-group">
+          <label class="input-label" for="reg-password">Password</label>
+          <div class="input-container">
+            <div class="input-icon">
+              <i class="bi bi-lock"></i>
+            </div>
+            <input
+              [type]="hidePassword ? 'password' : 'text'"
+              id="reg-password"
+              name="password"
+              class="professional-input"
+              placeholder="Create a secure password"
+              formControlName="password"
+              autocomplete="new-password"
+              [class.error]="registerSubmitted && f['password'].errors">
+            <button type="button" class="password-visibility" (click)="togglePasswordVisibility()">
+              <i class="bi" [ngClass]="hidePassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+            </button>
+          </div>
+
+          <!-- Password Strength Indicator -->
+          <div class="password-strength">
+            <div class="strength-requirements">
+              <div class="requirement-item" [class.met]="hasMinLength">
+                <i class="bi" [ngClass]="hasMinLength ? 'bi-check-circle-fill' : 'bi-circle'"></i>
+                <span>At least 6 characters</span>
+              </div>
+              <div class="requirement-item" [class.met]="hasUppercase">
+                <i class="bi" [ngClass]="hasUppercase ? 'bi-check-circle-fill' : 'bi-circle'"></i>
+                <span>One uppercase letter</span>
+              </div>
+              <div class="requirement-item" [class.met]="hasLowercase">
+                <i class="bi" [ngClass]="hasLowercase ? 'bi-check-circle-fill' : 'bi-circle'"></i>
+                <span>One lowercase letter</span>
+              </div>
+              <div class="requirement-item" [class.met]="hasNumber">
+                <i class="bi" [ngClass]="hasNumber ? 'bi-check-circle-fill' : 'bi-circle'"></i>
+                <span>One number</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-error" *ngIf="registerSubmitted && f['password'].errors">
+            <i class="bi bi-exclamation-circle"></i>
+            <span *ngIf="f['password'].errors?.['required']">Password is required</span>
+            <span *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+            <span *ngIf="f['password'].errors?.['pattern']">Password must meet all requirements above</span>
+          </div>
+        </div>
+
+        <!-- Role Field -->
+        <div class="input-group">
+          <label class="input-label" for="reg-role">Account Type</label>
+          <div class="input-container">
+            <div class="input-icon">
+              <i class="bi bi-person-badge"></i>
+            </div>
+            <select
+              id="reg-role"
+              name="role"
+              class="professional-input professional-select"
+              formControlName="role">
+              <option value="customer">Customer - Shop and order food</option>
+              <option value="admin">Admin - Manage store and orders</option>
+            </select>
+            <div class="select-arrow">
+              <i class="bi bi-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="loading" class="professional-submit-btn">
+          <span class="btn-content" *ngIf="!loading">
+            <i class="bi bi-person-plus-fill"></i>
+            <span>Create My Account</span>
+          </span>
+          <span class="btn-loading" *ngIf="loading">
+            <div class="loading-spinner"></div>
+            <span>Creating your account...</span>
+          </span>
+        </button>
+
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Right Side - Benefits & Information -->
+  <div class="auth-benefits-section">
+    <div class="benefits-content">
+      <div class="benefits-header">
+        <div class="brand-logo-small">
+          <img src="assets/logo.png" alt="AMEEN Market Logo" class="logo-img">
+        </div>
+        <h1 class="benefits-title">Why Choose AMEEN Market?</h1>
+        <p class="benefits-subtitle">Join thousands of satisfied customers</p>
+      </div>
+
+      <div class="benefits-list">
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="bi bi-lightning-charge"></i>
+          </div>
+          <div class="benefit-content">
+            <h3>Lightning Fast Delivery</h3>
+            <p>Get your favorite foods delivered in under 30 minutes</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <div class="benefit-content">
+            <h3>100% Halal Certified</h3>
+            <p>All our products are certified halal and meet the highest quality standards</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="bi bi-heart"></i>
+          </div>
+          <div class="benefit-content">
+            <h3>Fresh & Quality</h3>
+            <p>Handpicked fresh ingredients and premium quality products</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <i class="bi bi-headset"></i>
+          </div>
+          <div class="benefit-content">
+            <h3>24/7 Support</h3>
+            <p>Our customer service team is always here to help you</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="customer-stats">
+        <div class="stat-item">
+          <div class="stat-number">50K+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1M+</div>
+          <div class="stat-label">Orders Delivered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4.9★</div>
+          <div class="stat-label">Customer Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

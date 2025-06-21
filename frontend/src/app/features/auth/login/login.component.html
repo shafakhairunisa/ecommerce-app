@@ -1,0 +1,241 @@
+<div class="luxury-auth-page">
+  <!-- Animated Background -->
+  <div class="auth-background">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+    <div class="floating-particles">
+      <div class="particle" *ngFor="let i of [1,2,3,4,5,6,7,8]"></div>
+    </div>
+  </div>
+
+  <!-- Left Side - Enhanced Branding -->
+  <div class="auth-branding-section">
+    <div class="branding-content">
+      <!-- Animated Logo Section -->
+      <div class="brand-header">
+        <div class="brand-logo-container">
+          <div class="logo-glow"></div>
+          <div class="brand-logo-large">
+            <img src="assets/logo.png" alt="AMEEN Market Logo" class="logo-img">
+          </div>
+          <div class="logo-rings">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+          </div>
+        </div>
+        <h1 class="brand-name">
+          <span class="brand-text">AMEEN</span>
+          <span class="brand-accent">Market</span>
+        </h1>
+        <p class="brand-tagline">
+          <i class="bi bi-star-fill"></i>
+          Premium Culinary Experience
+          <i class="bi bi-star-fill"></i>
+        </p>
+      </div>
+
+      <!-- Enhanced Features with Icons -->
+      <div class="features-showcase">
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon">
+              <i class="bi bi-shield-check-fill"></i>
+            </div>
+            <div class="icon-glow"></div>
+          </div>
+          <div class="feature-text">
+            <h3>Bank-Level Security</h3>
+            <p>Your data protected with military-grade encryption</p>
+          </div>
+        </div>
+
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon">
+              <i class="bi bi-lightning-charge-fill"></i>
+            </div>
+            <div class="icon-glow"></div>
+          </div>
+          <div class="feature-text">
+            <h3>Lightning Fast</h3>
+            <p>30-minute delivery guarantee or it's free</p>
+          </div>
+        </div>
+
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon">
+              <i class="bi bi-gem"></i>
+            </div>
+            <div class="icon-glow"></div>
+          </div>
+          <div class="feature-text">
+            <h3>Premium Quality</h3>
+            <p>Handpicked ingredients from trusted suppliers</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced Testimonial -->
+      <div class="testimonial-section">
+        <div class="testimonial-card">
+          <div class="quote-icon">
+            <i class="bi bi-quote"></i>
+          </div>
+          <p class="testimonial-text">"AMEEN Market has revolutionized my cooking experience. The quality is unmatched and the service is exceptional!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="assets/avatar-placeholder.jpg" alt="Customer" onerror="this.style.display='none'">
+              <div class="avatar-fallback">S</div>
+            </div>
+            <div class="author-info">
+              <strong>Sarah Ahmad</strong>
+              <span>Premium Member</span>
+              <div class="rating">
+                <i class="bi bi-star-fill" *ngFor="let star of [1,2,3,4,5]"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side - Enhanced Login Form -->
+  <div class="auth-form-section">
+    <div class="form-container">
+      <!-- Glassmorphism Card -->
+      <div class="form-card">
+        <div class="form-header">
+          <div class="welcome-animation">
+            <div class="welcome-icon">
+              <i class="bi bi-person-circle"></i>
+            </div>
+          </div>
+          <h2 class="form-title">
+            <span class="title-main">Welcome Back</span>
+            <span class="title-accent">to AMEEN Market</span>
+          </h2>
+          <p class="form-subtitle">Sign in to continue your culinary journey</p>
+
+          <div class="auth-toggle">
+            <span class="toggle-text">New to AMEEN Market?</span>
+            <button class="toggle-link" (click)="goToRegister()">
+              <span>Create Account</span>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="luxury-form">
+          <!-- Enhanced Error Alert -->
+          <div class="error-alert" *ngIf="error">
+            <div class="alert-decoration"></div>
+            <div class="alert-icon">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <div class="alert-content">
+              <strong>Authentication Failed</strong>
+              <p>{{ error }}</p>
+            </div>
+          </div>
+
+          <!-- Enhanced Username Field -->
+          <div class="input-group" data-aos="fade-up" data-aos-delay="100">
+            <label class="input-label" for="username">
+              <i class="bi bi-person-fill"></i>
+              <span>Username or Email</span>
+            </label>
+            <div class="input-wrapper">
+              <div class="input-container">
+                <div class="input-decoration"></div>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  class="luxury-input"
+                  placeholder="Enter your username or email"
+                  formControlName="username"
+                  autocomplete="username"
+                  [class.error]="loginSubmitted && l['username'].errors">
+                <div class="input-focus-line"></div>
+              </div>
+            </div>
+            <div class="input-error" *ngIf="loginSubmitted && l['username'].errors">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="l['username'].errors?.['required']">Username is required</span>
+            </div>
+          </div>
+
+          <!-- Enhanced Password Field -->
+          <div class="input-group" data-aos="fade-up" data-aos-delay="200">
+            <label class="input-label" for="password">
+              <i class="bi bi-shield-lock-fill"></i>
+              <span>Password</span>
+            </label>
+            <div class="input-wrapper">
+              <div class="input-container">
+                <div class="input-decoration"></div>
+                <input
+                  [type]="hidePassword ? 'password' : 'text'"
+                  id="password"
+                  name="password"
+                  class="luxury-input"
+                  placeholder="Enter your password"
+                  formControlName="password"
+                  autocomplete="current-password"
+                  [class.error]="loginSubmitted && l['password'].errors">
+                <button type="button" class="password-visibility" (click)="togglePasswordVisibility()">
+                  <i class="bi" [ngClass]="hidePassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+                </button>
+                <div class="input-focus-line"></div>
+              </div>
+            </div>
+            <div class="input-error" *ngIf="loginSubmitted && l['password'].errors">
+              <i class="bi bi-exclamation-circle"></i>
+              <span *ngIf="l['password'].errors?.['required']">Password is required</span>
+            </div>
+          </div>
+
+          <!-- Enhanced Form Options -->
+          <div class="form-options" data-aos="fade-up" data-aos-delay="300">
+            <label class="luxury-checkbox">
+              <input
+                type="checkbox"
+                formControlName="rememberMe">
+              <span class="checkbox-mark">
+                <i class="bi bi-check"></i>
+              </span>
+              <span class="checkbox-label">Keep me signed in for 30 days</span>
+            </label>
+
+            <a href="#" class="forgot-password">
+              <i class="bi bi-key"></i>
+              <span>Forgot Password?</span>
+            </a>
+          </div>
+
+          <!-- Enhanced Submit Button -->
+          <button type="submit" [disabled]="loading" class="luxury-submit-btn" data-aos="fade-up" data-aos-delay="400">
+            <div class="btn-background"></div>
+            <span class="btn-content" *ngIf="!loading">
+              <i class="bi bi-box-arrow-in-right"></i>
+              <span>Sign In to Account</span>
+              <div class="btn-shine"></div>
+            </span>
+            <span class="btn-loading" *ngIf="loading">
+              <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+              </div>
+              <span>Signing you in...</span>
+            </span>
+          </button>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

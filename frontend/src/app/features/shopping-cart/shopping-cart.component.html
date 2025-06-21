@@ -1,0 +1,135 @@
+<div class="cart-container">
+  <!-- Use the shared header component -->
+  <app-customer-header [cartCount]="cartCount"></app-customer-header>
+
+  <div class="page-title">
+    <h1><i class="bi bi-cart3"></i> Your Cart</h1>
+  </div>
+
+  <!-- Alert Messages -->
+  <div class="alert-container">
+    <div class="alert alert-success" *ngIf="successMessage">
+      <i class="bi bi-check-circle"></i> {{ successMessage }}
+    </div>
+    <div class="alert alert-danger" *ngIf="error">
+      <i class="bi bi-exclamation-circle"></i> {{ error }}
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Confirmation Dialog -->
+  <div class="confirmation-dialog" *ngIf="showConfirmation">
+    <div class="confirmation-content">
+      <h3>{{ confirmationTitle }}</h3>
+      <p>{{ confirmationMessage }}</p>
+      <div class="confirmation-actions">
+        <button class="cancel-btn" (click)="cancelConfirmation()">Cancel</button>
+        <button class="confirm-btn" (click)="confirmAction()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Content -->
+  <div class="cart-content" *ngIf="!loading">
+    <div class="empty-cart" *ngIf="!cart || cart.items.length === 0">
+      <div class="empty-cart-message">
+        <i class="bi bi-cart-x"></i>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added any products to your cart yet.</p>
+        <button class="continue-shopping" (click)="continueShopping()">
+          <i class="bi bi-arrow-left"></i> Continue Shopping
+        </button>
+      </div>
+    </div>
+
+    <div class="cart-items-container" *ngIf="cart && cart.items.length > 0">
+      <div class="cart-items">
+        <div class="cart-header">
+          <div class="header-product">Product</div>
+          <div class="header-price">Price</div>
+          <div class="header-quantity">Quantity</div>
+          <div class="header-subtotal">Subtotal</div>
+          <div class="header-actions">Actions</div>
+        </div>
+        
+        <div class="cart-item" *ngFor="let item of cart.items">
+          <div class="item-product">
+            <div class="item-image">
+              <img [src]="getProductImagePath(item)" alt="{{ item.product?.name }}">
+            </div>
+            <div class="item-details">
+              <h3>{{ item.product?.name }}</h3>
+              <p class="item-category">{{ item.product?.category }}</p>
+            </div>
+          </div>
+          <div class="item-price" data-label="Price:">
+            <p>RM {{ (item.product && item.product.price) ? (item.product.price.toFixed(2)) : '0.00' }}</p>
+          </div>
+          <div class="item-quantity" data-label="Quantity:">
+            <div class="quantity-controls">
+              <button type="button" (click)="updateQuantity(item, item.quantity - 1)" [disabled]="loading">-</button>
+              <input 
+                type="number" 
+                [ngModel]="item.quantity" 
+                (ngModelChange)="updateQuantity(item, $event)" 
+                min="1" 
+                [max]="item.product?.stockQuantity || 1" 
+                [disabled]="loading">
+              <button 
+                type="button"
+                (click)="updateQuantity(item, item.quantity + 1)" 
+                [disabled]="loading || (item.product && item.quantity >= item.product.stockQuantity)">+</button>
+            </div>
+          </div>
+          <div class="item-subtotal" data-label="Subtotal:">
+            <p>RM {{ ((item.product?.price || 0) * item.quantity).toFixed(2) }}</p>
+          </div>
+          <div class="item-actions">
+            <button 
+              type="button" 
+              class="remove-item" 
+              (click)="removeItem(getItemProductId(item))">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-summary">
+        <h2>Order Summary</h2>
+        <div class="summary-item">
+          <span>Subtotal</span>
+          <span>RM {{ getSubtotal() }}</span>
+        </div>
+        <div class="summary-item">
+          <span>Shipping</span>
+          <span>Free</span>
+        </div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span>RM {{ getTotal() }}</span>
+        </div>
+        <button 
+          class="checkout-button" 
+          (click)="checkout()" 
+          [disabled]="loading || !cart || cart.items.length === 0">
+          <i class="bi bi-credit-card"></i> <span *ngIf="!loading">Proceed to Checkout</span>
+          <span *ngIf="loading" class="button-spinner"></span>
+        </button>
+        <button 
+          class="clear-cart" 
+          (click)="clearCart()" 
+          [disabled]="loading || !cart || cart.items.length === 0">
+          <i class="bi bi-trash"></i> Clear Cart
+        </button>
+        <button class="continue-shopping" (click)="continueShopping()">
+          <i class="bi bi-arrow-left"></i> Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

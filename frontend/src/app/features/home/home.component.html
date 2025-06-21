@@ -1,0 +1,422 @@
+<!-- Modern Hero Section -->
+<section id="hero" class="hero-modern">
+    <div class="hero-background">
+        <div class="hero-gradient"></div>
+        <div class="hero-pattern"></div>
+    </div>
+
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="bi bi-star-fill"></i>
+                <span>Premium Quality Food</span>
+            </div>
+
+            <h1 class="hero-title">
+                <span class="title-line">Exceptional</span>
+                <span class="title-line highlight">Culinary</span>
+                <span class="title-line">Experience</span>
+            </h1>
+
+            <p class="hero-description">
+                Discover artisanal flavors crafted with passion and served with excellence.
+                From farm-fresh ingredients to your table, every bite tells a story.
+            </p>
+
+            <div class="hero-actions">
+                <button class="btn btn-primary btn-lg hero-cta" (click)="onSlideClick()">
+                    <i class="bi bi-bag-heart"></i>
+                    <span>Explore Menu</span>
+                </button>
+                <button class="btn btn-outline btn-lg hero-secondary">
+                    <i class="bi bi-play-circle"></i>
+                    <span>Watch Story</span>
+                </button>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Menu Items</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">4.9</div>
+                    <div class="stat-label">Rating</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-image-container">
+                <div class="floating-card card-1">
+                    <img [src]="'assets/' + slides[0].image" [alt]="slides[0].alt">
+                    <div class="card-content">
+                        <div class="card-rating">
+                            <i class="bi bi-star-fill"></i>
+                            <span>4.9</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-card card-2">
+                    <img [src]="'assets/' + slides[1].image" [alt]="slides[1].alt">
+                    <div class="card-content">
+                        <div class="card-price">$24.99</div>
+                    </div>
+                </div>
+
+                <div class="floating-card card-3">
+                    <img [src]="'assets/' + slides[2].image" [alt]="slides[2].alt">
+                    <div class="card-content">
+                        <div class="card-badge">New</div>
+                    </div>
+                </div>
+
+                <div class="hero-main-image">
+                    <img [src]="'assets/' + slides[currentSlide].image" [alt]="slides[currentSlide].alt">
+                    <div class="image-glow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-text">Scroll to explore</div>
+        <div class="scroll-arrow">
+            <i class="bi bi-chevron-down"></i>
+        </div>
+    </div>
+</section>
+
+<!-- Modern Features Section -->
+<section class="features-modern">
+    <div class="container">
+        <div class="features-header">
+            <h2 class="text-display text-4xl text-center mb-4">Why Choose Us</h2>
+            <p class="text-lg text-gray-600 text-center mb-8">Experience the difference with our premium services</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card-modern">
+                <div class="feature-icon-wrapper">
+                    <div class="feature-icon bg-primary">
+                        <i class="bi bi-truck"></i>
+                    </div>
+                    <div class="feature-pulse"></div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Lightning Fast Delivery</h3>
+                    <p class="feature-description">Free delivery on orders over $50. Get your food delivered in 30 minutes or less.</p>
+                    <div class="feature-highlight">
+                        <span class="highlight-text">Free on $50+</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card-modern">
+                <div class="feature-icon-wrapper">
+                    <div class="feature-icon bg-secondary">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <div class="feature-pulse"></div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Secure & Safe</h3>
+                    <p class="feature-description">100% secure payment processing with bank-level encryption for your peace of mind.</p>
+                    <div class="feature-highlight">
+                        <span class="highlight-text">SSL Protected</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card-modern">
+                <div class="feature-icon-wrapper">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="bi bi-award"></i>
+                    </div>
+                    <div class="feature-pulse"></div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Premium Quality</h3>
+                    <p class="feature-description">Fresh ingredients sourced daily from local farms and premium suppliers worldwide.</p>
+                    <div class="feature-highlight">
+                        <span class="highlight-text">Farm Fresh</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card-modern">
+                <div class="feature-icon-wrapper">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="bi bi-headset"></i>
+                    </div>
+                    <div class="feature-pulse"></div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">24/7 Support</h3>
+                    <p class="feature-description">Round-the-clock customer support to assist you with any questions or concerns.</p>
+                    <div class="feature-highlight">
+                        <span class="highlight-text">Always Available</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modern Blog Section -->
+<section id="blog" class="blog-section-modern">
+    <div class="container">
+        <div class="blog-header">
+            <div class="blog-header-content">
+                <h2 class="text-display text-4xl mb-4">Culinary Stories</h2>
+                <p class="text-lg text-gray-600 mb-8">Discover the passion behind every dish and the stories that inspire our kitchen</p>
+            </div>
+            <div class="blog-header-action">
+                <button class="btn btn-outline">
+                    <span>View All Stories</span>
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="blog-grid">
+            <div class="blog-card-modern" *ngFor="let post of blogPosts; let i = index" [class]="'blog-card-' + (i + 1)">
+                <div class="blog-image-wrapper">
+                    <img [src]="'assets/' + post.image" [alt]="post.title" class="blog-image">
+                    <div class="blog-overlay">
+                        <div class="blog-category">
+                            <span>Culinary</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-content-modern">
+                    <div class="blog-meta">
+                        <span class="blog-date">
+                            <i class="bi bi-calendar3"></i>
+                            Dec 15, 2024
+                        </span>
+                        <span class="blog-read-time">
+                            <i class="bi bi-clock"></i>
+                            5 min read
+                        </span>
+                    </div>
+                    <h3 class="blog-title">{{post.title}}</h3>
+                    <p class="blog-excerpt">{{post.description}}</p>
+                    <button class="blog-read-more" (click)="openBlogModal(post)">
+                        <span>Read Full Story</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeModal()">
+            <i class="bi bi-x"></i>
+        </button>
+        <div class="modal-body" *ngIf="selectedBlog">
+            <div class="modal-image">
+                <img [src]="'assets/' + selectedBlog.image" [alt]="selectedBlog.title">
+            </div>
+            <div class="modal-content-wrapper">
+                <h2>{{selectedBlog.title}}</h2>
+                <p>{{selectedBlog.fullContent}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modern About Section -->
+<section id="about" class="about-section-modern">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-content-modern">
+                <div class="about-header">
+                    <h2 class="text-display text-4xl mb-6">Our Culinary Heritage</h2>
+                    <p class="text-lg text-gray-600 mb-8">A journey of passion, tradition, and innovation in every dish we create</p>
+                </div>
+
+                <div class="company-story">
+                    <div class="story-card">
+                        <div class="story-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div class="story-content">
+                            <h3>AMEEN Market Industries</h3>
+                            <p>Established as a fully owned Bumiputera Islamic enterprise, our journey began in 2007 with a vision to bring authentic flavors to every table.</p>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <div class="story-content">
+                            <h3>Our Home Base</h3>
+                            <p>Located at No.66 & 67, Lot Industri KEDA Napoh, 06000 Jitra, Kedah Darul Aman, where tradition meets modern food production.</p>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <div class="story-content">
+                            <h3>Official Registration</h3>
+                            <p>Registered as AMEEN Food Manufacturing Sdn.Bhd. on August 17, 2011, marking our commitment to quality and excellence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-values">
+                    <h3 class="text-display text-2xl mb-6">Our Core Values</h3>
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="bi bi-award"></i>
+                            </div>
+                            <span>Premium Quality Ingredients</span>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <span>Expert Culinary Team</span>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="bi bi-leaf"></i>
+                            </div>
+                            <span>Sustainable Practices</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-connect">
+                    <a href="https://www.facebook.com/AmeenQurba" target="_blank" class="btn btn-primary">
+                        <i class="bi bi-facebook"></i>
+                        <span>Connect With Us</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="about-visual">
+                <div class="about-image-stack">
+                    <div class="about-image-main">
+                        <img src="assets/about.png" alt="About AMEEN Market">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <div class="stat-badge">
+                                    <span class="stat-number">17+</span>
+                                    <span class="stat-text">Years Experience</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image-secondary">
+                        <img src="assets/about2.png" alt="Our Facilities">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <div class="stat-badge">
+                                    <span class="stat-number">100%</span>
+                                    <span class="stat-text">Halal Certified</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modern Contact Section -->
+<section id="contact" class="contact-section-modern">
+    <div class="container">
+        <div class="contact-header">
+            <h2 class="text-display text-4xl text-center mb-4">Let's Connect</h2>
+            <p class="text-lg text-gray-600 text-center mb-16">We'd love to hear from you. Reach out for any questions, feedback, or collaboration opportunities.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info-modern">
+                <div class="contact-cards">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Call Us</h3>
+                            <p>+1 (555) 123-4567</p>
+                            <span class="contact-note">Mon-Fri 9AM-6PM</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email Us</h3>
+                            <p>support&#64;ameenmarket.com</p>
+                            <span class="contact-note">We reply within 24 hours</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Visit Us</h3>
+                            <p>No.66 & 67, Lot Industri KEDA Napoh</p>
+                            <span class="contact-note">06000 Jitra, Kedah</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-modern">
+                <div class="form-container">
+                    <h3 class="text-display text-2xl mb-6">Send us a Message</h3>
+                    <form class="modern-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-input" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-input" placeholder="What's this about?" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-input" rows="5" placeholder="Tell us more about your inquiry..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-full">
+                            <i class="bi bi-send"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

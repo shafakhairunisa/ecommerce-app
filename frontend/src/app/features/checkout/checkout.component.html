@@ -1,0 +1,83 @@
+<div class="checkout-container">
+  <app-customer-header></app-customer-header>
+
+  <div class="checkout-content">
+    <div class="alert-container">
+      <div class="alert alert-success" *ngIf="successMessage">
+        <i class="bi bi-check-circle"></i> {{ successMessage }}
+      </div>
+      <div class="alert alert-danger" *ngIf="error">
+        <i class="bi bi-exclamation-circle"></i> {{ error }}
+      </div>
+    </div>
+
+    <div class="checkout-grid">
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <h2>Order Summary</h2>
+        <div class="order-items">
+          <div class="order-item" *ngFor="let item of cart?.items">
+            <div class="item-image">
+              <img [src]="getProductImagePath(item)" [alt]="item.product?.name">
+            </div>
+            <div class="item-details">
+              <h3>{{ item.product?.name }}</h3>
+              <p class="quantity">Quantity: {{ item.quantity }}</p>
+              <p class="price">RM {{ (item.product?.price || 0) * item.quantity | number:'1.2-2' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="totals">
+          <div class="subtotal">
+            <span>Subtotal</span>
+            <span>RM {{ getSubtotalString() }}</span>
+          </div>
+
+          <!-- Voucher Discount Section -->
+          <div *ngIf="hasDiscount()" class="discount-section">
+            <div class="discount-info">
+              <div class="discount-badge">
+                <i class="bi bi-ticket-perforated"></i>
+                <span>{{ getDiscountInfo().percentage }}% Voucher Applied</span>
+              </div>
+              <span class="discount-amount">-RM {{ getDiscountInfo().discountAmount.toFixed(2) }}</span>
+            </div>
+            <div class="discount-details">
+              <small>Automatic discount applied at checkout</small>
+            </div>
+          </div>
+
+          <div class="shipping">
+            <span>Shipping</span>
+            <span>Free</span>
+          </div>
+
+          <div class="total" [class.discounted]="hasDiscount()">
+            <span>Total</span>
+            <span>RM {{ getTotal() }}</span>
+          </div>
+
+          <!-- Savings Summary -->
+          <div *ngIf="hasDiscount()" class="savings-summary">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>You saved RM {{ getDiscountInfo().discountAmount.toFixed(2) }} with this order!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="checkout-actions">
+        <button class="confirm-order" 
+                (click)="processCheckout()"
+                [disabled]="loading">
+          <i class="bi bi-credit-card"></i>
+          {{ loading ? 'Processing...' : 'Confirm Order' }}
+        </button>
+        <button class="back-to-cart" (click)="backToCart()">
+          <i class="bi bi-arrow-left"></i> Back to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

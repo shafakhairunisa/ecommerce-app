@@ -1,0 +1,84 @@
+ <div class="dialog-container">
+    <h2 mat-dialog-title>{{ editMode ? 'Edit' : 'Add' }} Product</h2>
+      <div class="scrollable-content">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="product-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="form.get('name')?.errors?.['required']">Name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price" required min="0">
+        <mat-error *ngIf="form.get('price')?.errors?.['required']">Price is required</mat-error>
+        <mat-error *ngIf="form.get('price')?.errors?.['min']">Price must be greater than 0</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category" required>
+          <mat-option *ngFor="let category of availableCategories" [value]="category">
+            {{ category }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('category')?.errors?.['required']">Category is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Stock Quantity</mat-label>
+        <input matInput type="number" formControlName="stockQuantity" required min="0">
+        <mat-error *ngIf="form.get('stockQuantity')?.errors?.['required']">Stock quantity is required</mat-error>
+        <mat-error *ngIf="form.get('stockQuantity')?.errors?.['min']">Stock quantity must be greater than 0</mat-error>
+      </mat-form-field>
+
+          <!-- Image Upload Section -->
+      <div class="form-section" *ngIf="!editMode">
+            <h3>Product Image</h3>
+            
+            <!-- Image upload only for new products -->
+            <div class="upload-container">
+              <label for="image-upload" class="upload-label">
+                <span>Choose Image File</span>
+                <input 
+                  type="file" 
+                  id="image-upload" 
+                  accept="image/jpeg,image/png,image/webp" 
+                  (change)="onFileSelected($event)"
+                  #fileInput>
+              </label>
+              <span class="file-name">{{ selectedFileName || 'No file selected' }}</span>
+            </div>
+            
+            <!-- Image preview -->
+            <div *ngIf="imagePreview" class="image-preview-container">
+              <p>Image Preview:</p>
+              <img [src]="imagePreview" alt="Preview" class="image-preview">
+            </div>
+            
+            <p class="image-info" *ngIf="form.get('category')?.value">
+              <strong>Image will be saved as:</strong><br>
+              <code>assets/images/products/{{ form.get('category')?.value }}/{{ form.get('name')?.value || '[Product Name]' }}.[extension]</code>
+            </p>
+            
+            <div *ngIf="uploadProgress > 0 && uploadProgress < 100" class="upload-progress">
+              <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+              <span>{{ uploadProgress }}%</span>
+          </div>
+            
+            <p *ngIf="uploadError" class="upload-error">{{ uploadError }}</p>
+            <p *ngIf="uploadSuccess" class="upload-success">{{ uploadSuccess }}</p>
+      </div>
+
+      <div class="actions">
+            <button mat-button type="button" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+      </div>
+    </form>
+      </div>
+    </div>

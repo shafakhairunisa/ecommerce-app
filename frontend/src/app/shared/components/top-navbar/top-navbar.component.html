@@ -1,0 +1,104 @@
+<div class="admin-navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <div class="brand-logo">
+        <img src="assets/logo.png" alt="Logo" class="logo-image">
+      </div>
+      <div class="brand-info">
+        <a routerLink="/adminpage" class="brand-title">
+          <span>AMEEN Market</span>
+        </a>
+        <span class="brand-subtitle">Admin Dashboard</span>
+      </div>
+    </div>
+
+    <nav class="nav-menu" [class.active]="mobileMenuOpen">
+      <a routerLink="/adminpage"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact: true}"
+         class="nav-item"
+         (click)="closeMobileMenu()">
+        <div class="nav-icon">
+          <i class="bi bi-house-door"></i>
+        </div>
+        <span class="nav-text">Dashboard</span>
+      </a>
+
+      <a routerLink="/adminpage/products"
+         routerLinkActive="active"
+         class="nav-item"
+         (click)="closeMobileMenu()">
+        <div class="nav-icon">
+          <i class="bi bi-box-seam"></i>
+        </div>
+        <span class="nav-text">Products</span>
+      </a>
+
+      <a routerLink="/adminpage/add-product"
+         routerLinkActive="active"
+         class="nav-item add-product"
+         (click)="closeMobileMenu()">
+        <div class="nav-icon">
+          <i class="bi bi-plus-circle"></i>
+        </div>
+        <span class="nav-text">Add Product</span>
+      </a>
+
+      <a routerLink="/adminpage/categories"
+         routerLinkActive="active"
+         class="nav-item"
+         (click)="closeMobileMenu()">
+        <div class="nav-icon">
+          <i class="bi bi-tags"></i>
+        </div>
+        <span class="nav-text">Categories</span>
+      </a>
+
+      <a routerLink="/adminpage/orders"
+         routerLinkActive="active"
+         class="nav-item"
+         (click)="closeMobileMenu()">
+        <div class="nav-icon">
+          <i class="bi bi-receipt"></i>
+        </div>
+        <span class="nav-text">Orders</span>
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <div class="user-section">
+        <div class="user-info" *ngIf="isLoggedIn">
+          <div class="user-avatar">
+            <i class="bi bi-person-circle"></i>
+          </div>
+          <div class="user-details">
+            <span class="user-name">{{ username }}</span>
+            <span class="user-role">Administrator</span>
+          </div>
+        </div>
+
+        <button class="nav-item logout-btn" (click)="logout()" *ngIf="isLoggedIn">
+          <div class="nav-icon">
+            <i class="bi bi-box-arrow-right"></i>
+          </div>
+          <span class="nav-text">Logout</span>
+        </button>
+
+        <a routerLink="/login" class="nav-item" *ngIf="!isLoggedIn">
+          <div class="nav-icon">
+            <i class="bi bi-box-arrow-in-right"></i>
+          </div>
+          <span class="nav-text">Login</span>
+        </a>
+      </div>
+    </nav>
+
+    <button class="mobile-toggle"
+            (click)="toggleMobileMenu()"
+            [class.active]="mobileMenuOpen">
+      <span class="toggle-line"></span>
+      <span class="toggle-line"></span>
+      <span class="toggle-line"></span>
+    </button>
+  </div>
+</div>

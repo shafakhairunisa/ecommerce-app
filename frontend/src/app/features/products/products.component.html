@@ -1,0 +1,302 @@
+<div class="products-page">
+  <!-- Use the shared header component -->
+  <app-customer-header [cartCount]="cartItemCount" [cartAnimation]="cartAnimation"></app-customer-header>
+
+  <div class="page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-content">
+        <h1 class="page-title">Discover Our Products</h1>
+        <p class="page-subtitle">Fresh ingredients, authentic flavors, delivered to your door</p>
+      </div>
+      <div class="header-stats">
+        <div class="stat-item">
+          <span class="stat-number">{{ totalProducts }}</span>
+          <span class="stat-label">Products</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ categories.length }}</span>
+          <span class="stat-label">Categories</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modern Filters Section -->
+    <div class="filters-section">
+      <div class="filters-container">
+        <div class="filter-group">
+          <div class="filter-item">
+            <label class="filter-label">
+              <i class="bi bi-funnel"></i>
+              <span>Category</span>
+            </label>
+            <div class="select-wrapper">
+              <select [(ngModel)]="selectedCategory" class="modern-select">
+                <option value="">All Categories</option>
+                <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+              </select>
+              <i class="bi bi-chevron-down select-arrow"></i>
+            </div>
+          </div>
+
+          <div class="filter-item">
+            <label class="filter-label">
+              <i class="bi bi-sort-down"></i>
+              <span>Sort By</span>
+            </label>
+            <div class="select-wrapper">
+              <select [(ngModel)]="sortOrder" class="modern-select">
+                <option value="">Default</option>
+                <option value="asc">Price: Low to High</option>
+                <option value="desc">Price: High to Low</option>
+              </select>
+              <i class="bi bi-chevron-down select-arrow"></i>
+            </div>
+          </div>
+
+          <div class="filter-actions">
+            <button class="btn btn-primary" (click)="applyFilters()">
+              <i class="bi bi-check2"></i>
+              <span>Apply</span>
+            </button>
+            <button class="btn btn-outline" (click)="resetFilters()">
+              <i class="bi bi-arrow-clockwise"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="search-section">
+          <div class="search-container">
+            <div class="search-input-wrapper">
+              <i class="bi bi-search search-icon"></i>
+              <input
+                type="text"
+                [(ngModel)]="searchQuery"
+                placeholder="Search for delicious food..."
+                class="search-input"
+                (keyup.enter)="applyFilters()">
+              <button class="search-btn" (click)="applyFilters()">
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div class="loading-section" *ngIf="loading">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading delicious products...</p>
+      </div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="products-section" *ngIf="!loading">
+      <!-- Results Header -->
+      <div class="results-header">
+        <div class="results-info">
+          <h2 class="results-title">
+            <span *ngIf="searchQuery">Search Results for "{{ searchQuery }}"</span>
+            <span *ngIf="!searchQuery && selectedCategory">{{ selectedCategory }} Products</span>
+            <span *ngIf="!searchQuery && !selectedCategory">All Products</span>
+          </h2>
+          <p class="results-count">
+            Showing {{ (pageIndex * pageSize) + 1 }} to {{ getEndIndex() }} of {{ totalProducts }} products
+          </p>
+        </div>
+        <div class="view-options">
+          <button class="view-btn" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'">
+            <i class="bi bi-grid-3x3-gap"></i>
+          </button>
+          <button class="view-btn" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'">
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="alert alert-success" *ngIf="successMessage">
+        <i class="bi bi-check-circle-fill"></i>
+        <span>{{ successMessage }}</span>
+      </div>
+      <div class="alert alert-error" *ngIf="error">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <span>{{ error }}</span>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" [class.list-view]="viewMode === 'list'">
+        <div class="product-card" *ngFor="let product of paginatedProducts" [class.out-of-stock]="product.stockQuantity <= 0">
+          <div class="product-image-container">
+            <img [src]="getProductImagePath(product)" [alt]="product.name" class="product-image">
+            <div class="product-badges">
+              <span class="badge new" *ngIf="isNewProduct(product)">New</span>
+              <span class="badge sale" *ngIf="product.onSale">Sale</span>
+              <span class="badge out-of-stock" *ngIf="product.stockQuantity <= 0">Out of Stock</span>
+            </div>
+            <div class="product-overlay">
+              <button
+                class="quick-action wishlist-action"
+                *ngIf="product.productId !== undefined && !isInWishlist(product.productId)"
+                (click)="addToWishlist(product)"
+                title="Add to Wishlist">
+                <i class="bi bi-heart"></i>
+              </button>
+              <button
+                class="quick-action wishlist-action active"
+                *ngIf="product.productId !== undefined && isInWishlist(product.productId)"
+                (click)="removeFromWishlist(product.productId!)"
+                title="Remove from Wishlist">
+                <i class="bi bi-heart-fill"></i>
+              </button>
+
+            </div>
+          </div>
+
+          <div class="product-content">
+            <div class="product-header">
+              <span class="product-category">{{ product.category }}</span>
+
+            </div>
+
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-description">{{ product.description }}</p>
+
+            <div class="product-footer">
+              <div class="price-section">
+                <span class="current-price">RM {{ product.price.toFixed(2) }}</span>
+                <span class="original-price" *ngIf="product.originalPrice">RM {{ product.originalPrice.toFixed(2) }}</span>
+              </div>
+
+              <div class="stock-info" *ngIf="product.stockQuantity > 0 && product.stockQuantity <= 10">
+                <i class="bi bi-exclamation-triangle"></i>
+                <span>Only {{ product.stockQuantity }} left!</span>
+              </div>
+
+              <button
+                class="btn btn-primary add-to-cart-btn"
+                (click)="openAddToCartModal(product)"
+                [disabled]="product.stockQuantity <= 0">
+                <i class="bi bi-bag-plus"></i>
+                <span *ngIf="product.stockQuantity > 0">Add to Cart</span>
+                <span *ngIf="product.stockQuantity <= 0">Out of Stock</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-section" *ngIf="totalProducts > pageSize">
+        <mat-paginator
+          [length]="totalProducts"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [pageIndex]="pageIndex"
+          (page)="handlePageEvent($event)"
+          aria-label="Select page of products"
+          class="modern-paginator">
+        </mat-paginator>
+      </div>
+
+      <!-- No Products Found Message -->
+      <div class="no-products-section" *ngIf="filteredProducts.length === 0">
+        <div class="no-products-content">
+          <div class="no-products-icon">
+            <i class="bi bi-search"></i>
+          </div>
+          <h3>No products found</h3>
+          <p>We couldn't find any products matching your search criteria.</p>
+          <button class="btn btn-primary" (click)="resetFilters()">
+            <i class="bi bi-arrow-clockwise"></i>
+            <span>Reset Filters</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modern Add to Cart Modal -->
+  <div class="modal-overlay" *ngIf="selectedProduct" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Add to Cart</h2>
+        <button class="modal-close" (click)="closeModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="product-preview">
+          <div class="product-image-wrapper">
+            <img [src]="getProductImagePath(selectedProduct)" [alt]="selectedProduct.name" class="product-image">
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">{{ selectedProduct.name }}</h3>
+            <p class="product-category">{{ selectedProduct.category }}</p>
+            <p class="product-description">{{ selectedProduct.description }}</p>
+            <div class="price-display">
+              <span class="current-price">RM {{ selectedProduct.price.toFixed(2) }}</span>
+            </div>
+            <div class="stock-status" [ngClass]="{'low-stock': selectedProduct.stockQuantity < 5 && selectedProduct.stockQuantity > 0, 'out-of-stock': selectedProduct.stockQuantity <= 0}">
+              <i class="bi" [ngClass]="selectedProduct.stockQuantity > 10 ? 'bi-check-circle' : selectedProduct.stockQuantity > 0 ? 'bi-exclamation-triangle' : 'bi-x-circle'"></i>
+              <span *ngIf="selectedProduct.stockQuantity > 10">In Stock ({{ selectedProduct.stockQuantity }} available)</span>
+              <span *ngIf="selectedProduct.stockQuantity <= 10 && selectedProduct.stockQuantity > 0">
+                Only {{ selectedProduct.stockQuantity }} left in stock!
+              </span>
+              <span *ngIf="selectedProduct.stockQuantity <= 0">Out of Stock</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quantity-section" *ngIf="selectedProduct.stockQuantity > 0">
+          <label class="quantity-label">Quantity</label>
+          <div class="quantity-controls">
+            <button class="quantity-btn" (click)="decreaseQuantity()" [disabled]="quantity <= 1">
+              <i class="bi bi-dash"></i>
+            </button>
+            <input
+              type="number"
+              class="quantity-input"
+              [(ngModel)]="quantity"
+              min="1"
+              [max]="selectedProduct.stockQuantity"
+              (change)="validateQuantity()">
+            <button class="quantity-btn" (click)="increaseQuantity()" [disabled]="quantity >= selectedProduct.stockQuantity">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="order-summary">
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span class="summary-price">RM {{ (selectedProduct.price * quantity).toFixed(2) }}</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span class="summary-price">RM {{ (selectedProduct.price * quantity).toFixed(2) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-outline" (click)="closeModal()">
+          <span>Cancel</span>
+        </button>
+        <button
+          class="btn btn-primary"
+          (click)="addToCart()"
+          [disabled]="loading || selectedProduct.stockQuantity <= 0 || quantity > selectedProduct.stockQuantity">
+          <i class="bi bi-bag-plus" *ngIf="!loading"></i>
+          <div class="spinner" *ngIf="loading"></div>
+          <span *ngIf="!loading">Add to Cart</span>
+          <span *ngIf="loading">Adding...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

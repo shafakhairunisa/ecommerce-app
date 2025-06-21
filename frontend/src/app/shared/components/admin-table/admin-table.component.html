@@ -1,0 +1,60 @@
+ <div class="table-container">
+      <!-- Product display with images -->
+      <div *ngIf="isProductTable" class="product-grid">
+        <div *ngFor="let item of paginatedData" class="product-card">
+          <div class="product-image">
+            <img [src]="getProductImagePath(item)" alt="{{ item.name }}" 
+                 (error)="handleImageError($event, item)" />
+          </div>
+          <div class="product-info">
+            <h3>{{ item.name }}</h3>
+            <div class="product-details">
+              <span class="category">{{ item.category }}</span>
+              <span class="price">RM {{ item.price.toFixed(2) }}</span>
+            </div>
+            <p class="description">{{ item.description }}</p>
+            <div class="stock">Stock: {{ item.stockQuantity }}</div>
+            <div class="action-buttons">
+              <button mat-mini-fab color="primary" (click)="edit.emit(item)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" (click)="delete.emit(item)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Regular table for non-product data -->
+      <table *ngIf="!isProductTable" mat-table [dataSource]="paginatedData" class="mat-elevation-z2">
+        <ng-container *ngFor="let col of columns" [matColumnDef]="col.key">
+          <th mat-header-cell *matHeaderCellDef> {{ col.header }} </th>
+          <td mat-cell *matCellDef="let element"> {{ element[col.key] }} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="action-buttons">
+              <button mat-mini-fab color="primary" (click)="edit.emit(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" (click)="delete.emit(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <!-- Pagination -->
+      <mat-paginator
+        [length]="data.length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25]"
+        (page)="onPageChange($event)"
+        aria-label="Select page">
+      </mat-paginator>
+    </div>

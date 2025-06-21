@@ -1,0 +1,100 @@
+<app-top-navbar></app-top-navbar>
+<div class="admin-content">
+  <!-- Alert Messages -->
+  <div class="alert alert-success" *ngIf="successMessage">
+    <i class="bi bi-check-circle"></i> {{ successMessage }}
+  </div>
+  <div class="alert alert-danger" *ngIf="error">
+    <i class="bi bi-exclamation-triangle"></i> {{ error }}
+  </div>
+
+  <!-- Orders Section -->
+  <div class="orders-section">
+    <h2>Orders Management</h2>
+    
+    <!-- Orders filters -->
+    <div class="filters-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Status</mat-label>
+        <mat-select [(ngModel)]="orderStatusFilter" (selectionChange)="applyOrderFilters()">
+          <mat-option [value]="''">All</mat-option>
+          <mat-option value="PENDING">Pending</mat-option>
+          <mat-option value="CONFIRMED">Confirmed</mat-option>
+          <mat-option value="SHIPPED">Shipped</mat-option>
+          <mat-option value="DELIVERED">Delivered</mat-option>
+          <mat-option value="CANCELLED">Cancelled</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="resetOrderFilters()">Reset Filters</button>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="ordersError" class="alert alert-danger">
+      <p><strong>Error loading orders:</strong> {{ ordersError }}</p>
+      <p>Using mock data for display purposes. Some features may be limited.</p>
+      <button mat-raised-button color="warn" (click)="loadOrders()">Retry</button>
+    </div>
+    
+    <!-- Loading indicator -->
+    <div *ngIf="loadingOrders" class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading orders...</p>
+    </div>
+
+    <!-- Orders table -->
+    <div class="orders-table-container" *ngIf="!loadingOrders">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of paginatedOrders">
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.user?.username || 'Unknown' }}</td>
+            <td>{{ formatDate(order.orderDate) }}</td>
+            <td>RM {{ order.totalAmount.toFixed(2) }}</td>
+            <td>
+              <span class="order-status" [ngClass]="order.status.toLowerCase()">{{ order.status }}</span>
+            </td>
+            <td class="actions">
+              <div class="status-update">
+                <mat-form-field appearance="outline" class="status-select">
+                  <mat-label>Status</mat-label>
+                  <mat-select [(ngModel)]="order.newStatus" [value]="order.status">
+                    <mat-option *ngFor="let status of orderStatusOptions" [value]="status">{{ status }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <button mat-raised-button color="primary" 
+                        [disabled]="order.status === (order.newStatus || order.status)"
+                        (click)="handleStatusUpdate(order)">
+                  Update
+                </button>
+              </div>
+              <button mat-button color="accent" (click)="viewOrderDetails(order)">View Details</button>
+            </td>
+          </tr>
+          <tr *ngIf="paginatedOrders.length === 0">
+            <td colspan="6" class="no-orders">No orders found</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- Pagination -->
+      <mat-paginator
+        [length]="totalOrders"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        (page)="handlePageEvent($event)"
+        aria-label="Select page of orders">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

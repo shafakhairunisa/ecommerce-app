@@ -1,0 +1,49 @@
+<div class="wishlist-container">
+  <!-- Use the shared header component -->
+  <app-customer-header></app-customer-header>
+
+  <!-- Page Title -->
+  <div class="page-title">
+    <h1><i class="bi bi-heart"></i> My Wishlist</h1>
+  </div>
+
+  <div class="wishlist-empty" *ngIf="wishlist.length === 0">
+    <i class="bi bi-heart"></i>
+    <p>Your wishlist is empty</p>
+    <button class="continue-shopping" (click)="continueShopping()">
+      <i class="bi bi-arrow-left"></i> Continue Shopping
+    </button>
+  </div>
+
+    <div class="wishlist-grid" *ngIf="wishlist.length > 0">
+      <div class="wishlist-item" *ngFor="let product of wishlist">
+        <div class="product-image">
+          <img [src]="getProductImagePath(product)" [alt]="product.name">
+        </div>
+        <div class="product-details">
+          <h3>{{ product.name }}</h3>
+          <p class="category">{{ product.category }}</p>
+          <p class="price">RM {{ product.price.toFixed(2) }}</p>
+          <p class="stock" [class.out-of-stock]="product.stockQuantity <= 0">
+            {{ product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
+          </p>
+        </div>
+        <div class="product-actions">
+          <button class="remove-btn" *ngIf="product.productId" 
+                  (click)="removeFromWishlist(product.productId)">
+            <i class="bi bi-trash"></i> Remove
+          </button>
+          <button class="view-btn" [routerLink]="['/products']" 
+                  [queryParams]="{id: product.productId}">
+            <i class="bi bi-eye"></i> View Product
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wishlist-actions" *ngIf="wishlist.length > 0">
+      <button class="continue-shopping" (click)="continueShopping()">
+        <i class="bi bi-arrow-left"></i> Continue Shopping
+      </button>
+    </div>
+  </div>

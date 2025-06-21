@@ -1,0 +1,27 @@
+<div class="order-success-container">
+  <!-- Use the shared header component -->
+  <app-customer-header [cartCount]="0"></app-customer-header>
+
+  <div class="success-content">
+    <div class="success-icon">
+      <i class="bi bi-check-circle-fill"></i>
+    </div>
+    
+    <h1>Order Placed Successfully!</h1>
+    
+    <div class="order-details">
+      <p class="order-id">Order #{{ orderId }}</p>
+      <p class="thank-you">Thank you for your purchase.</p>
+      <p class="confirmation">A confirmation has been sent to your email.</p>
+    </div>
+    
+    <div class="action-buttons">
+      <button class="view-orders-btn" (click)="viewOrders()">
+        <i class="bi bi-box-seam"></i> View My Orders
+      </button>
+      <button class="continue-shopping-btn" (click)="continueShopping()">
+        <i class="bi bi-cart"></i> Continue Shopping
+      </button>
+    </div>
+  </div>
+</div>

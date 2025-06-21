@@ -1,0 +1,156 @@
+<app-top-navbar></app-top-navbar>
+<div class="admin-dashboard">
+  <div class="dashboard-container">
+    <!-- Alert Messages -->
+    <div class="alert alert-success" *ngIf="successMessage">
+      <i class="bi bi-check-circle-fill"></i>
+      <span>{{ successMessage }}</span>
+    </div>
+    <div class="alert alert-error" *ngIf="error">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <span>{{ error }}</span>
+    </div>
+
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+      <div class="header-content">
+        <h1 class="dashboard-title">Dashboard Overview</h1>
+        <p class="dashboard-subtitle">Monitor and manage your store performance</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" (click)="navigateToAddProduct()">
+          <i class="bi bi-plus-circle"></i>
+          <span>Add Product</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card products-card">
+        <div class="stat-icon">
+          <i class="bi bi-box-seam"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">{{ products.length }}</div>
+          <div class="stat-label">Total Products</div>
+          <div class="stat-change positive">
+            <i class="bi bi-arrow-up"></i>
+            <span>+12% from last month</span>
+          </div>
+        </div>
+        <div class="stat-action">
+          <button class="btn btn-outline btn-sm" (click)="router.navigate(['/adminpage/products'])">
+            <span>View All</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="stat-card categories-card">
+        <div class="stat-icon">
+          <i class="bi bi-tags"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">{{ categories.length }}</div>
+          <div class="stat-label">Categories</div>
+          <div class="stat-change neutral">
+            <i class="bi bi-dash"></i>
+            <span>No change</span>
+          </div>
+        </div>
+        <div class="stat-action">
+          <button class="btn btn-outline btn-sm" (click)="router.navigate(['/adminpage/categories'])">
+            <span>Manage</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="stat-card orders-card">
+        <div class="stat-icon">
+          <i class="bi bi-receipt"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">{{ orders.length }}</div>
+          <div class="stat-label">Total Orders</div>
+          <div class="stat-change positive">
+            <i class="bi bi-arrow-up"></i>
+            <span>+8% from last week</span>
+          </div>
+        </div>
+        <div class="stat-action">
+          <button class="btn btn-outline btn-sm" (click)="router.navigate(['/adminpage/orders'])">
+            <span>View All</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="stat-card revenue-card">
+        <div class="stat-icon">
+          <i class="bi bi-graph-up"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">$12,450</div>
+          <div class="stat-label">Monthly Revenue</div>
+          <div class="stat-change positive">
+            <i class="bi bi-arrow-up"></i>
+            <span>+15% from last month</span>
+          </div>
+        </div>
+        <div class="stat-action">
+          <button class="btn btn-outline btn-sm">
+            <span>View Report</span>
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="quick-actions">
+      <h2 class="section-title">Quick Actions</h2>
+      <div class="actions-grid">
+        <div class="action-card" (click)="navigateToAddProduct()">
+          <div class="action-icon">
+            <i class="bi bi-plus-circle"></i>
+          </div>
+          <div class="action-content">
+            <h3>Add New Product</h3>
+            <p>Create and publish a new product</p>
+          </div>
+          <div class="action-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </div>
+        </div>
+
+        <div class="action-card" (click)="router.navigate(['/adminpage/categories'])">
+          <div class="action-icon">
+            <i class="bi bi-folder-plus"></i>
+          </div>
+          <div class="action-content">
+            <h3>Manage Categories</h3>
+            <p>Organize your product categories</p>
+          </div>
+          <div class="action-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </div>
+        </div>
+
+        <div class="action-card" (click)="router.navigate(['/adminpage/orders'])">
+          <div class="action-icon">
+            <i class="bi bi-clipboard-check"></i>
+          </div>
+          <div class="action-content">
+            <h3>Process Orders</h3>
+            <p>Review and manage customer orders</p>
+          </div>
+          <div class="action-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

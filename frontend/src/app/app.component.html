@@ -1,0 +1,71 @@
+<nav *ngIf="!hideNavbar" class="modern-navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <div class="brand-logo">
+        <img src="assets/logo.png" alt="Qurba Food Logo" class="logo-image">
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">AMEEN Market</span>
+        <span class="brand-tagline">Premium Quality</span>
+      </div>
+    </div>
+
+    <div class="navbar-menu" [class.active]="mobileMenuOpen">
+      <div class="nav-links">
+        <a routerLink="/home"
+           routerLinkActive="active"
+           [fragment]="'hero'"
+           (click)="scrollToSection('hero')"
+           class="nav-link">
+          <i class="bi bi-house-door"></i>
+          <span>Home</span>
+        </a>
+        <a routerLink="/home"
+           routerLinkActive="active"
+           [fragment]="'blog'"
+           (click)="scrollToSection('blog')"
+           class="nav-link">
+          <i class="bi bi-journal-richtext"></i>
+          <span>Stories</span>
+        </a>
+        <a routerLink="/home"
+           routerLinkActive="active"
+           [fragment]="'about'"
+           (click)="scrollToSection('about')"
+           class="nav-link">
+          <i class="bi bi-info-circle"></i>
+          <span>About</span>
+        </a>
+        <a routerLink="/home"
+           routerLinkActive="active"
+           [fragment]="'contact'"
+           (click)="scrollToSection('contact')"
+           class="nav-link">
+          <i class="bi bi-chat-dots"></i>
+          <span>Contact</span>
+        </a>
+      </div>
+
+      <div class="nav-actions">
+        <a routerLink="/login"
+           routerLinkActive="active"
+           class="nav-cta">
+          <i class="bi bi-person-circle"></i>
+          <span>Sign In</span>
+        </a>
+      </div>
+    </div>
+
+    <button class="mobile-menu-toggle"
+            (click)="toggleMobileMenu()"
+            [class.active]="mobileMenuOpen">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div> 
