@@ -389,12 +389,12 @@ Customers can click the "Add to Cart" button to add the item to shopping cart fo
 <br>
 When users click the "Add to Cart" button for a product, the system will display the detailed information of the product. Users can then click the "Add to Cart" button to confirm and place the product in cart.
 <br>
-
+![image](https://github.com/user-attachments/assets/36b49c33-1843-44f3-b040-0a3967ead64f)
 <br>
 <br>
 Customers also can click the "+" button to increase the product's quantity.
 <br>
-
+![image](https://github.com/user-attachments/assets/38039115-c301-4e90-8923-00803335ff9f)
 <br>
 <br>
 
