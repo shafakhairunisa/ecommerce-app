@@ -329,16 +329,16 @@ Admin can manage the status of orders and also filter the category of orders.
 ### Customer Product Browsing ###
 Home Page of Customer Page
 <br>
-![image](https://github.com/user-attachments/assets/ddf80c64-43b7-487a-8536-1af141ba76e0)
+![image](https://github.com/user-attachments/assets/4326982f-f662-4854-b1d7-7324b5f0f9fb)
 <br>
 <br>
 Customers can click on this dropdown to select how many products to display per page.
 <br>
-![image](https://github.com/user-attachments/assets/25310033-39fc-4742-aa71-46506391099f)
+![image](https://github.com/user-attachments/assets/36669613-1111-44fe-a9fb-9f13a1e4565e)
 <br>
 <br>
 Customers also can click on this to select display the prodct in different form.
-![image](https://github.com/user-attachments/assets/31848265-d161-4872-a56d-5576629e1242)
+![image](https://github.com/user-attachments/assets/6d4159c1-0c76-468f-8f85-d4762e1963f6)
 <br>
 <br>
 
