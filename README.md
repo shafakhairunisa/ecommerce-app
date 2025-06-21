@@ -212,9 +212,18 @@ https://hub.docker.com/r/bcfeszjing/ameen-market-frontend
 ![image](https://github.com/user-attachments/assets/8edea713-27e0-4358-a5b1-9d48ddb72f0e)
 <br>
 <br>
-Admin can click on this dropdown to select how many products to display per page
+Admin can click on this dropdown to select how many products to display per page.
 <br>
 ![image](https://github.com/user-attachments/assets/6c22a9b9-66ab-4edc-9b11-d1155f774eac)
+<br>
+<br>
+
+### Search function on product page ###
+Admin can search for products by typing words into the search bar.
+<br>
+![image](https://github.com/user-attachments/assets/7e3acdac-9d9b-4817-bd48-eca22d7cd5f0)
+<br>
+<br>
 
 
 
