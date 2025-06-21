@@ -92,28 +92,23 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.form.invalid) {
       return;
     }
-    
-    // Get form values
+
     const formData = this.form.value;
-    
-    // If it's a new product and an image was selected, upload it
-    if (!this.editMode && this.selectedFile) {
-      this.uploadImage().then(success => {
-        if (success) {
-          // Add the image path to the form data
-          formData.imagePath = `assets/images/products/${formData.category}/${formData.name}.${this.getFileExtension(this.selectedFile!.name)}`;
-          
-          // Submit the form
-          this.submitForm(formData);
+
+    try {
+      if (this.selectedFile) {
+        const imagePath = await this.uploadImage();
+        if (imagePath) {
+          formData.imagePath = imagePath;
         }
-      });
-    } else {
-      // If no image was selected or it's an edit, just submit the form
+      }
       this.submitForm(formData);
+    } catch (error) {
+      console.error('Submission failed after image upload error', error);
     }
   }
 
@@ -152,35 +147,34 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  async uploadImage(): Promise<boolean> {
+  uploadImage(): Promise<string | null> {
     if (!this.selectedFile) {
-      return true; // No file to upload, consider it a success
+      return Promise.resolve(null);
     }
-    
-    return new Promise<boolean>((resolve) => {
-      // In a real application, you would upload the file to a server
-      // For now, we'll simulate the upload with a timeout
-      
-      this.uploadProgress = 0;
-      this.uploadError = '';
-      this.uploadSuccess = '';
-      
-      const interval = setInterval(() => {
-        this.uploadProgress += 10;
-        
-        if (this.uploadProgress >= 100) {
-          clearInterval(interval);
-          this.uploadSuccess = 'Image uploaded successfully!';
-          resolve(true);
-        }
-      }, 300);
-      
-      // Simulate a potential error
-      if (this.selectedFile && this.selectedFile.size > 5000000) { // 5MB
-        clearInterval(interval);
-        this.uploadError = 'File is too large. Maximum size is 5MB.';
-        resolve(false);
-      }
+
+    this.uploadProgress = 0;
+    this.uploadError = '';
+    this.uploadSuccess = '';
+
+    return new Promise((resolve, reject) => {
+      this.imageService.uploadProductImage(this.selectedFile!, this.form.value.category, this.form.value.name)
+        .subscribe({
+          next: (event) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              if (event.total) {
+                this.uploadProgress = Math.round(100 * event.loaded / event.total);
+              }
+            } else if (event.type === HttpEventType.Response) {
+              this.uploadSuccess = 'Image uploaded successfully!';
+              resolve(event.body.imagePath);
+            }
+          },
+          error: (err) => {
+            this.uploadError = 'Image upload failed: ' + (err.error?.error || err.message);
+            console.error(err);
+            reject(err);
+          }
+        });
     });
   }
 

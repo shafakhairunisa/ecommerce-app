@@ -50,6 +50,7 @@ export class AdminProductsComponent implements OnInit {
   successMessage: string = '';
 
   productColumns = [
+    { key: 'imagePath', header: 'Image' },
     { key: 'name', header: 'Name' },
     { key: 'description', header: 'Description' },
     { key: 'price', header: 'Price' },
