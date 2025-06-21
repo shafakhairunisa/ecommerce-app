@@ -489,6 +489,33 @@ Customer can click the trash icon to remove the product from cart.
 <br>
 <br>
 
+### Customer - Clear Cart ###
+In your cart choose the "Clear Cart" button to clear all products in your cart.
+<br>
+![image](https://github.com/user-attachments/assets/01bb5aa9-ae7d-42b0-b242-e56b7c75f252)
+<br>
+<br>
+![image](https://github.com/user-attachments/assets/336e8da3-ddfe-4816-b487-62ad7f10bbfc)
+<br>
+<br>
+![image](https://github.com/user-attachments/assets/2774bb45-a053-4a92-90ed-30df0e9486c6)
+<br>
+<br>
+
+### Customer - Checkout ###
+In your cart choose the "Checkout" button to make payment.
+<br>
+
+<br>
+<br>
+
+<br>
+<br>
+
+
+
+
+
 
 ## References (Not less than 20)
 1. Produk AMEEN. (n.d.). Produk AMEEN. https://produkameen.wordpress.com/
