@@ -276,7 +276,17 @@ The information has been edited successfully.
 <br>
 <br>
 
-
+### Delete Product ###
+Click the trash icon, and this page will pop up. Click the "confirm" button to delete the product or click the "cancel" button to cancel the delete operation.
+<br>
+![image](https://github.com/user-attachments/assets/c53eb80b-f253-4b10-b93a-d2657c8d399d)
+<br>
+<br>
+The product is deleted successfully after clicking the "confirm" button.
+<br>
+![image](https://github.com/user-attachments/assets/a19fcd50-3634-4731-8072-30046083b860)
+<br>
+<br>
 
 
 ## References (Not less than 20)
