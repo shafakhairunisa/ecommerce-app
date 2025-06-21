@@ -194,7 +194,8 @@ https://hub.docker.com/r/bcfeszjing/ameen-market-frontend
 - **Input Validation** and error handling
 
 ## Link for the YouTube Presentation
-``` https://www.youtube.com/watch?v=hZ20W_nxSuU ```
+
+https://www.youtube.com/watch?v=hZ20W_nxSuU
 
 
 ## Result/Output (Screenshot of the output)
