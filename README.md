@@ -199,6 +199,16 @@ https://www.youtube.com/watch?v=hZ20W_nxSuU
 
 
 ## Result/Output (Screenshot of the output)
+### Web Application Page ###
+
+![image](https://github.com/user-attachments/assets/b2287584-94c4-4e6d-a652-fe3480babc7c)
+<br>
+<br>
+Login in page
+![image](https://github.com/user-attachments/assets/f59cd447-4c0a-48ac-beab-cb81809470cc)
+
+
+
 ### Admin Product & Order Management ###
 #### Home Page of Admin Page ####
 
