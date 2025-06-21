@@ -528,6 +528,20 @@ After click "Confirm Order", the system will pop up the successful message.
 <br>
 <br>
 
+### Customer - View Order ###
+Customer can click "View Order" button or click the "Orders" at the header of the website to view order
+<br>
+![image](https://github.com/user-attachments/assets/d96f3fa2-0489-4225-a6a3-1c3b2220ac6d)
+<br>
+<br>
+![Screenshot 2025-06-22 011627](https://github.com/user-attachments/assets/a05b4494-a1b0-4ac9-881f-f4e2e0042a4a)
+<br>
+<br>
+Customer can click "View Detail" button to view the order summary.
+<br>
+![image](https://github.com/user-attachments/assets/48a89a34-417c-4046-97ec-aba1a0006b74)
+<br>
+<br>
 
 
 
