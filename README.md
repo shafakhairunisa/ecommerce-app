@@ -251,28 +251,28 @@ To add a new product, admin is required to fill in the information such as name 
 <br>
 After this, click the "Save" button to add the new product. Admin can also choose to cancel the add product operation by clicking the "Cancel" button.
 <br>
-![image](https://github.com/user-attachments/assets/68dea5e0-6824-4754-95ad-52986801c0a4)
+![image](https://github.com/user-attachments/assets/5667fc34-e7a3-4146-95f2-6bc4ad16bf58)
 <br>
 <br>
 After adding the new product, the product will show on the product page.
 <br>
-![image](https://github.com/user-attachments/assets/711869e5-108b-44c4-b81b-b0b0cd37b632)
+![image](https://github.com/user-attachments/assets/0882e024-f1e7-4083-91c9-be89b051130d)
 <br>
 <br>
 
 #### Edir Product Information ####
 To edit the product information, click the "pen" icon, which will redirect to the edit section
 <br>
-![image](https://github.com/user-attachments/assets/c11e01b2-e8a9-4593-b401-5c6d0739109e)
+![image](https://github.com/user-attachments/assets/9474ab50-2686-4a42-a07f-f3b142e3224a)
 <br>
 <br>
 After finishing editing, click the "SAVE" button to save the information that you have edited.
-![image](https://github.com/user-attachments/assets/ac6ca998-c978-42e6-ad67-b16909c73aff)
+![image](https://github.com/user-attachments/assets/5816b7de-dd37-406a-b4fd-d01f8fc38e8d)
 <br>
 <br>
 The information has been edited successfully.
 <br>
-![image](https://github.com/user-attachments/assets/88ca1c76-99fd-42bb-8a18-a81457956232)
+![image](https://github.com/user-attachments/assets/d0eac690-0de9-45d7-a70b-50b0799f0e7e)
 <br>
 <br>
 
