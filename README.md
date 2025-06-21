@@ -426,8 +426,29 @@ After click delete, it will successfully remove the item from wishlist.
 <br>
 <br>
 
+### Customer - Voucher Feature ###
+To view the voucher, customer can click the love icon at the header of the website.
+<br>
+![image](https://github.com/user-attachments/assets/2f24978e-d467-4c1f-a544-c8bb4aa71897)
+<br>
+<br>
+In voucher page, customer can view the available voucher and the guideline of the voucher usage.
+<br>
+![image](https://github.com/user-attachments/assets/db0922c9-1ba5-4ac9-8355-6c0238287a3d)
+<br>
+<br>
 
-
+### Customer - Edit User Profile ###
+To edit the profile, customer can click the person icon at the header of the website.
+<br>
+![image](https://github.com/user-attachments/assets/f6daa95b-0ed8-4138-a6d9-bace44f4975e)
+<br>
+<br>
+Customer can edit thier personal information, such as username, email, gender, address and so on.
+<br>
+![image](https://github.com/user-attachments/assets/e178e636-1d40-4095-942d-022e8c49cbdf)
+<br>
+<br>
 
 
 
