@@ -370,7 +370,14 @@ Choose the category and click "Apply filters", or you can also click reset to re
 ![image](https://github.com/user-attachments/assets/af610ba9-cd7b-4a2f-98d5-ffd2a156eb06)
 <br>
 <br>
-![image](https://github.com/user-attachments/assets/9539effd-55b5-4276-b31b-7e77f04be3e9)
+![image](https://github.com/user-attachments/assets/de401eb0-4d9c-4580-8365-c79e3eb7ad3f)
+<br>
+<br>
+
+### Customer - Combine Sort, Search & Filter Products ###
+Customers can combine sorting, searching and filtering to find the specific product.
+<br>
+![image](https://github.com/user-attachments/assets/d2e8bdbb-9912-4458-873f-b4e3e1f178b2)
 <br>
 <br>
 
