@@ -345,19 +345,19 @@ Customers also can click on this to select display the prodct in different form.
 ### Customer - Sort Products ###
 Customers can click this dropdown to sort products by price, with options including "Price: Low to High" and "Price: High to Low".
 <br>
-![image](https://github.com/user-attachments/assets/eac92c0d-bf33-4861-a54d-206e4cadc5bf)
+![image](https://github.com/user-attachments/assets/2c6880a1-de94-4eed-91a8-35f554ef73c9)
 <br>
 <br>
 After selecting the option, click the "Apply Filters" button to show the sort products.
 <br>
-![image](https://github.com/user-attachments/assets/c64b19ec-4aed-4c85-aa73-0456d76559fd)
+![image](https://github.com/user-attachments/assets/ae451708-109e-4797-ac74-6767b7a09e41)
 <br>
 <br>
 
 ### Customer - Search Products ###
 Customers can search for products by typing words into the search bar.
 <br>
-![image](https://github.com/user-attachments/assets/11a231f4-51e3-48f6-a713-61d5a2a56fd4)
+![image](https://github.com/user-attachments/assets/4b81d9b7-def5-4e9c-9d9a-6ecc437813c9)
 <br>
 <br>
 
