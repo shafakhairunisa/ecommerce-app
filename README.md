@@ -325,7 +325,6 @@ Admin can manage the status of orders and also filter the category of orders.
 <br>
 
 ### Customer Part ###
-### Customer Product Browsing & Cart Management ###
 ### Customer Product Browsing ###
 Home Page of Customer Page
 <br>
@@ -456,6 +455,20 @@ After filled in the information, customer can click "Save" button to record thei
 ![image](https://github.com/user-attachments/assets/9de8b679-152c-4d55-aa88-851f5316de13)
 <br>
 <br>
+
+### Customer Cart Management ###
+### Customer - Get User Carts ###
+Customer can click the shopping car icon to view their cart. 
+<br>
+![image](https://github.com/user-attachments/assets/f844e25a-b46b-4db3-b673-e0e436a24dd2)
+<br>
+<br>
+After clicking the icon, users can review the products they've added.
+<br>
+![image](https://github.com/user-attachments/assets/4caa52ef-90c7-4b9a-bb83-4a084bfac0a5)
+<br>
+<br>
+
 
 
 
