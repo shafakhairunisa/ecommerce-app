@@ -381,7 +381,22 @@ Customers can combine sorting, searching and filtering to find the specific prod
 <br>
 <br>
 
+### Customer - Add Product to Cart ###
+Customers can click the "Add to Cart" button to add the item to shopping cart for purchase.
+<br>
+![image](https://github.com/user-attachments/assets/7749d524-ff01-4fa5-9f30-eda35d18e964)
+<br>
+<br>
+When users click the "Add to Cart" button for a product, the system will display the detailed information of the product. Users can then click the "Add to Cart" button to confirm and place the product in cart.
+<br>
 
+<br>
+<br>
+Customers also can click the "+" button to increase the product's quantity.
+<br>
+
+<br>
+<br>
 
 
 
