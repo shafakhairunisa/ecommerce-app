@@ -469,7 +469,25 @@ After clicking the icon, users can review the products they've added.
 <br>
 <br>
 
+### Customer - Update Cart Item Quantity ###
+Customer can click the "+" button to increase the product's quantity.
+<br>
+![image](https://github.com/user-attachments/assets/34dae49d-b4cf-4e4b-9d50-648c3ecafb9b)
+<br>
+<br>
 
+### Customer - Remove Product From Cart ###
+Customer can click the trash icon to remove the product from cart.
+<br>
+![image](https://github.com/user-attachments/assets/3f8b1df2-25a5-4784-a382-0a7103295053)
+<br>
+<br>
+![image](https://github.com/user-attachments/assets/3f8fec86-b759-46f5-b5c6-740d5b5268f3)
+<br>
+<br>
+![image](https://github.com/user-attachments/assets/863188dc-e9b6-471a-bc9a-4d6cdcb47aec)
+<br>
+<br>
 
 
 ## References (Not less than 20)
