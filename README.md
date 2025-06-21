@@ -398,6 +398,36 @@ Customers also can click the "+" button to increase the product's quantity.
 <br>
 <br>
 
+### Additional Features ###
+### Customer - Add Product to Wishlist ###
+Customers can click the love icon to add the item to wishlist.
+<br>
+![image](https://github.com/user-attachments/assets/9b7017bf-0e67-404a-8918-cbe531c11686)
+<br>
+<br>
+To view the wishlist, customer can click the love icon at the header of the website.
+<br>
+![image](https://github.com/user-attachments/assets/0bae2639-45a4-4821-89ca-9ffa0b5a5cf4)
+<br>
+<br>
+In the wishlist page, customer can review their wishlist products.
+<br>
+![image](https://github.com/user-attachments/assets/a3dd8c07-dfae-40a9-bcd6-815c81b1a219)
+<br>
+<br>
+Customer also can click "Delete" button to reomve the item from wishlist.
+<br>
+![image](https://github.com/user-attachments/assets/85ecc7ed-813d-4ffc-80f4-152d91705af7)
+<br>
+<br>
+After click delete, it will successfully remove the item from wishlist.
+<br>
+![image](https://github.com/user-attachments/assets/329b0194-a029-4e87-94df-03507357fbdf)
+<br>
+<br>
+
+
+
 
 
 
