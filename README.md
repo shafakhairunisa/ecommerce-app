@@ -288,6 +288,34 @@ The product is deleted successfully after clicking the "confirm" button.
 <br>
 <br>
 
+#### Category management ####
+Admin can click the "Manage Categories" button and also the Categories button on the right upper side of the website in the home page.
+<br>
+![image](https://github.com/user-attachments/assets/e48be6dc-6731-487f-9ccb-2c6fbd11cbbe)
+<br>
+<br>
+Admin can manage the categories of products.
+<br>
+![image](https://github.com/user-attachments/assets/99a19fd1-546e-4482-9c7e-b574a3468a8e)
+<br>
+<br>
+
+#### Order Management ####
+By clicking the "Orders" button and also the "View Orders" button on the home page.
+<br>
+![image](https://github.com/user-attachments/assets/0e82dc24-97ee-4955-842f-338b9948b614)
+<br>
+<br>
+Admin can see all the order information.
+<br>
+![image](https://github.com/user-attachments/assets/ad64c93f-21c3-451c-864f-cefee7b0698f)
+<br>
+<br>
+Admin can view details of the order.
+<br>
+![image](https://github.com/user-attachments/assets/3d5fc518-932b-4975-8bf7-c3b33f6a1137)
+<br>
+<br>
 
 ## References (Not less than 20)
 1. Produk AMEEN. (n.d.). Produk AMEEN. https://produkameen.wordpress.com/
