@@ -247,6 +247,11 @@ Admin can click the button "+ Add New Product" on the Admin Home Page, or click 
 ![image](https://github.com/user-attachments/assets/c46989d4-d84e-48dc-936b-83915ec29f68)
 <br>
 <br>
+To add a new product, admin is required to fill in the information such as name of product, description, price, category and so on.
+<br>
+After this, click the "Save" button to add the new product. Admin can also choose to cancel the add product operation by clicking the "Cancel" button.
+<br>
+![image](https://github.com/user-attachments/assets/68dea5e0-6824-4754-95ad-52986801c0a4)
 
 
 ## References (Not less than 20)
