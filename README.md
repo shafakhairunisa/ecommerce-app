@@ -232,7 +232,11 @@ Admin can choose the category and the order of price then click "Apply filters",
 <br>
 <br>
 ![image](https://github.com/user-attachments/assets/e7dcc4d8-36a1-4b77-8c95-cbb0a7a25bb1)
-
+<br>
+<br>
+![image](https://github.com/user-attachments/assets/875a0884-99c1-4c2b-94ec-2fe7b04b7c64)
+<br>
+<br>
 
 
 
