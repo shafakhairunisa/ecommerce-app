@@ -364,37 +364,37 @@ Customers can search for products by typing words into the search bar.
 ### Customer - Filter Products ###
 Choose the category and click "Apply filters", or you can also click reset to return to the default.
 <br>
-![image](https://github.com/user-attachments/assets/56598eb6-86e6-4d3a-873d-65c3b47abd9d)
+![image](https://github.com/user-attachments/assets/45876acc-0aa6-4603-ba00-3e5c0631ab5f)
 <br>
 <br>
-![image](https://github.com/user-attachments/assets/af610ba9-cd7b-4a2f-98d5-ffd2a156eb06)
+![image](https://github.com/user-attachments/assets/b8038809-42af-4d48-b3e0-a3ae0284b9b3)
 <br>
 <br>
-![image](https://github.com/user-attachments/assets/de401eb0-4d9c-4580-8365-c79e3eb7ad3f)
+![image](https://github.com/user-attachments/assets/c6db1862-64e9-4d39-aa11-86cb7727bcee)
 <br>
 <br>
 
 ### Customer - Combine Sort, Search & Filter Products ###
 Customers can combine sorting, searching and filtering to find the specific product.
 <br>
-![Screenshot 2025-06-21 172345](https://github.com/user-attachments/assets/e538768c-514d-464f-a2c1-7b11224019cc)
+![image](https://github.com/user-attachments/assets/6d58e217-cdb4-4ec9-8495-29b589d5c154)
 <br>
 <br>
 
 ### Customer - Add Product to Cart ###
-Customers can click the "Add to Cart" button to add the item to shopping cart for purchase.
+Customers can click the "Add to Cart" button and the quantity selection to add the item to shopping cart for purchase.
 <br>
-![image](https://github.com/user-attachments/assets/7749d524-ff01-4fa5-9f30-eda35d18e964)
+![image](https://github.com/user-attachments/assets/2395ddd1-7931-4c3a-8c11-5fd55b049b51)
 <br>
 <br>
-When users click the "Add to Cart" button for a product, the system will display the detailed information of the product. Users can then click the "Add to Cart" button to confirm and place the product in cart.
+When users click the "Add to Cart" button or quantity selection for a product, the system will display the detailed information of the product. Users can then click the "Add to Cart" button to confirm and place the product in cart.
 <br>
-![image](https://github.com/user-attachments/assets/36b49c33-1843-44f3-b040-0a3967ead64f)
+![image](https://github.com/user-attachments/assets/fa8fabe0-9186-49f0-a82e-b614e354cc03)
 <br>
 <br>
 Customers also can click the "+" button to increase the product's quantity.
 <br>
-![image](https://github.com/user-attachments/assets/38039115-c301-4e90-8923-00803335ff9f)
+![image](https://github.com/user-attachments/assets/19863281-1bca-4709-bdae-9f0aeb34d2d9)
 <br>
 <br>
 
