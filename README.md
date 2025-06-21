@@ -542,7 +542,9 @@ Customer can click "View Detail" button to view the order summary.
 ![image](https://github.com/user-attachments/assets/48a89a34-417c-4046-97ec-aba1a0006b74)
 <br>
 <br>
-
+![image](https://github.com/user-attachments/assets/2031e52a-5a7c-439e-ad9f-ade1fda733de)
+<br>
+<br>
 
 
 
