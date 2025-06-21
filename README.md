@@ -241,6 +241,13 @@ Admin can choose the category and the order of price then click "Apply filters",
 <br>
 <br>
 
+#### Add New Product ####
+Admin can click the button "+ Add New Product" on the Admin Home Page, or click the "+ Add Products" button on the header of the website 
+<br>
+![image](https://github.com/user-attachments/assets/c46989d4-d84e-48dc-936b-83915ec29f68)
+<br>
+<br>
+
 
 ## References (Not less than 20)
 1. Produk AMEEN. (n.d.). Produk AMEEN. https://produkameen.wordpress.com/
