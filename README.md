@@ -203,7 +203,7 @@ https://hub.docker.com/r/bcfeszjing/ameen-market-frontend
 <br>
 <br>
 
-### View All Products ###
+### Admin - View All Products ###
 
 ![image](https://github.com/user-attachments/assets/7d49ffb9-f721-4379-94c3-2afced6209b1)
 <br>
@@ -217,14 +217,14 @@ Admin can click on this dropdown to select how many products to display per page
 <br>
 <br>
 
-### Search function on product page ###
+### Admin - Search function on product page ###
 Admin can search for products by typing words into the search bar.
 <br>
 ![image](https://github.com/user-attachments/assets/7e3acdac-9d9b-4817-bd48-eca22d7cd5f0)
 <br>
 <br>
 
-#### Filter function on the product page (Category and Price) ####
+#### Admin - Filter function on the product page (Category and Price) ####
 Admin can choose the category and the order of price then click "Apply filters", or click reset to return to the default.
 <br>
 ![image](https://github.com/user-attachments/assets/d1fad3fa-1407-4376-bd7d-438d960ba0ae)
@@ -240,7 +240,7 @@ Admin can choose the category and the order of price then click "Apply filters",
 <br>
 <br>
 
-#### Add New Product ####
+#### Admin - Add New Product ####
 Admin can click the button "+ Add New Product" on the Admin Home Page, or click the "+ Add Products" button on the header of the website.
 <br>
 ![image](https://github.com/user-attachments/assets/c46989d4-d84e-48dc-936b-83915ec29f68)
@@ -251,44 +251,44 @@ To add a new product, admin is required to fill in the information such as name 
 <br>
 After this, click the "Save" button to add the new product. Admin can also choose to cancel the add product operation by clicking the "Cancel" button.
 <br>
-![image](https://github.com/user-attachments/assets/68dea5e0-6824-4754-95ad-52986801c0a4)
+![image](https://github.com/user-attachments/assets/5667fc34-e7a3-4146-95f2-6bc4ad16bf58)
 <br>
 <br>
 After adding the new product, the product will show on the product page.
 <br>
-![image](https://github.com/user-attachments/assets/711869e5-108b-44c4-b81b-b0b0cd37b632)
+![image](https://github.com/user-attachments/assets/0882e024-f1e7-4083-91c9-be89b051130d)
 <br>
 <br>
 
-#### Edir Product Information ####
+#### Admin - Edit Product Information ####
 To edit the product information, click the "pen" icon, which will redirect to the edit section
 <br>
-![image](https://github.com/user-attachments/assets/c11e01b2-e8a9-4593-b401-5c6d0739109e)
+![image](https://github.com/user-attachments/assets/9474ab50-2686-4a42-a07f-f3b142e3224a)
 <br>
 <br>
 After finishing editing, click the "SAVE" button to save the information that you have edited.
-![image](https://github.com/user-attachments/assets/ac6ca998-c978-42e6-ad67-b16909c73aff)
+![image](https://github.com/user-attachments/assets/5816b7de-dd37-406a-b4fd-d01f8fc38e8d)
 <br>
 <br>
 The information has been edited successfully.
 <br>
-![image](https://github.com/user-attachments/assets/88ca1c76-99fd-42bb-8a18-a81457956232)
+![image](https://github.com/user-attachments/assets/d0eac690-0de9-45d7-a70b-50b0799f0e7e)
 <br>
 <br>
 
-### Delete Product ###
+### Admin - Delete Product ###
 Click the trash icon, and this page will pop up. Click the "confirm" button to delete the product or click the "cancel" button to cancel the delete operation.
 <br>
-![image](https://github.com/user-attachments/assets/c53eb80b-f253-4b10-b93a-d2657c8d399d)
+![image](https://github.com/user-attachments/assets/544d609e-4897-429a-b6b6-1f13e8ae541e)
 <br>
 <br>
 The product is deleted successfully after clicking the "confirm" button.
 <br>
-![image](https://github.com/user-attachments/assets/a19fcd50-3634-4731-8072-30046083b860)
+![image](https://github.com/user-attachments/assets/0841f857-886c-4031-8b81-0bec0b6e701e)
 <br>
 <br>
 
-#### Category management ####
+#### Admin - Category management ####
 Admin can click the "Manage Categories" button and also the Categories button on the right upper side of the website in the home page.
 <br>
 ![image](https://github.com/user-attachments/assets/e48be6dc-6731-487f-9ccb-2c6fbd11cbbe)
@@ -300,7 +300,7 @@ Admin can manage the categories of products.
 <br>
 <br>
 
-#### Order Management ####
+#### Admin - Order Management ####
 By clicking the "Orders" button and also the "View Orders" button on the home page.
 <br>
 ![image](https://github.com/user-attachments/assets/0e82dc24-97ee-4955-842f-338b9948b614)
@@ -329,16 +329,16 @@ Admin can manage the status of orders and also filter the category of orders.
 ### Customer Product Browsing ###
 Home Page of Customer Page
 <br>
-![image](https://github.com/user-attachments/assets/ddf80c64-43b7-487a-8536-1af141ba76e0)
+![image](https://github.com/user-attachments/assets/4326982f-f662-4854-b1d7-7324b5f0f9fb)
 <br>
 <br>
 Customers can click on this dropdown to select how many products to display per page.
 <br>
-![image](https://github.com/user-attachments/assets/25310033-39fc-4742-aa71-46506391099f)
+![image](https://github.com/user-attachments/assets/36669613-1111-44fe-a9fb-9f13a1e4565e)
 <br>
 <br>
 Customers also can click on this to select display the prodct in different form.
-![image](https://github.com/user-attachments/assets/31848265-d161-4872-a56d-5576629e1242)
+![image](https://github.com/user-attachments/assets/6d4159c1-0c76-468f-8f85-d4762e1963f6)
 <br>
 <br>
 
