@@ -433,6 +433,7 @@ To view the voucher, customer can click the love icon at the header of the websi
 <br>
 <br>
 In voucher page, customer can view the available voucher and the guideline of the voucher usage.
+The voucher will automatically apply, when the purchase amount meets the requirement.
 <br>
 ![image](https://github.com/user-attachments/assets/db0922c9-1ba5-4ac9-8355-6c0238287a3d)
 <br>
@@ -490,7 +491,7 @@ Customer can click the trash icon to remove the product from cart.
 <br>
 
 ### Customer - Clear Cart ###
-In your cart choose the "Clear Cart" button to clear all products in your cart.
+In cart, customer can choose the "Clear Cart" button to clear all products in your cart.
 <br>
 ![image](https://github.com/user-attachments/assets/01bb5aa9-ae7d-42b0-b242-e56b7c75f252)
 <br>
@@ -503,12 +504,24 @@ In your cart choose the "Clear Cart" button to clear all products in your cart.
 <br>
 
 ### Customer - Checkout ###
-In your cart choose the "Checkout" button to make payment.
+Customer can choose the "Checkout" button to make payment.
 <br>
-
+![image](https://github.com/user-attachments/assets/b5314eca-a27b-4f1d-ab85-9a24cc1dab25)
 <br>
 <br>
-
+Based on the checkout details, the system will apply the voucher automatially based on the amount.
+<br>
+![image](https://github.com/user-attachments/assets/abd52ba9-a3d8-4a8b-9d0a-521a31b6b35f)
+<br>
+<br>
+Customer can click "Confirm Order", otherwise customer can click "Back to cart" back to the cart.
+<br>
+![image](https://github.com/user-attachments/assets/2a233f2c-6e02-4d3f-82f8-86cbb4384b56)
+<br>
+<br>
+After click "Confirm Order", the system will pop up the successful message.
+<br>
+![image](https://github.com/user-attachments/assets/4949e081-7b43-4f76-ad83-d8ca8612e6d9)
 <br>
 <br>
 
