@@ -365,6 +365,14 @@ Customers can search for products by typing words into the search bar.
 Choose the category and click "Apply filters", or you can also click reset to return to the default.
 <br>
 ![image](https://github.com/user-attachments/assets/56598eb6-86e6-4d3a-873d-65c3b47abd9d)
+<br>
+<br>
+![image](https://github.com/user-attachments/assets/af610ba9-cd7b-4a2f-98d5-ffd2a156eb06)
+<br>
+<br>
+![image](https://github.com/user-attachments/assets/9539effd-55b5-4276-b31b-7e77f04be3e9)
+<br>
+<br>
 
 
 
