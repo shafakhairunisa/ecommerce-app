@@ -204,11 +204,17 @@ https://hub.docker.com/r/bcfeszjing/ameen-market-frontend
 <br>
 <br>
 
-### View Alll Peoduct ###
+### View All Products ###
 
+![image](https://github.com/user-attachments/assets/7d49ffb9-f721-4379-94c3-2afced6209b1)
+<br>
+<br>
 ![image](https://github.com/user-attachments/assets/8edea713-27e0-4358-a5b1-9d48ddb72f0e)
 <br>
 <br>
+Admin can click on this dropdown to select how many products to display per page
+<br>
+![image](https://github.com/user-attachments/assets/6c22a9b9-66ab-4edc-9b11-d1155f774eac)
 
 
 
