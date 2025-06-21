@@ -335,6 +335,28 @@ Home Page of Customer Page
 Customers can click on this dropdown to select how many products to display per page.
 <br>
 ![image](https://github.com/user-attachments/assets/25310033-39fc-4742-aa71-46506391099f)
+<br>
+<br>
+Customers also can click on this to select display the prodct in different form.
+![image](https://github.com/user-attachments/assets/31848265-d161-4872-a56d-5576629e1242)
+<br>
+<br>
+
+### Customer - Sort Products ###
+Customers can click this dropdown to sort products by price, with options including "Price: Low to High" and "Price: High to Low".
+<br>
+![image](https://github.com/user-attachments/assets/1e10cd53-622d-4e78-b1c2-239abb727926)
+<br>
+<br>
+After selecting the option, click the "Apply Filters" button to show the sort products.
+<br>
+![image](https://github.com/user-attachments/assets/c64b19ec-4aed-4c85-aa73-0456d76559fd)
+<br>
+<br>
+
+
+
+
 
 
 ## References (Not less than 20)
