@@ -24,8 +24,6 @@ https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMem
 | #5 | Arief Danial Bin Ismail | 294957 |
 | #6 | Muhammad Fakhrurrazi bin Hasbullah | 296072 |
 | #7 | Mayana Amy | 292702 |
-
-<br>
 <br>
 
 ## Title of your application (a unique title)
@@ -194,11 +192,6 @@ https://hub.docker.com/r/bcfeszjing/ameen-market-frontend
 - **User Authorization** validation for user-specific resources
 - **CORS Configuration** for cross-origin requests
 - **Input Validation** and error handling
-
-## Link for the YouTube Presentation
-
-https://www.youtube.com/watch?v=hZ20W_nxSuU
-
 
 ## Result/Output (Screenshot of the output)
 ### Web Application Page ###
@@ -561,28 +554,7 @@ Customer can click "View Detail" button to view the order summary.
 
 
 
-## References (Not less than 20)
-1. Produk AMEEN. (n.d.). Produk AMEEN. https://produkameen.wordpress.com/
-2. Spring Boot. (n.d.). Spring Boot Reference Documentation. Retrieved April 23, 2025, from Spring Boot Documentation.
-3. GeeksforGeeks. (2025, March 21). Introduction to Spring Security and its Features. GeeksforGeeks. https://www.geeksforgeeks.org/introduction-to-spring-security-and-its-features/
-4. GeeksforGeeks. (2025a, March 7). Spring Boot application Properties. GeeksforGeeks. https://www.geeksforgeeks.org/spring-boot-application-properties/
-5. Fawade, A. (2023, August 11). How to use Docker Compose and YAML for Multi-Container Applications | Day 18 of 90 days of DevOps. Medium. https://ajitfawade.medium.com/how-to-use-docker-compose-and-yaml-for-multi-container-applications-day-18-of-90-days-of-devops-78261fbd7b37
-6. Jaygajera. (n.d.). GitHub - jaygajera17/E-commerce-project-springBoot: This project serves as an easy-to-understand setup for beginners , providing a base foundation in Spring Boot , MVC & hibernate. GitHub. https://github.com/jaygajera17/E-commerce-project-springBoot
-7. Sirajuddin. (n.d.). GitHub - Sirajuddin135/E-Commerce-Application: The E-Commerce Application is built using Java and Spring Boot, with security, scalability, and ease of maintenance. The backend uses Spring Data JPA to interact with a MySQL database, making it easy to manage and store important entities such as categories, products, orders, etc. Authentication is handled by Auth0, to provide secure REST API. GitHub. https://github.com/Sirajuddin135/E-Commerce-Application
-8. Aleksic, M. (2024, July 11). docker run Command: Syntax, Options, Examples. Knowledge Base by phoenixNAP. https://phoenixnap.com/kb/docker-run-command-with-examples
-9. Shiramagond, B. (2024, November 15). JPA with Spring Boot: A Comprehensive Guide with Examples. Medium. https://medium.com/@bshiramagond/jpa-with-spring-boot-a-comprehensive-guide-with-examples-e07da6f3d385
-10. Bhat, S. A., Kansana, K., & Majid, J. (2016). A review paper on e-commerce [Conference paper]. ResearchGate. https://www.researchgate.net/publication/304703920_A_Review_Paper_on_E-Commerce
-11. Baeldung. (2024, January 8). A Simple E-Commerce Implementation with Spring. Baeldung. https://www.baeldung.com/spring-angular-ecommerce
-12. Dastidar, S. G. (2021, April 17). A Full Stack E-Commerce Application using Spring Boot and making a Docker container. Medium. https://medium.com/geekculture/a-full-stack-e-commerce-application-using-spring-boot-and-making-a-docker-container-eff46f6f4e14
-13. Reed, S. (2020, February 4). E-commerce Website — Online Book Store using Angular 8 + Spring Boot Introduction. Medium. https://medium.com/%40aiagentofchange/ecommerce-website-online-book-store-using-angular-8-spring-boot-introduction-1fe6b39804c8
-14. Ahlawat, A. (n.d.). GitHub - AayushiAhlawat/E-Commerce-Web-Application: Angular & Spring Boot E-Commerce: Product listings, search, cart, checkout, auth. GitHub. https://github.com/AayushiAhlawat/E-Commerce-Web-Application
-15. Aouinti, A. (n.d.). GitHub - ahmed-aouinti/ecommerce-luv2shop-angular springboot: Experience a seamless online shopping journey with our modern e-commerce platform. GitHub. https://github.com/ahmed-aouinti/ecommerce-luv2shop-angular springboot
-16. Vinesh. (2020, September 30). MySQL + Spring Boot + Angular 7 Deployment using Docker Compose. Medium. https://medium.com/techno101/mysql-spring-boot-angular-7-deployment-using-docker-compose-c2d3d8c7a459
-17. Bezkoder. (2023, March 1). Dockerize Spring Boot and MySQL with Docker Compose. BezKoder. https://www.bezkoder.com/docker-compose-spring-boot-mysql/
-18. Ramesh, F. (2021, February 2). Java Free E-Commerce Open Source Projects using Spring Boot + React + Angular + Microservices. Java Guides. https://www.javaguides.net/2021/02/java-free-e-commerce-open-source-projects.html
-19. Unogeeks. (2023, August 30). Full Stack Angular and Java Spring Boot E-Commerce Website. Unogeeks. https://unogeeks.com/full-stack-angular-and-java-spring-boot-e-commerce-website/
-20. FrontBackend. (2021, January 26). Angular 11 + Spring Boot 2 + MySQL. FrontBackend. https://frontbackend.com/spring-boot/angular-11-spring-boot-2-mysql
-  
 
   
+
 
