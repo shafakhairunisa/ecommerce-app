@@ -1,20 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/co02Vmtr)
-
-## Requirements for Group Project
-
-[Read the instruction](https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/Group_Project_Guideline.md)
-
-## Refer to the link below for the `Group Name` and `Group Members`
-
-https://github.com/STIWK2124-A242/class-activity-stiwk2124/blob/main/NewGroupMembers.md
-
 ## Group Info:
-
-1. Matric Number & Name & Photo & Phone Number
-1. Mention who the leader is.
-1. Mention your group name for Assignment-1 and Assignment-2
-1. Other related info (if any)
-
 | Group Member | Name | Matric Number |
 | :---: | :---: | :---: |
 | #1 | TEH KAI YUAN | 291624 |
@@ -556,5 +540,6 @@ Customer can click "View Detail" button to view the order summary.
 
 
   
+
 
 
